@@ -18,26 +18,26 @@ namespace RestauranteSustentavel_BE.Controllers
         }
 
         //CREATE
-        [HttpPost("Sobremesa/Insert")]
+        [HttpPost("Insert")]
         public Sobremesa Insert(Sobremesa sobremesa)
         {
             return sobremesaService.Insert(sobremesa);
         }
         //READ
-        [HttpGet("Sobremesa/GetAll")]
+        [HttpGet("GetAll")]
         public List<Sobremesa> Get() 
         {
             return sobremesaService.Get();
         }
 
         //UPDATE
-        [HttpPut("Sobremesa/Update")]
+        [HttpPut("Update")]
         public Sobremesa Update(Sobremesa sobremesa)
         {
             return sobremesaService.Update(sobremesa);
         }
         //DELETE
-        [HttpDelete("Sobremesa/Delete")]
+        [HttpDelete("Delete")]
         public int Delete(int i)
         {
             return sobremesaService.Delete(i);

@@ -19,7 +19,7 @@ namespace RestauranteSustentavel_BE.Controllers
         }
 
         //CREATE
-        [HttpPost("Ingrediente/Insert")]
+        [HttpPost("Insert")]
         public Ingrediente Insert(Ingrediente ingrediente)
         {
 
@@ -28,14 +28,14 @@ namespace RestauranteSustentavel_BE.Controllers
 
 
         //READ
-        [HttpGet("Ingrediente/GetAll")]
+        [HttpGet("GetAll")]
         public List<Ingrediente> GetAll()
         {
             return ingredienteService.GetAll();
         }
 
         //UPATE
-        [HttpPut("Ingrediente/Update")]
+        [HttpPut("Update")]
         public Ingrediente Update(Ingrediente ingrediente)
         {
             return ingredienteService.Update(ingrediente);
@@ -43,7 +43,7 @@ namespace RestauranteSustentavel_BE.Controllers
 
 
         //DELETE
-        [HttpDelete("Ingrediente/Delete")]
+        [HttpDelete("Delete")]
         public void Delete(int id)
         {
             ingredienteService.Delete(id);
