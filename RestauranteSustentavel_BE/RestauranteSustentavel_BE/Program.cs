@@ -11,6 +11,8 @@ builder.Services.AddSingleton<BebidaRepository>();
 builder.Services.AddSingleton<BebidaService>();
 builder.Services.AddSingleton<SobremesaRepository>();
 builder.Services.AddSingleton<SobremesaService>();
+builder.Services.AddSingleton<IngredienteRepository>();
+builder.Services.AddSingleton<IngredienteService>();
 builder.Services.AddSingleton<DbContext>();
 
 
