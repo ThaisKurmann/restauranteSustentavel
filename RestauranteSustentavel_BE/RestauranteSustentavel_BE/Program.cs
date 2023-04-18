@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddSingleton<BebidaRepository>();
 builder.Services.AddSingleton<BebidaService>();
+builder.Services.AddSingleton<SobremesaRepository>();
+builder.Services.AddSingleton<SobremesaService>();
 builder.Services.AddSingleton<DbContext>();
 
 

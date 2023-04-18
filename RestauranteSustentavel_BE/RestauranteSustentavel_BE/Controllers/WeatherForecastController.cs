@@ -39,26 +39,26 @@ namespace RestauranteSustentavel_BE.Controllers
         }
 
         
-
+        //READ
         [HttpGet("Bebida/GetAll")]
         public IEnumerable<Bebida> GetAll()
         {
             return bebidaService.GetAll();
         }
-
+        //INSERT
         [HttpPost("Bebida/Insert")]
         public Bebida Insert(Bebida bebida)
         {
             
             return bebidaService.Insert(bebida); 
         }
-
+        //UPDATE
         [HttpPut("Bebida/Update")]
         public Bebida Update(Bebida bebida)
         {
             return bebidaService.Update(bebida);
         }
-
+        //DELETE
         [HttpDelete("Bebida/Delete")]
         public int Delete(int i)
         {

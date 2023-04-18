@@ -84,8 +84,7 @@ namespace RestauranteSustentavel_BE.Repository
         }
 
 
-        //DELETE ----> TERMINAR
-        //sintax: DELETE FROM table_name WHERE condition;
+        //DELETE
         public int DeleteBebida(int i)
         {
             SQLiteCommand updateCmd = new SQLiteCommand("DELETE FROM Bebida WHERE id = @id", dbContext.connection);
