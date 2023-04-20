@@ -17,6 +17,24 @@ namespace RestauranteSustentavel_BE.Repository
             this.dbContext = dbContext;
         }
 
+        //CREATE
+        public Pedido InsertPedido(Pedido pedido)
+        {
+
+            SQLiteCommand insertCmd = new SQLiteCommand("insert into Pedido(data, hora) values(@data, @hora)", dbContext.connection);
+            insertCmd.Parameters.AddWithValue("@data", pedido.data);
+            insertCmd.Parameters.AddWithValue("@hora", pedido.hora);
+            insertCmd.ExecuteNonQuery();
+
+            //pegando o Id da tabela Bebida
+            insertCmd.CommandText = "select last_insert_rowid()";
+            Int64 LastRowID64 = (Int64)insertCmd.ExecuteScalar();
+            pedido.id = (int)LastRowID64;
+
+            return pedido;
+        }
+
+
 
         //READ
         public List<Pedido> GetAllPedidos()
@@ -31,10 +49,8 @@ namespace RestauranteSustentavel_BE.Repository
             {
                 var pedido = new Pedido()
                 {
-                    nomeCliente = reader["nomeCliente"].ToString(),
                     data = reader["data"].ToString(), 
                     hora = reader["hora"].ToString(),
-                    idPrato = int.Parse(reader["fk_Pedido_Prato"].ToString()),                   
                     id = int.Parse(reader["id"].ToString())//pegando o Id da tabela Bebida
                 };
 
@@ -44,10 +60,32 @@ namespace RestauranteSustentavel_BE.Repository
             return pedidos;
         }
 
+        //UPDATE
+        public Pedido UpatePedido(Pedido pedido)
+        {
+
+            SQLiteCommand updateCmd = new SQLiteCommand("UPDATE Pedido SET data = @data, hora = @hora WHERE id = @id", dbContext.connection);
+            updateCmd.Parameters.AddWithValue("@data", pedido.data);
+            updateCmd.Parameters.AddWithValue("@hora", pedido.hora);
+            updateCmd.Parameters.AddWithValue("@id", pedido.id);
+
+            updateCmd.ExecuteNonQuery();
 
 
-        //CREATE
-        //sql insert: insert into Pedido(nomeCliente, data, hora, fk_Pedido_Prato) values('Ana', '19/04/2023', '11:11', 8738246) obs: fk contem o id que esta na tabela 'prato'
+            return pedido;
+        }
+
+
+        //DELETE
+        public int DeletePedido(int i)
+        {
+            SQLiteCommand deleteCmd = new SQLiteCommand("DELETE FROM Pedido WHERE id = @id", dbContext.connection);
+            deleteCmd.Parameters.AddWithValue("id", i);    
+            deleteCmd.ExecuteNonQuery();
+
+            return i;
+        }
+
 
     }
 }

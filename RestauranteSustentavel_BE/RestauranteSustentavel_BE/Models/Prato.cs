@@ -2,6 +2,16 @@
 {
     public class Prato
     {
-        public int Id { get; set; }
+        public int idPedido { get; set; } //fk from 'Pedido' table
+
+     
+      
+
+
+
+
+
+
+
     }
 }

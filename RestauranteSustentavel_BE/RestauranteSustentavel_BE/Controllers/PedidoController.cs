@@ -24,5 +24,32 @@ namespace RestauranteSustentavel_BE.Controllers
         {
             return pedidoService.Get();
         }
+
+        [HttpPost("Insert")]
+        public Pedido Insert(Pedido pedido)
+        {
+            return pedidoService.Insert(pedido);
+        }
+
+
+        [HttpPut("Update")]
+        public Pedido Update(Pedido pedido)
+        {
+            return pedidoService.Update(pedido);
+        }
+
+
+        [HttpDelete("Delete")]
+        public int Delete(int i)
+        {
+            return pedidoService.Delete(i);
+        }
+
+        //add Sobremesa ao pedido do cliente
+        [HttpPost("AddSobremesa")]
+        public Sobremesa AddSobremesa(Sobremesa sobremesa)
+        {
+            return sobremesa;
+        }
     }
 }
