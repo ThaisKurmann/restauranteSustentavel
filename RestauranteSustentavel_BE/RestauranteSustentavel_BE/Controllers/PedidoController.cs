@@ -12,10 +12,12 @@ namespace RestauranteSustentavel_BE.Controllers
     {
 
         private readonly PedidoService pedidoService;
+        private readonly PedidoSobremesaRepository pedidoSobremesaRepository;
 
-        public PedidoController(PedidoService pedidoService)
+        public PedidoController(PedidoService pedidoService, PedidoSobremesaRepository pedidoSobremesaRepository)
         {
             this.pedidoService = pedidoService;
+            this.pedidoSobremesaRepository = pedidoSobremesaRepository;
         }
 
 
@@ -46,10 +48,13 @@ namespace RestauranteSustentavel_BE.Controllers
         }
 
         //add Sobremesa ao pedido do cliente
-        [HttpPost("AddSobremesa")]
-        public Sobremesa AddSobremesa(Sobremesa sobremesa)
+
+
+        //test do repositorio PedidoSobremesa
+        [HttpPost("getAllPedidoSobremesaTest")]
+        public List<PedidoSobremesa> GetAllPedidoSobremesaTest(Sobremesa sobremesa)
         {
-            return sobremesa;
+            return pedidoSobremesaRepository.GetAllPedidoSobremesa();
         }
     }
 }

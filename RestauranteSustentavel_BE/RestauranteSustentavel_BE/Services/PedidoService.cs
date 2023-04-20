@@ -6,10 +6,12 @@ namespace RestauranteSustentavel_BE.Services
     public class PedidoService
     {
         private readonly PedidoRepository pedidoRepository;
+        private readonly PedidoSobremesaRepository pedidoSobremesaRepository;
 
-        public PedidoService(PedidoRepository pedidoRepository)
+        public PedidoService(PedidoRepository pedidoRepository, PedidoSobremesaRepository pedidoSobremesaRepository)
         {
             this.pedidoRepository = pedidoRepository;
+            this.pedidoSobremesaRepository = pedidoSobremesaRepository;
         }
 
 
@@ -40,12 +42,14 @@ namespace RestauranteSustentavel_BE.Services
             return pedidoRepository.DeletePedido(i);
         }
 
-        //add sobremesa ao pedido do cliente
-        public Sobremesa AddSobremesa(Sobremesa sobremesa)
+        
+        //fazer metedo que add sobremesa ao pedido do cliente como nome de AddSobremesa(Pedido pedido);
+
+        public List<PedidoSobremesa> GetAllPedidoSobremesaTest(Sobremesa sobremesa)
         {
             
-            
-            return sobremesa;
+            //TESTTANDO METODO: getAllPedidoSobremesa do Repositorio
+            return pedidoSobremesaRepository.GetAllPedidoSobremesa();
         }
     }
 }
