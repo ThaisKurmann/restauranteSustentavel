@@ -46,7 +46,7 @@ namespace RestauranteSustentavel_BE.Services
 
         
         //GET ALL PEDIDOS in PedidoSobremesa
-        public List<PedidoSobremesa> GetAllPedidoSobremesaTest(Sobremesa sobremesa)
+        public List<PedidoSobremesa> GetAllPedidoSobremesa()
         {
             return pedidoSobremesaRepository.GetAllPedidoSobremesa();
         }
@@ -80,11 +80,33 @@ namespace RestauranteSustentavel_BE.Services
             } 
         }
 
-
-        public void DeletePedidSobremesa(PedidoSobremesa pedidoSobremesa)
+        //Remove|Altera quantidade de sobremesa se precisar
+        public void RemoveAlteraQuantidadeSobremesaNoPedido(PedidoSobremesa pedidoSobremesa, int quantidadeRemover)
         {
-            pedidoSobremesaRepository.Delete(pedidoSobremesa);
+            var pedidoSobremesa1 = pedidoSobremesaRepository.BuscaUmaSobremesaEmPedido(pedidoSobremesa.idSobremesa, pedidoSobremesa.idPedido);
+
+            if(pedidoSobremesa1 == null)
+            {
+                return;
+            }
+
+            pedidoSobremesa1.quantidade = pedidoSobremesa1.quantidade - quantidadeRemover;
+
+            if(pedidoSobremesa1.quantidade > 0)
+            {
+                //atualiza no BD
+                pedidoSobremesaRepository.Update(pedidoSobremesa1);
+            }
+            else
+            {
+                pedidoSobremesaRepository.Delete(pedidoSobremesa1);
+            }
+                
+           
         }
+       
+
+
 
         
 
