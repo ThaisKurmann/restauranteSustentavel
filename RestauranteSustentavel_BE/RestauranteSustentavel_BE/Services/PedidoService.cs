@@ -1,5 +1,6 @@
 ﻿using RestauranteSustentavel_BE.Models;
 using RestauranteSustentavel_BE.Repository;
+using System.Security.Permissions;
 
 namespace RestauranteSustentavel_BE.Services
 {
@@ -63,7 +64,6 @@ namespace RestauranteSustentavel_BE.Services
         //Adicionar sobremesa ao pedido
         public void AddSobremesaAoPedido (PedidoSobremesa pedidoSobremesa)
         {
-
             PedidoSobremesa pedidoSobremesaBD = pedidoSobremesaRepository.BuscaUmaSobremesaEmPedido(pedidoSobremesa.idSobremesa, pedidoSobremesa.idPedido);
 
             if(pedidoSobremesaBD != null)
@@ -77,9 +77,13 @@ namespace RestauranteSustentavel_BE.Services
             {
                 pedidoSobremesaRepository.InsertPedidoSobremesa(pedidoSobremesa);
 
-            }
+            } 
+        }
 
-            
+
+        public void DeletePedidSobremesa(PedidoSobremesa pedidoSobremesa)
+        {
+            pedidoSobremesaRepository.Delete(pedidoSobremesa);
         }
 
         

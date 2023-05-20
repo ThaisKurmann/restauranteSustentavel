@@ -65,7 +65,14 @@ namespace RestauranteSustentavel_BE.Repository
             return pedidoSobremesa;
         }
 
-
+        //DELETE
+        public void Delete(PedidoSobremesa pedidoSobremesa)
+        {
+            SQLiteCommand deleteCmd = new SQLiteCommand("DELETE FROM PedidoSobremesa WHERE fk_PedidoSobremesa_Sobremesa = @idSobremesa AND fk_PedidoSobremesa_Pedido = @idPedido", dbContext.connection);
+            deleteCmd.Parameters.AddWithValue("@idSobremesa", pedidoSobremesa.idSobremesa);
+            deleteCmd.Parameters.AddWithValue("@idPedido", pedidoSobremesa.idPedido);
+            deleteCmd.ExecuteNonQuery();
+        }
 
         //BUSCA UM PEDIDO na tabela PedidoSobremesa
         public List<PedidoSobremesa> BuscaPedido(int idPedido)

@@ -68,8 +68,12 @@ namespace RestauranteSustentavel_BE.Controllers
             pedidoService.AddSobremesaAoPedido(pedidoSobremesa);
             return;
         }
-
-
+        //FUNCAO FUNCIONANDO
+        [HttpDelete("deletePedidoSobremesa do BD")]
+        public void DeletePedidoSobremesaBDTest(PedidoSobremesa pedidoSobremesa)
+        {
+            pedidoService.DeletePedidSobremesa(pedidoSobremesa);
+        }
         
 
     }

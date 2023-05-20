@@ -87,10 +87,10 @@ namespace RestauranteSustentavel_BE.Repository
         //DELETE
         public int DeleteBebida(int i)
         {
-            SQLiteCommand updateCmd = new SQLiteCommand("DELETE FROM Bebida WHERE id = @id", dbContext.connection);
-            updateCmd.Parameters.AddWithValue("@id", i);
+            SQLiteCommand deleteCmd = new SQLiteCommand("DELETE FROM Bebida WHERE id = @id", dbContext.connection);
+            deleteCmd.Parameters.AddWithValue("@id", i);
 
-            updateCmd.ExecuteNonQuery();
+            deleteCmd.ExecuteNonQuery();
 
             return i;//retorna a bebida que foi excluida
         }
