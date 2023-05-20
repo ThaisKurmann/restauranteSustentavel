@@ -7,11 +7,12 @@ namespace RestauranteSustentavel_BE.Services
     {
         private readonly PedidoRepository pedidoRepository;
         private readonly PedidoSobremesaRepository pedidoSobremesaRepository;
-
-        public PedidoService(PedidoRepository pedidoRepository, PedidoSobremesaRepository pedidoSobremesaRepository)
+        private readonly SobremesaRepository sobremesaRepository;
+        public PedidoService(PedidoRepository pedidoRepository, PedidoSobremesaRepository pedidoSobremesaRepository, SobremesaRepository sobremesaRepository)
         {
             this.pedidoRepository = pedidoRepository;
             this.pedidoSobremesaRepository = pedidoSobremesaRepository;
+            this.sobremesaRepository = sobremesaRepository;
         }
 
 
@@ -43,13 +44,45 @@ namespace RestauranteSustentavel_BE.Services
         }
 
         
-        //fazer metedo que add sobremesa ao pedido do cliente como nome de AddSobremesa(Pedido pedido);
-
+        //GET ALL PEDIDOS in PedidoSobremesa
         public List<PedidoSobremesa> GetAllPedidoSobremesaTest(Sobremesa sobremesa)
         {
-            
-            //TESTTANDO METODO: getAllPedidoSobremesa do Repositorio
             return pedidoSobremesaRepository.GetAllPedidoSobremesa();
         }
+
+
+        //Buscar informacoes do pedido feito pelo cliente
+        public List<PedidoSobremesa> BuscaPedido(int idPedido)
+        {
+                  
+            return pedidoSobremesaRepository.BuscaPedido(idPedido); 
+
+        }
+
+
+        //Adicionar sobremesa ao pedido
+        public void AddSobremesaAoPedido (PedidoSobremesa pedidoSobremesa)
+        {
+
+            PedidoSobremesa pedidoSobremesaBD = pedidoSobremesaRepository.BuscaUmaSobremesaEmPedido(pedidoSobremesa.idSobremesa, pedidoSobremesa.idPedido);
+
+            if(pedidoSobremesaBD != null)
+            {
+                //atualiza quantidade de sobremesas nesse pedido
+                pedidoSobremesaBD.quantidade += pedidoSobremesa.quantidade;
+                //atualiza dados no BD
+                pedidoSobremesaRepository.Update(pedidoSobremesaBD);
+            }
+            else
+            {
+                pedidoSobremesaRepository.InsertPedidoSobremesa(pedidoSobremesa);
+
+            }
+
+            
+        }
+
+        
+
     }
 }

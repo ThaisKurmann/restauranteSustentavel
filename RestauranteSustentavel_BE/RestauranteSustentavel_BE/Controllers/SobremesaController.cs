@@ -43,6 +43,13 @@ namespace RestauranteSustentavel_BE.Controllers
             return sobremesaService.Delete(i);
         }
 
+        //BUSCA
+        [HttpGet("Busca")]
+        public Sobremesa GetANomeSobremesa(Sobremesa sobremesa)
+        {
+            return sobremesaService.Busca(sobremesa);
+        }
+
 
     }
 }

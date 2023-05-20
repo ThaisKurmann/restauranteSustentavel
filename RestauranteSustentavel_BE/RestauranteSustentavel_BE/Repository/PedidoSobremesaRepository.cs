@@ -8,13 +8,27 @@ namespace RestauranteSustentavel_BE.Repository
 
         private readonly DbContext dbContext;
 
-
         public PedidoSobremesaRepository(DbContext dbContext)
         {
-            this.dbContext = dbContext;
+            this.dbContext = dbContext; 
+
         }
 
-        //READ -->FUNCIONA!!!!!!! :))
+        //CREATE
+        public PedidoSobremesa InsertPedidoSobremesa(PedidoSobremesa pedidoSobremesa)
+        {
+            SQLiteCommand insertComd = new SQLiteCommand("INSERT into PedidoSobremesa(quantidade, fk_PedidoSobremesa_Sobremesa, fk_PedidoSobremesa_Pedido) values (@quantidade, @idSobremesa, @idPedido) ", dbContext.connection);
+            insertComd.Parameters.AddWithValue("@quantidade", pedidoSobremesa.quantidade);
+            insertComd.Parameters.AddWithValue("@idSobremesa", pedidoSobremesa.idSobremesa);
+            insertComd.Parameters.AddWithValue("@idPedido", pedidoSobremesa.idPedido);
+            insertComd.ExecuteNonQuery();
+
+
+            return pedidoSobremesa;
+        }
+
+
+        //READ
         public List<PedidoSobremesa> GetAllPedidoSobremesa()
         {
             var pedidoSobremesas = new List<PedidoSobremesa>();
@@ -27,7 +41,7 @@ namespace RestauranteSustentavel_BE.Repository
                 var pedidoSobremesa = new PedidoSobremesa()
                 {
                     quantidade = int.Parse(reader["quantidade"].ToString()),
-                    preco = float.Parse(reader["preco"].ToString()), //pega o resultado e compara com 1, resultando em um booleano, ou seja, se a == 1, entao eh verdadeiro;
+                    //preco = float.Parse(reader["preco"].ToString()), //pega o resultado e compara com 1, resultando em um booleano, ou seja, se a == 1, entao eh verdadeiro;
                     idSobremesa = int.Parse(reader["fk_PedidoSobremesa_Sobremesa"].ToString()),//pegando o Id da tabela Bebida
                     idPedido = int.Parse(reader["fk_PedidoSobremesa_Pedido"].ToString()),
                 };
@@ -38,7 +52,75 @@ namespace RestauranteSustentavel_BE.Repository
             return pedidoSobremesas;
         }
 
+        //UPDATE
+        public PedidoSobremesa Update(PedidoSobremesa pedidoSobremesa)
+        {
+            SQLiteCommand updateCmd = new SQLiteCommand("UPDATE PedidoSobremesa \r\nSET quantidade = @quantidade\r\nWHERE PedidoSobremesa.fk_PedidoSobremesa_Sobremesa = @idSobremesa AND PedidoSobremesa.fk_PedidoSobremesa_Pedido = @idPedido;", dbContext.connection);
+            updateCmd.Parameters.AddWithValue("@quantidade", pedidoSobremesa.quantidade);
+            updateCmd.Parameters.AddWithValue("@idSobremesa", pedidoSobremesa.idSobremesa);
+            updateCmd.Parameters.AddWithValue("@idPedido", pedidoSobremesa.idPedido);
+            
+            updateCmd.ExecuteNonQuery();
 
+            return pedidoSobremesa;
+        }
+
+
+
+        //BUSCA UM PEDIDO na tabela PedidoSobremesa
+        public List<PedidoSobremesa> BuscaPedido(int idPedido)
+        {
+           var pedidoSobremesas = new List<PedidoSobremesa>();
+
+            SQLiteCommand getCmd = new SQLiteCommand("SELECT * FROM PedidoSobremesa WHERE fk_PedidoSobremesa_Pedido = @idPedido", dbContext.connection);
+            getCmd.Parameters.AddWithValue("@idPedido", idPedido);
+            SQLiteDataReader reader = getCmd.ExecuteReader();
+
+            while(reader.Read())
+            {
+                var pedidoSobremesa = new PedidoSobremesa()
+                {
+                    quantidade = int.Parse(reader["quantidade"].ToString()),
+                    idSobremesa = int.Parse(reader["fk_PedidoSobremesa_Sobremesa"].ToString()),
+                    idPedido = int.Parse(reader["fk_PedidoSobremesa_Pedido"].ToString()),
+                };
+                pedidoSobremesas.Add(pedidoSobremesa);
+            } 
+
+            return pedidoSobremesas;
+        }
+
+        
+        public PedidoSobremesa BuscaUmaSobremesaEmPedido(int idSobremesa, int idPedido)
+        {
+            SQLiteCommand getCmd = new SQLiteCommand("SELECT PedidoSobremesa.fk_PedidoSobremesa_Sobremesa, PedidoSobremesa.fk_PedidoSobremesa_Pedido, PedidoSobremesa.quantidade\r\nFROM PedidoSobremesa\r\nWHERE PedidoSobremesa.fk_PedidoSobremesa_Sobremesa = @idSobremesa AND PedidoSobremesa.fk_PedidoSobremesa_Pedido = @idPedido;", dbContext.connection);
+            getCmd.Parameters.AddWithValue("@idSobremesa", idSobremesa);
+            getCmd.Parameters.AddWithValue("@idPedido", idPedido);
+            
+
+            SQLiteDataReader reader = getCmd.ExecuteReader();
+
+            reader.Read();
+
+            if(!reader.HasRows) {
+
+                return null;
+            
+            }
+            var pedidoSobremesa = new PedidoSobremesa()
+            {
+                quantidade = int.Parse(reader["quantidade"].ToString()),
+                idSobremesa = int.Parse(reader["fk_PedidoSobremesa_Sobremesa"].ToString()),
+                idPedido = int.Parse(reader["fk_PedidoSobremesa_Pedido"].ToString()),
+            };
+           
+
+            return pedidoSobremesa;
+        }
+        
+        
+
+       
 
     }
 }

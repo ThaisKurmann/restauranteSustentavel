@@ -21,7 +21,7 @@ namespace RestauranteSustentavel_BE.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("Read")]
         public List<Pedido> Get()
         {
             return pedidoService.Get();
@@ -47,14 +47,30 @@ namespace RestauranteSustentavel_BE.Controllers
             return pedidoService.Delete(i);
         }
 
-        //add Sobremesa ao pedido do cliente
 
-
-        //test do repositorio PedidoSobremesa
-        [HttpPost("getAllPedidoSobremesaTest")]
+        [HttpPost("getAllPedidoSobremesa")]
         public List<PedidoSobremesa> GetAllPedidoSobremesaTest(Sobremesa sobremesa)
         {
             return pedidoSobremesaRepository.GetAllPedidoSobremesa();
         }
+        
+        [HttpGet("BuscaPedido")]
+        public List<PedidoSobremesa> BuscaPedido(int idPedido)
+        {
+            return pedidoService.BuscaPedido(idPedido);
+        }
+
+        
+        [HttpPut("AddSobremesaAoPedido")]
+        public void AddSobremesaAoPedido(PedidoSobremesa pedidoSobremesa)
+        {
+            //corpo da funcao
+            pedidoService.AddSobremesaAoPedido(pedidoSobremesa);
+            return;
+        }
+
+
+        
+
     }
 }

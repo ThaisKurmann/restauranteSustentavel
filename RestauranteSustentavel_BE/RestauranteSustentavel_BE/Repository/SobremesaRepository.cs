@@ -18,9 +18,10 @@ namespace RestauranteSustentavel_BE.Repository
         public Sobremesa InsertSobremesa(Sobremesa sobremesa)
         {
 
-            SQLiteCommand insertCmd = new SQLiteCommand("insert into Sobremesa(nome, porcao) values(@nome, @gramas)", dbContext.connection);
+            SQLiteCommand insertCmd = new SQLiteCommand("insert into Sobremesa(nome, porcao, preco) values(@nome, @gramas, @preco)", dbContext.connection);
             insertCmd.Parameters.AddWithValue("@nome", sobremesa.nome);
             insertCmd.Parameters.AddWithValue("@gramas", sobremesa.porcao);
+            insertCmd.Parameters.AddWithValue("@preco", sobremesa.preco);
             insertCmd.ExecuteNonQuery();
 
             //pegando o Id da tabela Sobremesa
@@ -50,6 +51,7 @@ namespace RestauranteSustentavel_BE.Repository
                     nome = reader["nome"].ToString(),
                     porcao = int.Parse(reader["porcao"].ToString()),
                     id = int.Parse(reader["id"].ToString()),//pegando o Id da tabela Sobremesa
+                    preco = float.Parse(reader["preco"].ToString())
                 };
 
                 sobremesas.Add(sobremesa);//add o obj na lista sobremesas
@@ -63,15 +65,16 @@ namespace RestauranteSustentavel_BE.Repository
         public Sobremesa UpateSobremesa(Sobremesa sobremesa)
         {
 
-            SQLiteCommand updateCmd = new SQLiteCommand("UPDATE Sobremesa SET nome = @nomeSobremesa, porcao = @gramas WHERE id = @id", dbContext.connection);
+            SQLiteCommand updateCmd = new SQLiteCommand("UPDATE Sobremesa SET nome = @nomeSobremesa, porcao = @gramas, preco = @preco WHERE id = @id", dbContext.connection);
             updateCmd.Parameters.AddWithValue("@nomeSobremesa", sobremesa.nome);
             updateCmd.Parameters.AddWithValue("@gramas", sobremesa.porcao);
+            updateCmd.Parameters.AddWithValue("@preco", sobremesa.preco);
             updateCmd.Parameters.AddWithValue("@id", sobremesa.id);
 
             updateCmd.ExecuteNonQuery();
 
 
-               return sobremesa;
+             return sobremesa;
         }
 
 
@@ -84,6 +87,21 @@ namespace RestauranteSustentavel_BE.Repository
             updateCmd.ExecuteNonQuery();
 
             return i;//retorna a sobremesa que foi excluida
+        }
+
+
+        //BUSCA SOBREMESA X
+        public Sobremesa BuscaSobremesa(Sobremesa sobremesa)
+        {
+            //SELECT Sobremesa.nome FROM Sobremesa WHERE Sobremesa.nome LIKE '%Tiramissu%'
+            //OBS.: Isso tambem eh possivel fazer: SELECT Sobremesa.nome, Sobremesa.id, Sobremesa.preco FROM Sobremesa WHERE Sobremesa.nome LIKE '%Tiramissu%'
+            SQLiteCommand buscaCmd = new SQLiteCommand("SELECT Sobremesa.nome FROM Sobremesa WHERE Sobremesa.nome LIKE '%Teste%' = @nomeSobremesa", dbContext.connection);
+            buscaCmd.Parameters.AddWithValue("@nomeSobremesa", sobremesa);
+
+
+            buscaCmd.ExecuteNonQuery();
+
+            return sobremesa;
         }
 
 
