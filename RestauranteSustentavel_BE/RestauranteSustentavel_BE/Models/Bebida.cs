@@ -7,6 +7,8 @@
 
         public int id { get; set; }
 
+        public float preco { get; set; }
+
 
 
     }

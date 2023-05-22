@@ -25,9 +25,10 @@ namespace RestauranteSustentavel_BE.Repository
         public Bebida InsertBebida(Bebida bebida)
         {
 
-            SQLiteCommand insertCmd = new SQLiteCommand("insert into Bebida(nome, alcoolica) values(@nome, @bool)", dbContext.connection);
+            SQLiteCommand insertCmd = new SQLiteCommand("insert into Bebida(nome, alcoolica, preco) values(@nome, @bool, @preco)", dbContext.connection);
             insertCmd.Parameters.AddWithValue("@nome", bebida.nome);
             insertCmd.Parameters.AddWithValue("@bool", bebida.alcoolica);
+            insertCmd.Parameters.AddWithValue("@preco", bebida.preco);
             insertCmd.ExecuteNonQuery();
 
             //pegando o Id da tabela Bebida
@@ -59,6 +60,7 @@ namespace RestauranteSustentavel_BE.Repository
                     nome = reader["nome"].ToString(),
                     alcoolica = int.Parse(reader["alcoolica"].ToString()) == 1, //pega o resultado e compara com 1, resultando em um booleano, ou seja, se a == 1, entao eh verdadeiro;
                     id = int.Parse(reader["id"].ToString()),//pegando o Id da tabela Bebida
+                    preco = float.Parse(reader["preco"].ToString()),
                 };
 
                 bebidas.Add(bebida);//add o obj na lista bebidas
@@ -72,9 +74,10 @@ namespace RestauranteSustentavel_BE.Repository
         public Bebida UpateBebida(Bebida bebida)
         {
 
-            SQLiteCommand updateCmd = new SQLiteCommand("UPDATE Bebida SET nome = @nomeBebida, alcoolica = @bool WHERE id = @id", dbContext.connection);
+            SQLiteCommand updateCmd = new SQLiteCommand("UPDATE Bebida SET nome = @nomeBebida, alcoolica = @bool, preco = @preco WHERE id = @id", dbContext.connection);
             updateCmd.Parameters.AddWithValue("@nomeBebida", bebida.nome);
             updateCmd.Parameters.AddWithValue("@bool", bebida.alcoolica);
+            updateCmd.Parameters.AddWithValue("@preco", bebida.preco);
             updateCmd.Parameters.AddWithValue("@id", bebida.id);
 
             updateCmd.ExecuteNonQuery();
@@ -106,82 +109,3 @@ namespace RestauranteSustentavel_BE.Repository
 }
 
 
-/*
- private string GetSQLAddClient()// HHIER
-{
-    return "insert into Client(name, street, salutation, number, postalcode, city, extra, priceperhour, pauchal, wegpauchal) values('" + Name + "', '" + Street + "', '" + Salutation + "', '" + Number + "', '" + PostalCode + "', '" + City + "', '" + Extra + "', '" + PricePerHour.ToString("0.00") + "', '" + Pauchal.ToString("0.00") + "', '" + WegPauchal.ToString("0.00") + "')";
-}
-
-
-private string GetSQLGetWorksOnTimeSpam(string start, string end)
-{
-    return "SELECT * FROM Work WHERE clientId = " + Id + " and date > '" + start + "' and date < '" + end + "'";
-}
-
-
-public List<Work> GetWorksByTime(string start, string end, SQLiteConnection dbContext)
-{
-    List<Work> ret = new List<Work>();
-    SQLiteCommand getCmd = new SQLiteCommand(GetSQLGetWorksOnTimeSpam(start, end), dbContext);
-    SQLiteDataReader reader = getCmd.ExecuteReader();
-    while (reader.Read())
-    {
-        ret.Add(new Work(reader["time"].ToString(), float.Parse(reader["price"].ToString()), reader["date"].ToString(), reader["task"].ToString()));
-    }
-    return ret;
-}
-
-
-
-
- //Conexao com o BD
-        public SQLiteConnection CreateConnection()
-        {
-
-            SQLiteConnection sqlite_conn;
-            // Create a new database connection:
-            sqlite_conn = new SQLiteConnection("Data Source = ../RestauranteSustentavelDB.db; Version = 3; New = True; Compress = True;");
-           
-            // Open the connection:
-            try
-            {
-                sqlite_conn.Open();
-            }
-            catch (Exception ex)
-            {
-            }
-            return sqlite_conn;
-        }
-
-
--UPDATE----------------------------------------------------------------
-
-// Query parameters.
-    string lastname = "Bloggs";
-    string title = "Mrs";
-    int id = 5;
-
-    // Query text incorporated into SQL command.
-    var sqlUpdate = connect.CreateCommand();
-    sqlUpdate.CommandText = @"
-        UPDATE person 
-        SET lastname = $lastname, 
-            title = $title
-        WHERE id = $id
-    ";
-
-    // Bind the parameters to the query.
-    sqlUpdate.Parameters.AddWithValue("$lastname", lastname);
-    sqlUpdate.Parameters.AddWithValue("$title", title);
-    sqlUpdate.Parameters.AddWithValue("$id", id);
-
-    // Execute SQL.
-    sqlUpdate.ExecuteNonQuery();
-
-    // Confirm successful updating of person information.
-    Console.WriteLine("Person information updated successfully.");
-
------------------------------------------------------------------
-
-
- */

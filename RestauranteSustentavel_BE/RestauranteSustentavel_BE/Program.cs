@@ -21,6 +21,8 @@ builder.Services.AddSingleton<PedidoService>();
 
 builder.Services.AddSingleton<PedidoSobremesaRepository>();
 
+builder.Services.AddSingleton<PedidoBebidaRepository>();
+
 builder.Services.AddSingleton<DbContext>();
 
 

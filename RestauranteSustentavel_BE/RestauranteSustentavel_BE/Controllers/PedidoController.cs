@@ -12,12 +12,11 @@ namespace RestauranteSustentavel_BE.Controllers
     {
 
         private readonly PedidoService pedidoService;
-        private readonly PedidoSobremesaRepository pedidoSobremesaRepository;
 
-        public PedidoController(PedidoService pedidoService, PedidoSobremesaRepository pedidoSobremesaRepository)
+        public PedidoController(PedidoService pedidoService)
         {
             this.pedidoService = pedidoService;
-            this.pedidoSobremesaRepository = pedidoSobremesaRepository;
+            
         }
 
 
@@ -47,14 +46,14 @@ namespace RestauranteSustentavel_BE.Controllers
             return pedidoService.Delete(i);
         }
 
-        //-----------------------------------------------------------------------------------------------------------------------------------------------------
-
+      
         [HttpPost("getAllPedidoSobremesa")]
         public List<PedidoSobremesa> GetPedidoSobremesa()
         {
             return pedidoService.GetAllPedidoSobremesa();
         }
         
+        //TODO: Alterar nome do metodo. Colocar um nome mais legivel
         [HttpGet("BuscaPedido")]
         public List<PedidoSobremesa> BuscaPedido(int idPedido)
         {
@@ -70,14 +69,44 @@ namespace RestauranteSustentavel_BE.Controllers
 
 
         //Chamar service para que elimina a quantidade de sobremesas desejada pelo cliente
-        [HttpPost("RemoveSobremesa do Pedido | Exclui")]
+        [HttpPost("Alterar ou Excluir pedido")]
         public void RemoveSobremesaDoPedido(PedidoSobremesa pedidoSobremesa, int quantidadeRemover) {
 
             pedidoService.RemoveAlteraQuantidadeSobremesaNoPedido(pedidoSobremesa, quantidadeRemover);
         
         }
-       
+
+      
+
+        [HttpPost("InsertPedidoBebida")]
+        public PedidoBebida InsertPedidoBebida(PedidoBebida pedidoBebida)
+        {
+            return pedidoService.InsertPedidoBebida(pedidoBebida);
+        }
+
+
         
+        [HttpGet("GetAllPedidoBebida")]
+        public List<PedidoBebida> GetAllPedidoBebida()
+        {
+            return pedidoService.GetAllPedidoBebida();
+        }
+
+        
+        [HttpPut("UpdatePedidoBebida")] 
+        public PedidoBebida UpdatePedidoBebida(PedidoBebida pedidoBebida)
+        {
+            return pedidoService.UpdatePedidoBebida(pedidoBebida);
+        }
+
+        
+        [HttpDelete("DeletePedidoBebida")]
+        public void DeletePedidoBebida(PedidoBebida pedidoBebida)
+        {
+            pedidoService.DeletePedidoBebida(pedidoBebida);
+        }
+
+
 
     }
 }
