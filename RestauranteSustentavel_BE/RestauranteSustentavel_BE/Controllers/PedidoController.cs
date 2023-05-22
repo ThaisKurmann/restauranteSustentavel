@@ -12,10 +12,12 @@ namespace RestauranteSustentavel_BE.Controllers
     {
 
         private readonly PedidoService pedidoService;
+        private readonly PratoService pratoService;
 
-        public PedidoController(PedidoService pedidoService)
+        public PedidoController(PedidoService pedidoService, PratoService pratoService)
         {
             this.pedidoService = pedidoService;
+            this.pratoService = pratoService;
             
         }
 
@@ -110,6 +112,13 @@ namespace RestauranteSustentavel_BE.Controllers
         public List<PedidoBebida> BuscaPedidoQueContemBebida(int idPedido)
         {
             return pedidoService.BuscaPedidoQueContemBebida(idPedido);
+        }
+
+        //teste
+        [HttpPost("InsertIngredientePrato")]
+        public IngredientePrato InsertIngredientePrato(IngredientePrato ingredientePrato)
+        {
+            return pratoService.Insert(ingredientePrato);
         }
 
     }

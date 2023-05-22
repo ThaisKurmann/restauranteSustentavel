@@ -17,7 +17,7 @@ namespace RestauranteSustentavel_BE.Repository
         //CREATE
         public PedidoSobremesa InsertPedidoSobremesa(PedidoSobremesa pedidoSobremesa)
         {
-            SQLiteCommand insertComd = new SQLiteCommand("INSERT into PedidoSobremesa(quantidade, fk_PedidoSobremesa_Sobremesa, fk_PedidoSobremesa_Pedido) values (@quantidade, @idSobremesa, @idPedido) ", dbContext.connection);
+            SQLiteCommand insertComd = new SQLiteCommand("INSERT into PedidoSobremesa(quantidade, fk_PedidoSobremesa_Sobremesa, fk_PedidoSobremesa_Pedido) values (@quantidade, @idSobremesa, @idPedido); ", dbContext.connection);
             insertComd.Parameters.AddWithValue("@quantidade", pedidoSobremesa.quantidade);
             insertComd.Parameters.AddWithValue("@idSobremesa", pedidoSobremesa.idSobremesa);
             insertComd.Parameters.AddWithValue("@idPedido", pedidoSobremesa.idPedido);
