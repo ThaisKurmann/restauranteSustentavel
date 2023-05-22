@@ -130,6 +130,12 @@ namespace RestauranteSustentavel_BE.Services
             pedidoBebidaRepository.DeletePedidoBebida(pedidoBebida);
         }
 
+        //[PedidoBebida] 
+        public List<PedidoBebida> BuscaPedidoQueContemBebida(int idPedido)
+        {
+            return pedidoBebidaRepository.BuscaPedidoQueContemBebida(idPedido);
+        }
+
 
     }
 }

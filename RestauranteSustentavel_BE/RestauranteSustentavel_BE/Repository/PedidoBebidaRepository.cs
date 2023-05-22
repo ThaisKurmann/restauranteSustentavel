@@ -81,5 +81,62 @@ namespace RestauranteSustentavel_BE.Repository
 
         }
 
+
+        //BUSCA UM PEDIDO na tabela PedidoBebida
+        public List<PedidoBebida> BuscaPedidoQueContemBebida(int idPedido)
+        {
+            var pedidoBebidas = new List<PedidoBebida>();
+
+            SQLiteCommand getCmd = new SQLiteCommand("SELECT * FROM PedidoBebida WHERE fk_PedidoBebida_Pedido = @idPedido", dbContext.connection);
+            getCmd.Parameters.AddWithValue("@idPedido", idPedido);
+            SQLiteDataReader reader = getCmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var pedidoBebida = new PedidoBebida()
+                {
+                    quantidade = int.Parse(reader["quantidade"].ToString()),
+                    idBebida = int.Parse(reader["fk_PedidoBebida_Bebida"].ToString()),
+                    idPedido = int.Parse(reader["fk_PedidoBebida_Pedido"].ToString()),
+                };
+                pedidoBebidas.Add(pedidoBebida);
+            }
+
+            return pedidoBebidas;
+        }
+
+
+        public PedidoBebida BuscaBebidaQueEstaEmPedido(int idBebida, int idPedido)
+        {
+            SQLiteCommand getCmd = new SQLiteCommand("SELECT PedidoBebida.fk_PedidoBebida_Bebida, PedidoBebida.fk_PedidoBebida_Pedido, PedidoBebida.quantidade\r\nFROM PedidoBebida\r\nWHERE PedidoBebida.fk_PedidoBebida_Bebida = @idBebida AND PedidoBebida.fk_PedidoBebida_Pedido = @idPedido;", dbContext.connection);
+            getCmd.Parameters.AddWithValue("@idBebida", idBebida);
+            getCmd.Parameters.AddWithValue("@idPedido", idPedido);
+
+
+            SQLiteDataReader reader = getCmd.ExecuteReader();
+
+            reader.Read();
+
+            if (!reader.HasRows)
+            {
+
+                return null;
+
+            }
+            var pedidoBebida = new PedidoBebida()
+            {
+                quantidade = int.Parse(reader["quantidade"].ToString()),
+                idBebida = int.Parse(reader["fk_PedidoBebida_Bebida"].ToString()),
+                idPedido = int.Parse(reader["fk_PedidoBebida_Pedido"].ToString()),
+            };
+
+
+            return pedidoBebida;
+        }
+
+
+
+
+
     }
 }

@@ -106,7 +106,11 @@ namespace RestauranteSustentavel_BE.Controllers
             pedidoService.DeletePedidoBebida(pedidoBebida);
         }
 
-
+        [HttpGet("BuscaPedidoQueContemBebida")]
+        public List<PedidoBebida> BuscaPedidoQueContemBebida(int idPedido)
+        {
+            return pedidoService.BuscaPedidoQueContemBebida(idPedido);
+        }
 
     }
 }
