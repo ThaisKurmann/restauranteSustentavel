@@ -34,6 +34,11 @@ namespace RestauranteSustentavel_BE.Services
             return ingredientePratoRepository.UpadateIngredientePrato(ingredientePrato);
         }
 
+        //DELETE
+        public void DeleteIngredientePrato(IngredientePrato ingredientePrato)
+        {
+            ingredientePratoRepository.DeleteIngredientePrato(ingredientePrato);
+        }
 
     }
 }

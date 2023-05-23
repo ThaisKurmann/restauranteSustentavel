@@ -69,18 +69,18 @@ namespace RestauranteSustentavel_BE.Repository
             return ingredientePrato;
         }
 
-/*
+
 
         //DELETE
-        public void DeletePedidoBebida(PedidoBebida pedidoBebida)
+        public void DeleteIngredientePrato(IngredientePrato ingredientePrato)
         {
-            SQLiteCommand deleteCmd = new SQLiteCommand("DELETE FROM PedidoBebida WHERE fk_PedidoBebida_Bebida = @idBebida AND fk_PedidoBebida_Pedido = @idPedido", dbContext.connection);
-            deleteCmd.Parameters.AddWithValue("@idBebida", pedidoBebida.idBebida);
-            deleteCmd.Parameters.AddWithValue("@idPedido", pedidoBebida.idPedido);
+            SQLiteCommand deleteCmd = new SQLiteCommand("DELETE FROM IngredientePrato WHERE fk_IngredientePrato_Ingrediente = @idIngrediente AND fk_IngredientePrato_Prato = @idPrato", dbContext.connection);
+            deleteCmd.Parameters.AddWithValue("@idIngrediente", ingredientePrato.idIngrediente);
+            deleteCmd.Parameters.AddWithValue("@idPrato", ingredientePrato.idPrato);
             deleteCmd.ExecuteNonQuery();
 
         }
-
+/*
 
         //BUSCA UM PEDIDO na tabela PedidoBebida
         public List<PedidoBebida> BuscaPedidoQueContemBebida(int idPedido)

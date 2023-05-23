@@ -134,5 +134,11 @@ namespace RestauranteSustentavel_BE.Controllers
         {
             return pratoService.UpdateIngredientePrato(ingredientePrato);
         }
+
+        [HttpDelete("DeleteIngredientePrato")]
+        public void DeleteIngredientePrato(IngredientePrato ingredientePrato)
+        {
+            pratoService.DeleteIngredientePrato(ingredientePrato);
+        }
     }
 }
