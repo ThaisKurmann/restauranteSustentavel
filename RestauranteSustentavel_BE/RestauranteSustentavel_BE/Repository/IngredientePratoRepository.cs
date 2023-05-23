@@ -54,22 +54,22 @@ namespace RestauranteSustentavel_BE.Repository
             return ingredientePratos;
         }
 
-/*
-        //UPDATE
-        public PedidoBebida UpadatePedidoBebida(PedidoBebida pedidoBebida)
+
+        //todo:UPDATE
+        public IngredientePrato UpadateIngredientePrato(IngredientePrato ingredientePrato)
         {
-            SQLiteCommand updateCmd = new SQLiteCommand("UPDATE PedidoBebida \r\nSET quantidade = @quantidade\r\nWHERE PedidoBebida.fk_PedidoBebida_Bebida = @idBebida AND PedidoBebida.fk_PedidoBebida_Pedido = @idPedido;", dbContext.connection);
-            updateCmd.Parameters.AddWithValue("@quantidade", pedidoBebida.quantidade);
-            updateCmd.Parameters.AddWithValue("@idBebida", pedidoBebida.idBebida);
-            updateCmd.Parameters.AddWithValue("@idPedido", pedidoBebida.idPedido);
+            SQLiteCommand updateCmd = new SQLiteCommand("UPDATE IngredientePrato \r\nSET quantidade = @quantidade\r\nWHERE IngredientePrato.fk_IngredientePrato_Ingrediente = @idIngrediente AND IngredientePrato.fk_IngredientePrato_Prato = @idPrato;", dbContext.connection);
+            updateCmd.Parameters.AddWithValue("@quantidade", ingredientePrato.quantidade);
+            updateCmd.Parameters.AddWithValue("@idIngrediente", ingredientePrato.idIngrediente);
+            updateCmd.Parameters.AddWithValue("@idPrato", ingredientePrato.idPrato);
 
             updateCmd.ExecuteNonQuery();
 
 
-            return pedidoBebida;
+            return ingredientePrato;
         }
 
-
+/*
 
         //DELETE
         public void DeletePedidoBebida(PedidoBebida pedidoBebida)

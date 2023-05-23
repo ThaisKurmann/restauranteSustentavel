@@ -121,12 +121,18 @@ namespace RestauranteSustentavel_BE.Controllers
             return pratoService.Insert(ingredientePrato);
         }
 
-        //teste
+        
         [HttpGet("GetAllIngredientePrato")]
         public List<IngredientePrato> GetAllIngredientePrato()
         {
             return pratoService.GetAllIngredientePrato();
         }
 
+        
+        [HttpPut("UpdateIngredientePrato")]
+        public IngredientePrato UpdateIngredientePrato(IngredientePrato ingredientePrato)
+        {
+            return pratoService.UpdateIngredientePrato(ingredientePrato);
+        }
     }
 }

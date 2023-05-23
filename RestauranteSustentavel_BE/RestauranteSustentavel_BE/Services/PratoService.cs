@@ -28,6 +28,12 @@ namespace RestauranteSustentavel_BE.Services
             return ingredientePratoRepository.GetAllIngredientePrato();
         }
 
+        //UPDATE
+        public IngredientePrato UpdateIngredientePrato(IngredientePrato ingredientePrato)
+        {
+            return ingredientePratoRepository.UpadateIngredientePrato(ingredientePrato);
+        }
+
 
     }
 }
