@@ -114,11 +114,18 @@ namespace RestauranteSustentavel_BE.Controllers
             return pedidoService.BuscaPedidoQueContemBebida(idPedido);
         }
 
-        //teste
+       
         [HttpPost("InsertIngredientePrato")]
         public IngredientePrato InsertIngredientePrato(IngredientePrato ingredientePrato)
         {
             return pratoService.Insert(ingredientePrato);
+        }
+
+        //teste
+        [HttpGet("GetAllIngredientePrato")]
+        public List<IngredientePrato> GetAllIngredientePrato()
+        {
+            return pratoService.GetAllIngredientePrato();
         }
 
     }

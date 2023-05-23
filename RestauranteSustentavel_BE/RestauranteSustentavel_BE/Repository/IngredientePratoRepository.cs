@@ -19,7 +19,7 @@ namespace RestauranteSustentavel_BE.Repository
         //CREATE
         public IngredientePrato Insert(IngredientePrato ingredientePrato)
         {
-            SQLiteCommand insertComd = new SQLiteCommand("INSERT into IngredientePrato(quantidade, fk_IngredientePrato_Ingrediente, fk_IngredientePrato_Prato) values (@quantidade, @idIngrediente, @idPrato); ", dbContext.connection);
+            SQLiteCommand insertComd = new SQLiteCommand("INSERT into IngredientePrato(quantidade, fk_IngredientePrato_Ingrediente, fk_IngredientePrato_Prato, preco) values (@quantidade, @idIngrediente, @idPrato); ", dbContext.connection);
             insertComd.Parameters.AddWithValue("@quantidade", ingredientePrato.quantidade);
             insertComd.Parameters.AddWithValue("@idIngrediente", ingredientePrato.idIngrediente);
             insertComd.Parameters.AddWithValue("@idPrato", ingredientePrato.idPrato);
@@ -28,33 +28,33 @@ namespace RestauranteSustentavel_BE.Repository
 
             return ingredientePrato;
         }
-/*
+
 
 
         //READ
-        public List<PedidoBebida> GetAllPedidoBebida()
+        public List<IngredientePrato> GetAllIngredientePrato()
         {
-            var pedidoBebidas = new List<PedidoBebida>();
+            var ingredientePratos = new List<IngredientePrato>();
 
-            SQLiteCommand getCmd = new SQLiteCommand("SELECT * FROM PedidoBebida", dbContext.connection);
+            SQLiteCommand getCmd = new SQLiteCommand("SELECT * FROM IngredientePrato", dbContext.connection);
             SQLiteDataReader reader = getCmd.ExecuteReader();
 
             while (reader.Read())
             {
-                var pedidoBebida = new PedidoBebida()
+                var ingredientePrato = new IngredientePrato()
                 {
                     quantidade = int.Parse(reader["quantidade"].ToString()),
-                    idBebida = int.Parse(reader["fk_PedidoBebida_Bebida"].ToString()),
-                    idPedido = int.Parse(reader["fk_PedidoBebida_Pedido"].ToString()),
+                    idIngrediente = int.Parse(reader["fk_IngredientePrato_Ingrediente"].ToString()),
+                    idPrato = int.Parse(reader["fk_IngredientePrato_Prato"].ToString()),
                 };
 
-                pedidoBebidas.Add(pedidoBebida);//add o obj na lista bebidas
+                ingredientePratos.Add(ingredientePrato);//add o obj na lista 
             }
 
-            return pedidoBebidas;
+            return ingredientePratos;
         }
 
-
+/*
         //UPDATE
         public PedidoBebida UpadatePedidoBebida(PedidoBebida pedidoBebida)
         {

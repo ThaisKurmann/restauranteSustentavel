@@ -9,5 +9,8 @@ namespace RestauranteSustentavel_BE.Models
         public string tipoAlimento { get; set; }
         public int id { get; set; }
 
+        //todo: preco: float
+        public float preco { get; set; }
+
     }
 }

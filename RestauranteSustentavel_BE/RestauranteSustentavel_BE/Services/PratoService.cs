@@ -22,6 +22,12 @@ namespace RestauranteSustentavel_BE.Services
             return ingredientePratoRepository.Insert(ingredientePrato);
         }
 
+        //READ
+        public List<IngredientePrato> GetAllIngredientePrato()
+        {
+            return ingredientePratoRepository.GetAllIngredientePrato();
+        }
+
 
     }
 }

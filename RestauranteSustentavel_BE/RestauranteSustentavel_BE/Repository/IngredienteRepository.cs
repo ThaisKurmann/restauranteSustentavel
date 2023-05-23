@@ -17,10 +17,11 @@ namespace RestauranteSustentavel_BE.Repository
         public Ingrediente InsertIngrediente(Ingrediente ingrediente)
         {
 
-            SQLiteCommand insertCmd = new SQLiteCommand("insert into Ingrediente(nome, porcaoEmGramas, tipoDoAlimento) values(@nome, @porcao, @tipo)", dbContext.connection);
+            SQLiteCommand insertCmd = new SQLiteCommand("insert into Ingrediente(nome, porcaoEmGramas, tipoDoAlimento, preco) values(@nome, @porcao, @tipo, @preco)", dbContext.connection);
             insertCmd.Parameters.AddWithValue("@nome", ingrediente.nome);
             insertCmd.Parameters.AddWithValue("@porcao", ingrediente.porcao);
             insertCmd.Parameters.AddWithValue("@tipo", ingrediente.tipoAlimento);
+            insertCmd.Parameters.AddWithValue("@preco", ingrediente.preco);
             insertCmd.ExecuteNonQuery();
 
             //pegando o Id da tabela Bebida
@@ -53,6 +54,7 @@ namespace RestauranteSustentavel_BE.Repository
                     porcao = int.Parse(reader["porcaoEmGramas"].ToString()),
                     tipoAlimento = reader["tipoDoAlimento"].ToString(),
                     id = int.Parse(reader["id"].ToString()),//pegando o Id da tabela 
+                    preco = float.Parse(reader["preco"].ToString()),
                 };
 
                 ingredientes.Add(ingrediente);//add o obj na lista ingredientes
@@ -66,12 +68,12 @@ namespace RestauranteSustentavel_BE.Repository
         public Ingrediente UpateBebida(Ingrediente ingrediente)
         {
 
-            SQLiteCommand updateCmd = new SQLiteCommand("UPDATE Ingrediente SET nome = @nome, porcaoEmGramas = @gramas, tipoDoAlimento = @tipo WHERE id = @id", dbContext.connection);
+            SQLiteCommand updateCmd = new SQLiteCommand("UPDATE Ingrediente SET nome = @nome, porcaoEmGramas = @gramas, tipoDoAlimento = @tipo, preco = @preco WHERE id = @id", dbContext.connection);
             updateCmd.Parameters.AddWithValue("@nome", ingrediente.nome);
             updateCmd.Parameters.AddWithValue("@gramas", ingrediente.porcao);
             updateCmd.Parameters.AddWithValue("@tipo", ingrediente.tipoAlimento);
             updateCmd.Parameters.AddWithValue("@id", ingrediente.id);
-
+            updateCmd.Parameters.AddWithValue("@preco", ingrediente.preco);
             updateCmd.ExecuteNonQuery();
 
 
