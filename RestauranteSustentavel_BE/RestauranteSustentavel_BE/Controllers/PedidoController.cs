@@ -18,43 +18,42 @@ namespace RestauranteSustentavel_BE.Controllers
         {
             this.pedidoService = pedidoService;
             this.pratoService = pratoService;
-            
+
+        }
+
+        [HttpPost("Insert")]
+        public Pedido InsertPedido(Pedido pedido)
+        {
+            return pedidoService.InsertPedido(pedido);
         }
 
 
         [HttpGet("Read")]
-        public List<Pedido> Get()
+        public List<Pedido> GetAllPedidos()
         {
-            return pedidoService.Get();
+            return pedidoService.GetAllPedidos();
         }
-
-        [HttpPost("Insert")]
-        public Pedido Insert(Pedido pedido)
-        {
-            return pedidoService.Insert(pedido);
-        }
-
 
         [HttpPut("Update")]
-        public Pedido Update(Pedido pedido)
+        public Pedido UpdatePedido(Pedido pedido)
         {
-            return pedidoService.Update(pedido);
+            return pedidoService.UpdatePedido(pedido);
         }
 
 
         [HttpDelete("Delete")]
-        public int Delete(int i)
+        public int DeletePedido(int i)
         {
-            return pedidoService.Delete(i);
+            return pedidoService.DeletePedido(i);
         }
 
-      
+
         [HttpPost("getAllPedidoSobremesa")]
         public List<PedidoSobremesa> GetPedidoSobremesa()
         {
             return pedidoService.GetAllPedidoSobremesa();
         }
-        
+
         //TODO: Alterar nome do metodo. Colocar um nome mais legivel
         [HttpGet("BuscaPedido")]
         public List<PedidoSobremesa> BuscaPedido(int idPedido)
@@ -62,7 +61,7 @@ namespace RestauranteSustentavel_BE.Controllers
             return pedidoService.BuscaPedido(idPedido);
         }
 
-        
+
         [HttpPut("AddSobremesaAoPedido")]
         public void AddSobremesaAoPedido(PedidoSobremesa pedidoSobremesa)
         {
@@ -72,13 +71,14 @@ namespace RestauranteSustentavel_BE.Controllers
 
         //Chamar service para que elimina a quantidade de sobremesas desejada pelo cliente
         [HttpPost("Alterar ou Excluir pedido")]
-        public void RemoveSobremesaDoPedido(PedidoSobremesa pedidoSobremesa, int quantidadeRemover) {
+        public void RemoveSobremesaDoPedido(PedidoSobremesa pedidoSobremesa, int quantidadeRemover)
+        {
 
             pedidoService.RemoveAlteraQuantidadeSobremesaNoPedido(pedidoSobremesa, quantidadeRemover);
-        
+
         }
 
-      
+
 
         [HttpPost("InsertPedidoBebida")]
         public void InsertPedidoBebida(PedidoBebida pedidoBebida)
@@ -87,21 +87,21 @@ namespace RestauranteSustentavel_BE.Controllers
         }
 
 
-        
+
         [HttpGet("GetAllPedidoBebida")]
         public List<PedidoBebida> GetAllPedidoBebida()
         {
             return pedidoService.GetAllPedidoBebida();
         }
 
-        
-        [HttpPut("UpdatePedidoBebida")] 
+
+        [HttpPut("UpdatePedidoBebida")]
         public void UpdatePedidoBebida(PedidoBebida pedidoBebida, int quantidadeRemover)
         {
             pedidoService.UpdatePedidoBebida(pedidoBebida, quantidadeRemover);
         }
 
-        
+
         [HttpDelete("DeletePedidoBebida")]
         public void DeletePedidoBebida(PedidoBebida pedidoBebida)
         {
@@ -114,14 +114,14 @@ namespace RestauranteSustentavel_BE.Controllers
             return pedidoService.BuscaPedidoQueContemBebida(idPedido);
         }
 
-       
+
         [HttpPost("InsertIngredientePrato")]
         public void InsertIngredientePrato(IngredientePrato ingredientePrato)
         {
             pratoService.Insert(ingredientePrato);
         }
 
-        
+
         [HttpGet("GetAllIngredientePrato")]
         public List<IngredientePrato> GetAllIngredientePrato()
         {

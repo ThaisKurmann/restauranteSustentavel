@@ -18,7 +18,7 @@ namespace RestauranteSustentavel_BE.Repository
         }
 
         //CREATE
-        public Pedido InsertPedido(Pedido pedido)
+        public Pedido Insert(Pedido pedido)
         {
 
             SQLiteCommand insertCmd = new SQLiteCommand("insert into Pedido(data, hora) values(@data, @hora)", dbContext.connection);
@@ -37,7 +37,7 @@ namespace RestauranteSustentavel_BE.Repository
 
 
         //READ
-        public List<Pedido> GetAllPedidos()
+        public List<Pedido> GetAll()
         {
             var pedidos = new List<Pedido>();
 
@@ -49,19 +49,19 @@ namespace RestauranteSustentavel_BE.Repository
             {
                 var pedido = new Pedido()
                 {
-                    data = reader["data"].ToString(), 
+                    data = reader["data"].ToString(),
                     hora = reader["hora"].ToString(),
                     id = int.Parse(reader["id"].ToString())//pegando o Id da tabela Bebida
                 };
 
                 pedidos.Add(pedido);//add o obj na lista pedidos
             }
-                
+
             return pedidos;
         }
 
         //UPDATE
-        public Pedido UpatePedido(Pedido pedido)
+        public Pedido Upate(Pedido pedido)
         {
 
             SQLiteCommand updateCmd = new SQLiteCommand("UPDATE Pedido SET data = @data, hora = @hora WHERE id = @id", dbContext.connection);
@@ -77,10 +77,10 @@ namespace RestauranteSustentavel_BE.Repository
 
 
         //DELETE
-        public int DeletePedido(int i)
+        public int Delete(int i)
         {
             SQLiteCommand deleteCmd = new SQLiteCommand("DELETE FROM Pedido WHERE id = @id", dbContext.connection);
-            deleteCmd.Parameters.AddWithValue("id", i);    
+            deleteCmd.Parameters.AddWithValue("id", i);
             deleteCmd.ExecuteNonQuery();
 
             return i;

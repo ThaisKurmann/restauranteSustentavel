@@ -20,28 +20,28 @@ namespace RestauranteSustentavel_BE.Services
 
 
         //CREATE
-        public Pedido Insert(Pedido pedido)
+        public Pedido InsertPedido(Pedido pedido)
         {
-            return pedidoRepository.InsertPedido(pedido);
+            return pedidoRepository.Insert(pedido);
         }
 
         //READ
-        public List<Pedido> Get()
+        public List<Pedido> GetAllPedidos()
         {
-            return pedidoRepository.GetAllPedidos();
+            return pedidoRepository.GetAll();
         }
 
         //UPDATE
-        public Pedido Update(Pedido pedido)
+        public Pedido UpdatePedido(Pedido pedido)
         {
-            return pedidoRepository.UpatePedido(pedido);
+            return pedidoRepository.Upate(pedido);
         }
 
 
         //DELETE
-        public int Delete(int i)
+        public int DeletePedido(int i)
         {
-            return pedidoRepository.DeletePedido(i);
+            return pedidoRepository.Delete(i);
         }
 
 
@@ -55,18 +55,18 @@ namespace RestauranteSustentavel_BE.Services
         //[PedidoSobremesa: BUSCA PEDIDO]
         public List<PedidoSobremesa> BuscaPedido(int idPedido)
         {
-                  
-            return pedidoSobremesaRepository.BuscaPedido(idPedido); 
+
+            return pedidoSobremesaRepository.BuscaPedido(idPedido);
 
         }
 
 
         //[PedidoSobremesa: INSERT]
-        public void AddSobremesaAoPedido (PedidoSobremesa pedidoSobremesa)
+        public void AddSobremesaAoPedido(PedidoSobremesa pedidoSobremesa)
         {
             PedidoSobremesa pedidoSobremesaBD = pedidoSobremesaRepository.BuscaUmaSobremesaEmPedido(pedidoSobremesa.idSobremesa, pedidoSobremesa.idPedido);
 
-            if(pedidoSobremesaBD != null)
+            if (pedidoSobremesaBD != null)
             {
                 //atualiza quantidade de sobremesas nesse pedido
                 pedidoSobremesaBD.quantidade += pedidoSobremesa.quantidade;
@@ -77,7 +77,7 @@ namespace RestauranteSustentavel_BE.Services
             {
                 pedidoSobremesaRepository.InsertPedidoSobremesa(pedidoSobremesa);
 
-            } 
+            }
         }
 
         //[PedidoSobremesa: UPDATE]
@@ -85,14 +85,14 @@ namespace RestauranteSustentavel_BE.Services
         {
             var pedidoSobremesa1 = pedidoSobremesaRepository.BuscaUmaSobremesaEmPedido(pedidoSobremesa.idSobremesa, pedidoSobremesa.idPedido);
 
-            if(pedidoSobremesa1 == null)
+            if (pedidoSobremesa1 == null)
             {
                 return;
             }
 
             pedidoSobremesa1.quantidade = pedidoSobremesa1.quantidade - quantidadeRemover;
 
-            if(pedidoSobremesa1.quantidade > 0)
+            if (pedidoSobremesa1.quantidade > 0)
             {
                 pedidoSobremesaRepository.Update(pedidoSobremesa1);
             }
@@ -100,10 +100,10 @@ namespace RestauranteSustentavel_BE.Services
             {
                 pedidoSobremesaRepository.Delete(pedidoSobremesa1);
             }
-                
-           
+
+
         }
-       
+
 
         //[PedidoBebida: INSERT] 
         public void InsertPedidoBebida(PedidoBebida pedidoBebida)
@@ -137,14 +137,14 @@ namespace RestauranteSustentavel_BE.Services
         {
             var pedidoBebidaBD = pedidoBebidaRepository.BuscaBebidaQueEstaEmPedido(pedidoBebida.idBebida, pedidoBebida.idPedido);
 
-            if(pedidoBebidaBD == null)
+            if (pedidoBebidaBD == null)
             {
                 return;
             }
 
             pedidoBebidaBD.quantidade -= quantidadeRemover;
 
-            if(pedidoBebidaBD.quantidade > 0)
+            if (pedidoBebidaBD.quantidade > 0)
             {
                 pedidoBebidaRepository.UpadatePedidoBebida(pedidoBebidaBD);
             }
