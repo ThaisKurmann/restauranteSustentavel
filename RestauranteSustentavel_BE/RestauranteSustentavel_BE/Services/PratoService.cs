@@ -46,6 +46,11 @@ namespace RestauranteSustentavel_BE.Services
             return ingredientePratoRepository.BuscaPratoEmIngredientePratoBD(idPrato);
         }
 
+        //BUSCA: Retorna ingrediente x se estah na tabela IngredientePrato
+        public IngredientePrato BuscaIngredienteEmIngredientePrato(int idIngrediente, int idPrato)
+        {
+            return ingredientePratoRepository.BuscaIngredienteEmIngredientePrato(idIngrediente, idPrato);
+        }
 
 
 

@@ -105,12 +105,12 @@ namespace RestauranteSustentavel_BE.Repository
             return ingredientePratos;
         }
 
-       /* 
-       public IngredientePrato BuscaUmaSobremesaEmPedido(int idSobremesa, int idPedido)
+       //TODO: Busca ingrendiente x na tabela IngredientePrato
+       public IngredientePrato BuscaIngredienteEmIngredientePrato(int idIngrediente, int idPrato)
        {
-           SQLiteCommand getCmd = new SQLiteCommand("SELECT PedidoSobremesa.fk_PedidoSobremesa_Sobremesa, PedidoSobremesa.fk_PedidoSobremesa_Pedido, PedidoSobremesa.quantidade\r\nFROM PedidoSobremesa\r\nWHERE PedidoSobremesa.fk_PedidoSobremesa_Sobremesa = @idSobremesa AND PedidoSobremesa.fk_PedidoSobremesa_Pedido = @idPedido;", dbContext.connection);
-           getCmd.Parameters.AddWithValue("@idSobremesa", idSobremesa);
-           getCmd.Parameters.AddWithValue("@idPedido", idPedido);
+           SQLiteCommand getCmd = new SQLiteCommand("SELECT IngredientePrato.fk_IngredientePrato_Ingrediente, IngredientePrato.fk_IngredientePrato_Prato, IngredientePrato.quantidade\r\nFROM IngredientePrato\r\nWHERE IngredientePrato.fk_IngredientePrato_Ingrediente = @idIngrediente AND IngredientePrato.fk_IngredientePrato_Prato = @idPrato;", dbContext.connection);
+           getCmd.Parameters.AddWithValue("@idIngrediente", idIngrediente);
+           getCmd.Parameters.AddWithValue("@idPrato", idPrato);
 
 
            SQLiteDataReader reader = getCmd.ExecuteReader();
@@ -122,18 +122,18 @@ namespace RestauranteSustentavel_BE.Repository
                return null;
 
            }
-           var pedidoSobremesa = new PedidoSobremesa()
+           var ingredientePrato = new IngredientePrato()
            {
                quantidade = int.Parse(reader["quantidade"].ToString()),
-               idSobremesa = int.Parse(reader["fk_PedidoSobremesa_Sobremesa"].ToString()),
-               idPedido = int.Parse(reader["fk_PedidoSobremesa_Pedido"].ToString()),
+               idIngrediente = int.Parse(reader["fk_IngredientePrato_Ingrediente"].ToString()),
+               idPrato = int.Parse(reader["fk_IngredientePrato_Prato"].ToString()),
            };
 
 
-           return pedidoSobremesa;
+           return ingredientePrato;
        }
        
-        */
+       
 
     }
 }

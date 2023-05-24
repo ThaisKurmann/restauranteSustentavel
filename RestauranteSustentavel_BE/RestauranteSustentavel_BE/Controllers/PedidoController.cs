@@ -147,5 +147,11 @@ namespace RestauranteSustentavel_BE.Controllers
         {
             return pratoService.BuscaPratoEmIngredientePrato(idPrato);
         }
+
+        [HttpGet("BuscaIngredienteDePrato")]
+        public IngredientePrato BuscaIngredienteEmPrato(int idIngrediente, int idPrato)
+        {
+            return pratoService.BuscaIngredienteEmIngredientePrato(idIngrediente, idPrato);
+        }
     }
 }
