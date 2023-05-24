@@ -55,7 +55,7 @@ namespace RestauranteSustentavel_BE.Repository
         }
 
 
-        //todo:UPDATE
+        //UPDATE
         public IngredientePrato UpadateIngredientePrato(IngredientePrato ingredientePrato)
         {
             SQLiteCommand updateCmd = new SQLiteCommand("UPDATE IngredientePrato \r\nSET quantidade = @quantidade\r\nWHERE IngredientePrato.fk_IngredientePrato_Ingrediente = @idIngrediente AND IngredientePrato.fk_IngredientePrato_Prato = @idPrato;", dbContext.connection);
@@ -105,7 +105,7 @@ namespace RestauranteSustentavel_BE.Repository
             return ingredientePratos;
         }
 
-       //TODO: Busca ingrendiente x na tabela IngredientePrato
+       //Busca ingrendiente x na tabela IngredientePrato
        public IngredientePrato BuscaIngredienteEmIngredientePrato(int idIngrediente, int idPrato)
        {
            SQLiteCommand getCmd = new SQLiteCommand("SELECT IngredientePrato.fk_IngredientePrato_Ingrediente, IngredientePrato.fk_IngredientePrato_Prato, IngredientePrato.quantidade\r\nFROM IngredientePrato\r\nWHERE IngredientePrato.fk_IngredientePrato_Ingrediente = @idIngrediente AND IngredientePrato.fk_IngredientePrato_Prato = @idPrato;", dbContext.connection);

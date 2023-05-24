@@ -19,7 +19,19 @@ namespace RestauranteSustentavel_BE.Services
         //TODO: CREATE implementar maneira correta
         public void Insert(IngredientePrato ingredientePrato)
         {
-            //IngredientePrato ingredientePratoBD = ingredientePratoRepository.BuscaIngredientesEmPrato(ingredientePrato.idIngrediente);
+            IngredientePrato ingredientePratoBD = ingredientePratoRepository.BuscaIngredienteEmIngredientePrato(ingredientePrato.idIngrediente, ingredientePrato.idPrato);
+
+            if(ingredientePratoBD!= null)
+            {
+                //atualiza quantidade de ingrediente nesse prato
+                ingredientePratoBD.quantidade += ingredientePrato.quantidade;
+                //atualiza BD
+                ingredientePratoRepository.UpadateIngredientePrato(ingredientePratoBD);
+            }
+            else
+            {
+                ingredientePratoRepository.Insert(ingredientePrato);
+            }
         }
 
         //READ

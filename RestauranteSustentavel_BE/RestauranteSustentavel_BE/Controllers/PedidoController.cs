@@ -114,7 +114,7 @@ namespace RestauranteSustentavel_BE.Controllers
             return pedidoService.BuscaPedidoQueContemBebida(idPedido);
         }
 
-       //TODO: ARRUMAR -> EM pratoService, implemntar condicoes para que seja criado de maneira correta uma tupla na tabela
+       
         [HttpPost("InsertIngredientePrato")]
         public void InsertIngredientePrato(IngredientePrato ingredientePrato)
         {
