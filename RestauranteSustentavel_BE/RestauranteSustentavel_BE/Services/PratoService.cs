@@ -40,5 +40,11 @@ namespace RestauranteSustentavel_BE.Services
             ingredientePratoRepository.DeleteIngredientePrato(ingredientePrato);
         }
 
+        //BUSCA: Retorna os ingredientes do prato
+        public List<IngredientePrato> BuscaIngrendientesEmPrato(int IdIngrediente)
+        {
+            return ingredientePratoRepository.BuscaIngredientesEmPrato(IdIngrediente);
+        }
+
     }
 }

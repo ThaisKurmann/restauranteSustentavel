@@ -19,7 +19,7 @@ namespace RestauranteSustentavel_BE.Repository
         //CREATE
         public IngredientePrato Insert(IngredientePrato ingredientePrato)
         {
-            SQLiteCommand insertComd = new SQLiteCommand("INSERT into IngredientePrato(quantidade, fk_IngredientePrato_Ingrediente, fk_IngredientePrato_Prato, preco) values (@quantidade, @idIngrediente, @idPrato); ", dbContext.connection);
+            SQLiteCommand insertComd = new SQLiteCommand("INSERT into IngredientePrato(quantidade, fk_IngredientePrato_Ingrediente, fk_IngredientePrato_Prato) values (@quantidade, @idIngrediente, @idPrato); ", dbContext.connection);
             insertComd.Parameters.AddWithValue("@quantidade", ingredientePrato.quantidade);
             insertComd.Parameters.AddWithValue("@idIngrediente", ingredientePrato.idIngrediente);
             insertComd.Parameters.AddWithValue("@idPrato", ingredientePrato.idPrato);
@@ -80,62 +80,60 @@ namespace RestauranteSustentavel_BE.Repository
             deleteCmd.ExecuteNonQuery();
 
         }
-/*
 
-        //BUSCA UM PEDIDO na tabela PedidoBebida
-        public List<PedidoBebida> BuscaPedidoQueContemBebida(int idPedido)
+       
+         //BUSCA UM Ingrediente na tabela IngredientePrato
+        public List<IngredientePrato> BuscaIngredientesEmPrato(int idIngrediente)
         {
-            var pedidoBebidas = new List<PedidoBebida>();
+           var ingredientePratos = new List<IngredientePrato>();
 
-            SQLiteCommand getCmd = new SQLiteCommand("SELECT * FROM PedidoBebida WHERE fk_PedidoBebida_Pedido = @idPedido", dbContext.connection);
-            getCmd.Parameters.AddWithValue("@idPedido", idPedido);
+            SQLiteCommand getCmd = new SQLiteCommand("SELECT * FROM IngredientePrato WHERE fk_IngredientePrato_Ingrediente = @idIngrediente", dbContext.connection);
+            getCmd.Parameters.AddWithValue("@idIngrediente", idIngrediente);
             SQLiteDataReader reader = getCmd.ExecuteReader();
 
-            while (reader.Read())
+            while(reader.Read())
             {
-                var pedidoBebida = new PedidoBebida()
+                var ingredientePrato = new IngredientePrato()
                 {
                     quantidade = int.Parse(reader["quantidade"].ToString()),
-                    idBebida = int.Parse(reader["fk_PedidoBebida_Bebida"].ToString()),
-                    idPedido = int.Parse(reader["fk_PedidoBebida_Pedido"].ToString()),
+                    idIngrediente = int.Parse(reader["fk_IngredientePrato_Ingrediente"].ToString()),
+                    idPrato = int.Parse(reader["fk_IngredientePrato_Prato"].ToString()),
                 };
-                pedidoBebidas.Add(pedidoBebida);
-            }
+                ingredientePratos.Add(ingredientePrato);
+            } 
 
-            return pedidoBebidas;
+            return ingredientePratos;
         }
 
-
-        public PedidoBebida BuscaBebidaQueEstaEmPedido(int idBebida, int idPedido)
-        {
-            SQLiteCommand getCmd = new SQLiteCommand("SELECT PedidoBebida.fk_PedidoBebida_Bebida, PedidoBebida.fk_PedidoBebida_Pedido, PedidoBebida.quantidade\r\nFROM PedidoBebida\r\nWHERE PedidoBebida.fk_PedidoBebida_Bebida = @idBebida AND PedidoBebida.fk_PedidoBebida_Pedido = @idPedido;", dbContext.connection);
-            getCmd.Parameters.AddWithValue("@idBebida", idBebida);
-            getCmd.Parameters.AddWithValue("@idPedido", idPedido);
-
-
-            SQLiteDataReader reader = getCmd.ExecuteReader();
-
-            reader.Read();
-
-            if (!reader.HasRows)
-            {
-
-                return null;
-
-            }
-            var pedidoBebida = new PedidoBebida()
-            {
-                quantidade = int.Parse(reader["quantidade"].ToString()),
-                idBebida = int.Parse(reader["fk_PedidoBebida_Bebida"].ToString()),
-                idPedido = int.Parse(reader["fk_PedidoBebida_Pedido"].ToString()),
-            };
+        /*
+       public PedidoSobremesa BuscaUmaSobremesaEmPedido(int idSobremesa, int idPedido)
+       {
+           SQLiteCommand getCmd = new SQLiteCommand("SELECT PedidoSobremesa.fk_PedidoSobremesa_Sobremesa, PedidoSobremesa.fk_PedidoSobremesa_Pedido, PedidoSobremesa.quantidade\r\nFROM PedidoSobremesa\r\nWHERE PedidoSobremesa.fk_PedidoSobremesa_Sobremesa = @idSobremesa AND PedidoSobremesa.fk_PedidoSobremesa_Pedido = @idPedido;", dbContext.connection);
+           getCmd.Parameters.AddWithValue("@idSobremesa", idSobremesa);
+           getCmd.Parameters.AddWithValue("@idPedido", idPedido);
 
 
-            return pedidoBebida;
-        }
+           SQLiteDataReader reader = getCmd.ExecuteReader();
+
+           reader.Read();
+
+           if(!reader.HasRows) {
+
+               return null;
+
+           }
+           var pedidoSobremesa = new PedidoSobremesa()
+           {
+               quantidade = int.Parse(reader["quantidade"].ToString()),
+               idSobremesa = int.Parse(reader["fk_PedidoSobremesa_Sobremesa"].ToString()),
+               idPedido = int.Parse(reader["fk_PedidoSobremesa_Pedido"].ToString()),
+           };
 
 
+           return pedidoSobremesa;
+       }
         */
+
 
     }
 }
