@@ -114,11 +114,11 @@ namespace RestauranteSustentavel_BE.Controllers
             return pedidoService.BuscaPedidoQueContemBebida(idPedido);
         }
 
-       
+       //TODO: ARRUMAR -> EM pratoService, implemntar condicoes para que seja criado de maneira correta uma tupla na tabela
         [HttpPost("InsertIngredientePrato")]
-        public IngredientePrato InsertIngredientePrato(IngredientePrato ingredientePrato)
+        public void InsertIngredientePrato(IngredientePrato ingredientePrato)
         {
-            return pratoService.Insert(ingredientePrato);
+            pratoService.Insert(ingredientePrato);
         }
 
         
@@ -142,10 +142,10 @@ namespace RestauranteSustentavel_BE.Controllers
         }
 
 
-        [HttpGet("BuscaIngredienteEmPrato")]
-        public List<IngredientePrato> BuscaIngredienteEmPrato(int idIngrediente)
+        [HttpGet("BuscaPratoEmIngredientePrato")]
+        public List<IngredientePrato> BuscaPratoEmIngredientePrato(int idPrato)
         {
-            return pratoService.BuscaIngrendientesEmPrato(idIngrediente);
+            return pratoService.BuscaPratoEmIngredientePrato(idPrato);
         }
     }
 }

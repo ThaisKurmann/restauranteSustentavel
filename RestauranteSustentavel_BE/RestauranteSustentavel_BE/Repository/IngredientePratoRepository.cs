@@ -82,13 +82,13 @@ namespace RestauranteSustentavel_BE.Repository
         }
 
        
-         //BUSCA UM Ingrediente na tabela IngredientePrato
-        public List<IngredientePrato> BuscaIngredientesEmPrato(int idIngrediente)
+         //BUSCA UM Prato na tabela IngredientePrato
+        public List<IngredientePrato> BuscaPratoEmIngredientePratoBD(int idPrato)
         {
            var ingredientePratos = new List<IngredientePrato>();
 
-            SQLiteCommand getCmd = new SQLiteCommand("SELECT * FROM IngredientePrato WHERE fk_IngredientePrato_Ingrediente = @idIngrediente", dbContext.connection);
-            getCmd.Parameters.AddWithValue("@idIngrediente", idIngrediente);
+            SQLiteCommand getCmd = new SQLiteCommand("SELECT * FROM IngredientePrato WHERE fk_IngredientePrato_Prato = @idPrato", dbContext.connection);
+            getCmd.Parameters.AddWithValue("@idPrato", idPrato);
             SQLiteDataReader reader = getCmd.ExecuteReader();
 
             while(reader.Read())
@@ -105,8 +105,8 @@ namespace RestauranteSustentavel_BE.Repository
             return ingredientePratos;
         }
 
-        /*
-       public PedidoSobremesa BuscaUmaSobremesaEmPedido(int idSobremesa, int idPedido)
+       /* 
+       public IngredientePrato BuscaUmaSobremesaEmPedido(int idSobremesa, int idPedido)
        {
            SQLiteCommand getCmd = new SQLiteCommand("SELECT PedidoSobremesa.fk_PedidoSobremesa_Sobremesa, PedidoSobremesa.fk_PedidoSobremesa_Pedido, PedidoSobremesa.quantidade\r\nFROM PedidoSobremesa\r\nWHERE PedidoSobremesa.fk_PedidoSobremesa_Sobremesa = @idSobremesa AND PedidoSobremesa.fk_PedidoSobremesa_Pedido = @idPedido;", dbContext.connection);
            getCmd.Parameters.AddWithValue("@idSobremesa", idSobremesa);
@@ -132,8 +132,8 @@ namespace RestauranteSustentavel_BE.Repository
 
            return pedidoSobremesa;
        }
+       
         */
-
 
     }
 }
