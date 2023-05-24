@@ -81,9 +81,9 @@ namespace RestauranteSustentavel_BE.Controllers
       
 
         [HttpPost("InsertPedidoBebida")]
-        public PedidoBebida InsertPedidoBebida(PedidoBebida pedidoBebida)
+        public void InsertPedidoBebida(PedidoBebida pedidoBebida)
         {
-            return pedidoService.InsertPedidoBebida(pedidoBebida);
+            pedidoService.InsertPedidoBebida(pedidoBebida);
         }
 
 
@@ -96,9 +96,9 @@ namespace RestauranteSustentavel_BE.Controllers
 
         
         [HttpPut("UpdatePedidoBebida")] 
-        public PedidoBebida UpdatePedidoBebida(PedidoBebida pedidoBebida)
+        public void UpdatePedidoBebida(PedidoBebida pedidoBebida, int quantidadeRemover)
         {
-            return pedidoService.UpdatePedidoBebida(pedidoBebida);
+            pedidoService.UpdatePedidoBebida(pedidoBebida, quantidadeRemover);
         }
 
         

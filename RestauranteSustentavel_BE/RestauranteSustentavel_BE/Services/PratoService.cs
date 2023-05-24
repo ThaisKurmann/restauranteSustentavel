@@ -16,7 +16,7 @@ namespace RestauranteSustentavel_BE.Services
             this.ingredientePratoRepository = ingredientePratoRepository;
         }
 
-        //CREATE implementar maneira correta
+        //CREATE 
         public void Insert(IngredientePrato ingredientePrato)
         {
             IngredientePrato ingredientePratoBD = ingredientePratoRepository.BuscaIngredienteEmIngredientePrato(ingredientePrato.idIngrediente, ingredientePrato.idPrato);

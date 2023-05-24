@@ -45,14 +45,14 @@ namespace RestauranteSustentavel_BE.Services
         }
 
 
-        //[PedidoSobremesa]
+        //[PedidoSobremesa: READ]
         public List<PedidoSobremesa> GetAllPedidoSobremesa()
         {
             return pedidoSobremesaRepository.GetAllPedidoSobremesa();
         }
 
 
-        //[PedidoSobremesa]
+        //[PedidoSobremesa: BUSCA PEDIDO]
         public List<PedidoSobremesa> BuscaPedido(int idPedido)
         {
                   
@@ -61,7 +61,7 @@ namespace RestauranteSustentavel_BE.Services
         }
 
 
-        //[PedidoSobremesa]
+        //[PedidoSobremesa: INSERT]
         public void AddSobremesaAoPedido (PedidoSobremesa pedidoSobremesa)
         {
             PedidoSobremesa pedidoSobremesaBD = pedidoSobremesaRepository.BuscaUmaSobremesaEmPedido(pedidoSobremesa.idSobremesa, pedidoSobremesa.idPedido);
@@ -80,7 +80,7 @@ namespace RestauranteSustentavel_BE.Services
             } 
         }
 
-        //[PedidoSobremesa]
+        //[PedidoSobremesa: UPDATE]
         public void RemoveAlteraQuantidadeSobremesaNoPedido(PedidoSobremesa pedidoSobremesa, int quantidadeRemover)
         {
             var pedidoSobremesa1 = pedidoSobremesaRepository.BuscaUmaSobremesaEmPedido(pedidoSobremesa.idSobremesa, pedidoSobremesa.idPedido);
@@ -105,32 +105,63 @@ namespace RestauranteSustentavel_BE.Services
         }
        
 
-        //[PedidoBebida] 
-        public PedidoBebida InsertPedidoBebida(PedidoBebida pedidoBebida)
+        //[PedidoBebida: INSERT] 
+        public void InsertPedidoBebida(PedidoBebida pedidoBebida)
         {
-            return pedidoBebidaRepository.Insert(pedidoBebida);
+            var pedidoBebidaBD = pedidoBebidaRepository.BuscaBebidaQueEstaEmPedido(pedidoBebida.idBebida, pedidoBebida.idPedido);
+
+            if (pedidoBebidaBD != null)
+            {
+                //atualiza quantidade de sobremesas nesse pedido
+                pedidoBebidaBD.quantidade += pedidoBebida.quantidade;
+                //atualiza dados no BD
+                pedidoBebidaRepository.UpadatePedidoBebida(pedidoBebidaBD);
+            }
+            else
+            {
+                pedidoBebidaRepository.Insert(pedidoBebida);
+            }
+
+
         }
 
-        //[PedidoBebida] 
+        //[PedidoBebida: READ] 
         public List<PedidoBebida> GetAllPedidoBebida()
         {
             return pedidoBebidaRepository.GetAllPedidoBebida();
 
         }
 
-        //[PedidoBebida] 
-        public PedidoBebida UpdatePedidoBebida(PedidoBebida pedidoBebida)
+        //[PedidoBebida: UPDATE]
+        public void UpdatePedidoBebida(PedidoBebida pedidoBebida, int quantidadeRemover)
         {
-            return pedidoBebidaRepository.UpadatePedidoBebida(pedidoBebida);
+            var pedidoBebidaBD = pedidoBebidaRepository.BuscaBebidaQueEstaEmPedido(pedidoBebida.idBebida, pedidoBebida.idPedido);
+
+            if(pedidoBebidaBD == null)
+            {
+                return;
+            }
+
+            pedidoBebidaBD.quantidade -= quantidadeRemover;
+
+            if(pedidoBebidaBD.quantidade > 0)
+            {
+                pedidoBebidaRepository.UpadatePedidoBebida(pedidoBebidaBD);
+            }
+            else
+            {
+                pedidoBebidaRepository.DeletePedidoBebida(pedidoBebidaBD);
+            }
+
         }
 
-        //[PedidoBebida] 
+        //[PedidoBebida: DELETE] 
         public void DeletePedidoBebida(PedidoBebida pedidoBebida)
         {
             pedidoBebidaRepository.DeletePedidoBebida(pedidoBebida);
         }
 
-        //[PedidoBebida] 
+        //[PedidoBebida: BUSCA PEDIDOS] 
         public List<PedidoBebida> BuscaPedidoQueContemBebida(int idPedido)
         {
             return pedidoBebidaRepository.BuscaPedidoQueContemBebida(idPedido);
