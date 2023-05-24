@@ -128,11 +128,10 @@ namespace RestauranteSustentavel_BE.Controllers
             return pratoService.GetAllIngredientePrato();
         }
 
-        
         [HttpPut("UpdateIngredientePrato")]
-        public IngredientePrato UpdateIngredientePrato(IngredientePrato ingredientePrato)
+        public void UpdateIngredientePrato(IngredientePrato ingredientePrato, int quantidadeRemover)
         {
-            return pratoService.UpdateIngredientePrato(ingredientePrato);
+            pratoService.UpdateIngredientePrato(ingredientePrato, quantidadeRemover);
         }
 
         [HttpDelete("DeleteIngredientePrato")]

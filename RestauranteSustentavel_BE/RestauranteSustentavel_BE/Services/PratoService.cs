@@ -16,7 +16,7 @@ namespace RestauranteSustentavel_BE.Services
             this.ingredientePratoRepository = ingredientePratoRepository;
         }
 
-        //TODO: CREATE implementar maneira correta
+        //CREATE implementar maneira correta
         public void Insert(IngredientePrato ingredientePrato)
         {
             IngredientePrato ingredientePratoBD = ingredientePratoRepository.BuscaIngredienteEmIngredientePrato(ingredientePrato.idIngrediente, ingredientePrato.idPrato);
@@ -41,9 +41,27 @@ namespace RestauranteSustentavel_BE.Services
         }
 
         //UPDATE
-        public IngredientePrato UpdateIngredientePrato(IngredientePrato ingredientePrato)
+        public void UpdateIngredientePrato(IngredientePrato ingredientePrato, int quantidadeRemover)
         {
-            return ingredientePratoRepository.UpadateIngredientePrato(ingredientePrato);
+            var ingredientePratoBD = ingredientePratoRepository.BuscaIngredienteEmIngredientePrato(ingredientePrato.idIngrediente, ingredientePrato.idPrato);
+            
+
+            if(ingredientePratoBD == null)
+            {
+                return;
+            }
+
+            ingredientePratoBD.quantidade -= quantidadeRemover;
+
+            if(ingredientePratoBD.quantidade > 0)
+            {
+                ingredientePratoRepository.UpadateIngredientePrato(ingredientePratoBD);
+            }
+            else
+            {
+                ingredientePratoRepository.DeleteIngredientePrato(ingredientePratoBD);
+            }
+
         }
 
         //DELETE

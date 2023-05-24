@@ -15,7 +15,9 @@ namespace RestauranteSustentavel_BE.Repository
         }
 
 
-        
+        /*TODO: CORRIGIR NOME DOS METODOS CRUD-> deixar de maneira mais limpa possivel, como: Insert*/
+
+
         //CREATE
         public IngredientePrato Insert(IngredientePrato ingredientePrato)
         {
