@@ -19,26 +19,26 @@ namespace RestauranteSustentavel_BE.Services
 
 
 
-        //CREATE
+        //[Pedido: CREATE]
         public Pedido InsertPedido(Pedido pedido)
         {
             return pedidoRepository.Insert(pedido);
         }
 
-        //READ
+        //[Pedido: READ]
         public List<Pedido> GetAllPedidos()
         {
             return pedidoRepository.GetAll();
         }
 
-        //UPDATE
+        //[Pedido: UPDATE]
         public Pedido UpdatePedido(Pedido pedido)
         {
             return pedidoRepository.Upate(pedido);
         }
 
 
-        //DELETE
+        //[Pedido: DELETE]
         public int DeletePedido(int i)
         {
             return pedidoRepository.Delete(i);
@@ -48,21 +48,21 @@ namespace RestauranteSustentavel_BE.Services
         //[PedidoSobremesa: READ]
         public List<PedidoSobremesa> GetAllPedidoSobremesa()
         {
-            return pedidoSobremesaRepository.GetAllPedidoSobremesa();
+            return pedidoSobremesaRepository.GetAll();
         }
 
 
         //[PedidoSobremesa: BUSCA PEDIDO]
-        public List<PedidoSobremesa> BuscaPedido(int idPedido)
+        public List<PedidoSobremesa> BuscaPedidoEmPedidoSobremesa(int idPedido)
         {
 
-            return pedidoSobremesaRepository.BuscaPedido(idPedido);
+            return pedidoSobremesaRepository.BuscaPedidoEmPedidoSobremesa(idPedido);
 
         }
 
 
         //[PedidoSobremesa: INSERT]
-        public void AddSobremesaAoPedido(PedidoSobremesa pedidoSobremesa)
+        public void InsertSobremesaEmPedidoSobremesa(PedidoSobremesa pedidoSobremesa)
         {
             PedidoSobremesa pedidoSobremesaBD = pedidoSobremesaRepository.BuscaUmaSobremesaEmPedido(pedidoSobremesa.idSobremesa, pedidoSobremesa.idPedido);
 
@@ -75,13 +75,13 @@ namespace RestauranteSustentavel_BE.Services
             }
             else
             {
-                pedidoSobremesaRepository.InsertPedidoSobremesa(pedidoSobremesa);
+                pedidoSobremesaRepository.Insert(pedidoSobremesa);
 
             }
         }
 
         //[PedidoSobremesa: UPDATE]
-        public void RemoveAlteraQuantidadeSobremesaNoPedido(PedidoSobremesa pedidoSobremesa, int quantidadeRemover)
+        public void RemoveSobremesaEmPedidoSobremesa(PedidoSobremesa pedidoSobremesa, int quantidadeRemover)
         {
             var pedidoSobremesa1 = pedidoSobremesaRepository.BuscaUmaSobremesaEmPedido(pedidoSobremesa.idSobremesa, pedidoSobremesa.idPedido);
 

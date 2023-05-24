@@ -15,7 +15,7 @@ namespace RestauranteSustentavel_BE.Repository
         }
 
         //CREATE
-        public PedidoSobremesa InsertPedidoSobremesa(PedidoSobremesa pedidoSobremesa)
+        public PedidoSobremesa Insert(PedidoSobremesa pedidoSobremesa)
         {
             SQLiteCommand insertComd = new SQLiteCommand("INSERT into PedidoSobremesa(quantidade, fk_PedidoSobremesa_Sobremesa, fk_PedidoSobremesa_Pedido) values (@quantidade, @idSobremesa, @idPedido); ", dbContext.connection);
             insertComd.Parameters.AddWithValue("@quantidade", pedidoSobremesa.quantidade);
@@ -29,7 +29,7 @@ namespace RestauranteSustentavel_BE.Repository
 
 
         //READ
-        public List<PedidoSobremesa> GetAllPedidoSobremesa()
+        public List<PedidoSobremesa> GetAll()
         {
             var pedidoSobremesas = new List<PedidoSobremesa>();
 
@@ -75,7 +75,7 @@ namespace RestauranteSustentavel_BE.Repository
         }
 
         //BUSCA UM PEDIDO na tabela PedidoSobremesa
-        public List<PedidoSobremesa> BuscaPedido(int idPedido)
+        public List<PedidoSobremesa> BuscaPedidoEmPedidoSobremesa(int idPedido)
         {
            var pedidoSobremesas = new List<PedidoSobremesa>();
 
