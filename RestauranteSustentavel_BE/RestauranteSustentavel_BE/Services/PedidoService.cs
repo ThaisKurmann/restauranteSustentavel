@@ -115,7 +115,7 @@ namespace RestauranteSustentavel_BE.Services
                 //atualiza quantidade de sobremesas nesse pedido
                 pedidoBebidaBD.quantidade += pedidoBebida.quantidade;
                 //atualiza dados no BD
-                pedidoBebidaRepository.UpadatePedidoBebida(pedidoBebidaBD);
+                pedidoBebidaRepository.Upadate(pedidoBebidaBD);
             }
             else
             {
@@ -128,12 +128,12 @@ namespace RestauranteSustentavel_BE.Services
         //[PedidoBebida: READ] 
         public List<PedidoBebida> GetAllPedidoBebida()
         {
-            return pedidoBebidaRepository.GetAllPedidoBebida();
+            return pedidoBebidaRepository.GetAll();
 
         }
 
         //[PedidoBebida: UPDATE]
-        public void UpdatePedidoBebida(PedidoBebida pedidoBebida, int quantidadeRemover)
+        public void UpdateQuantidadeBebidaEmPedidoBebida(PedidoBebida pedidoBebida, int quantidadeRemover)
         {
             var pedidoBebidaBD = pedidoBebidaRepository.BuscaBebidaQueEstaEmPedido(pedidoBebida.idBebida, pedidoBebida.idPedido);
 
@@ -146,11 +146,11 @@ namespace RestauranteSustentavel_BE.Services
 
             if (pedidoBebidaBD.quantidade > 0)
             {
-                pedidoBebidaRepository.UpadatePedidoBebida(pedidoBebidaBD);
+                pedidoBebidaRepository.Upadate(pedidoBebidaBD);
             }
             else
             {
-                pedidoBebidaRepository.DeletePedidoBebida(pedidoBebidaBD);
+                pedidoBebidaRepository.Delete(pedidoBebidaBD);
             }
 
         }
@@ -158,13 +158,13 @@ namespace RestauranteSustentavel_BE.Services
         //[PedidoBebida: DELETE] 
         public void DeletePedidoBebida(PedidoBebida pedidoBebida)
         {
-            pedidoBebidaRepository.DeletePedidoBebida(pedidoBebida);
+            pedidoBebidaRepository.Delete(pedidoBebida);
         }
 
         //[PedidoBebida: BUSCA PEDIDOS] 
-        public List<PedidoBebida> BuscaPedidoQueContemBebida(int idPedido)
+        public List<PedidoBebida> BuscaPedidoEmPedidoBebida(int idPedido)
         {
-            return pedidoBebidaRepository.BuscaPedidoQueContemBebida(idPedido);
+            return pedidoBebidaRepository.BuscaPedidoEmPedidoBebida(idPedido);
         }
 
 

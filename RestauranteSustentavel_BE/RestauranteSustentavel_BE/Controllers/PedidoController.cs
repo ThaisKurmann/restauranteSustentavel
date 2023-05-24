@@ -94,10 +94,10 @@ namespace RestauranteSustentavel_BE.Controllers
         }
 
 
-        [HttpPut("UpdatePedidoBebida")]
-        public void UpdatePedidoBebida(PedidoBebida pedidoBebida, int quantidadeRemover)
+        [HttpPut("UpdateQuantidadeBebidaEmPedidoBebida")]
+        public void UpdateQuantidadeBebidaEmPedidoBebida(PedidoBebida pedidoBebida, int quantidadeRemover)
         {
-            pedidoService.UpdatePedidoBebida(pedidoBebida, quantidadeRemover);
+            pedidoService.UpdateQuantidadeBebidaEmPedidoBebida(pedidoBebida, quantidadeRemover);
         }
 
 
@@ -107,10 +107,10 @@ namespace RestauranteSustentavel_BE.Controllers
             pedidoService.DeletePedidoBebida(pedidoBebida);
         }
 
-        [HttpGet("BuscaPedidoQueContemBebida")]
-        public List<PedidoBebida> BuscaPedidoQueContemBebida(int idPedido)
+        [HttpGet("BuscaPedidoEmPedidoBebida")]
+        public List<PedidoBebida> BuscaPedidoEmPedidoBebida(int idPedido)
         {
-            return pedidoService.BuscaPedidoQueContemBebida(idPedido);
+            return pedidoService.BuscaPedidoEmPedidoBebida(idPedido);
         }
 
 

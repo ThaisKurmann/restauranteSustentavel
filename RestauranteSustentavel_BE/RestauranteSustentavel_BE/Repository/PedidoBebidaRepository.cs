@@ -32,7 +32,7 @@ namespace RestauranteSustentavel_BE.Repository
 
 
         //READ
-       public List<PedidoBebida> GetAllPedidoBebida()
+       public List<PedidoBebida> GetAll()
         {
             var pedidoBebidas = new List<PedidoBebida>();
 
@@ -56,7 +56,7 @@ namespace RestauranteSustentavel_BE.Repository
 
         
         //UPDATE
-        public PedidoBebida UpadatePedidoBebida(PedidoBebida pedidoBebida)
+        public PedidoBebida Upadate(PedidoBebida pedidoBebida)
         {
             SQLiteCommand updateCmd = new SQLiteCommand("UPDATE PedidoBebida \r\nSET quantidade = @quantidade\r\nWHERE PedidoBebida.fk_PedidoBebida_Bebida = @idBebida AND PedidoBebida.fk_PedidoBebida_Pedido = @idPedido;", dbContext.connection);
             updateCmd.Parameters.AddWithValue("@quantidade", pedidoBebida.quantidade);
@@ -72,7 +72,7 @@ namespace RestauranteSustentavel_BE.Repository
 
 
         //DELETE
-        public void DeletePedidoBebida(PedidoBebida pedidoBebida)
+        public void Delete(PedidoBebida pedidoBebida)
         {
             SQLiteCommand deleteCmd = new SQLiteCommand("DELETE FROM PedidoBebida WHERE fk_PedidoBebida_Bebida = @idBebida AND fk_PedidoBebida_Pedido = @idPedido", dbContext.connection);
             deleteCmd.Parameters.AddWithValue("@idBebida", pedidoBebida.idBebida);
@@ -83,7 +83,7 @@ namespace RestauranteSustentavel_BE.Repository
 
 
         //BUSCA UM PEDIDO na tabela PedidoBebida
-        public List<PedidoBebida> BuscaPedidoQueContemBebida(int idPedido)
+        public List<PedidoBebida> BuscaPedidoEmPedidoBebida(int idPedido)
         {
             var pedidoBebidas = new List<PedidoBebida>();
 
