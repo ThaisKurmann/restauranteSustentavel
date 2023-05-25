@@ -17,7 +17,7 @@ namespace RestauranteSustentavel_BE.Services
         }
 
         //CREATE 
-        public void Insert(IngredientePrato ingredientePrato)
+        public void InsertIngredientePrato(IngredientePrato ingredientePrato)
         {
             IngredientePrato ingredientePratoBD = ingredientePratoRepository.BuscaIngredienteEmIngredientePrato(ingredientePrato.idIngrediente, ingredientePrato.idPrato);
 
@@ -26,7 +26,7 @@ namespace RestauranteSustentavel_BE.Services
                 //atualiza quantidade de ingrediente nesse prato
                 ingredientePratoBD.quantidade += ingredientePrato.quantidade;
                 //atualiza BD
-                ingredientePratoRepository.UpadateIngredientePrato(ingredientePratoBD);
+                ingredientePratoRepository.Update(ingredientePratoBD);
             }
             else
             {
@@ -37,11 +37,11 @@ namespace RestauranteSustentavel_BE.Services
         //READ
         public List<IngredientePrato> GetAllIngredientePrato()
         {
-            return ingredientePratoRepository.GetAllIngredientePrato();
+            return ingredientePratoRepository.GetAll();
         }
 
         //UPDATE
-        public void UpdateIngredientePrato(IngredientePrato ingredientePrato, int quantidadeRemover)
+        public void UpdateQuantidadeIngredienteEmIngredientePrato(IngredientePrato ingredientePrato, int quantidadeRemover)
         {
             var ingredientePratoBD = ingredientePratoRepository.BuscaIngredienteEmIngredientePrato(ingredientePrato.idIngrediente, ingredientePrato.idPrato);
             
@@ -55,11 +55,11 @@ namespace RestauranteSustentavel_BE.Services
 
             if(ingredientePratoBD.quantidade > 0)
             {
-                ingredientePratoRepository.UpadateIngredientePrato(ingredientePratoBD);
+                ingredientePratoRepository.Update(ingredientePratoBD);
             }
             else
             {
-                ingredientePratoRepository.DeleteIngredientePrato(ingredientePratoBD);
+                ingredientePratoRepository.Delete(ingredientePratoBD);
             }
 
         }
@@ -67,16 +67,16 @@ namespace RestauranteSustentavel_BE.Services
         //DELETE
         public void DeleteIngredientePrato(IngredientePrato ingredientePrato)
         {
-            ingredientePratoRepository.DeleteIngredientePrato(ingredientePrato);
+            ingredientePratoRepository.Delete(ingredientePrato);
         }
 
         //BUSCA: Retorna prato da tabela IngredientePrato
         public List<IngredientePrato> BuscaPratoEmIngredientePrato(int idPrato)
         {
-            return ingredientePratoRepository.BuscaPratoEmIngredientePratoBD(idPrato);
+            return ingredientePratoRepository.BuscaPratoEmIngredientePrato(idPrato);
         }
 
-        //BUSCA: Retorna ingrediente x se estah na tabela IngredientePrato
+        //todo: BUSCA: Retorna ingrediente x se estah na tabela IngredientePrato
         public IngredientePrato BuscaIngredienteEmIngredientePrato(int idIngrediente, int idPrato)
         {
             return ingredientePratoRepository.BuscaIngredienteEmIngredientePrato(idIngrediente, idPrato);

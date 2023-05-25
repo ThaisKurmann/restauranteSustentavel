@@ -64,7 +64,7 @@ namespace RestauranteSustentavel_BE.Services
         //[PedidoSobremesa: INSERT]
         public void InsertSobremesaEmPedidoSobremesa(PedidoSobremesa pedidoSobremesa)
         {
-            PedidoSobremesa pedidoSobremesaBD = pedidoSobremesaRepository.BuscaUmaSobremesaEmPedido(pedidoSobremesa.idSobremesa, pedidoSobremesa.idPedido);
+            PedidoSobremesa pedidoSobremesaBD = pedidoSobremesaRepository.BuscaSobremesaEmPedidoSobremesa(pedidoSobremesa.idSobremesa, pedidoSobremesa.idPedido);
 
             if (pedidoSobremesaBD != null)
             {
@@ -81,9 +81,9 @@ namespace RestauranteSustentavel_BE.Services
         }
 
         //[PedidoSobremesa: UPDATE]
-        public void RemoveSobremesaEmPedidoSobremesa(PedidoSobremesa pedidoSobremesa, int quantidadeRemover)
+        public void UpdateQuantidadeSobremesaEmPedidoSobremesa(PedidoSobremesa pedidoSobremesa, int quantidadeRemover)
         {
-            var pedidoSobremesa1 = pedidoSobremesaRepository.BuscaUmaSobremesaEmPedido(pedidoSobremesa.idSobremesa, pedidoSobremesa.idPedido);
+            var pedidoSobremesa1 = pedidoSobremesaRepository.BuscaSobremesaEmPedidoSobremesa(pedidoSobremesa.idSobremesa, pedidoSobremesa.idPedido);
 
             if (pedidoSobremesa1 == null)
             {

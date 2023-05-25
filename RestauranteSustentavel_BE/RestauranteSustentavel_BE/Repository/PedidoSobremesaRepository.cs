@@ -41,12 +41,11 @@ namespace RestauranteSustentavel_BE.Repository
                 var pedidoSobremesa = new PedidoSobremesa()
                 {
                     quantidade = int.Parse(reader["quantidade"].ToString()),
-                    //preco = float.Parse(reader["preco"].ToString()), //pega o resultado e compara com 1, resultando em um booleano, ou seja, se a == 1, entao eh verdadeiro;
                     idSobremesa = int.Parse(reader["fk_PedidoSobremesa_Sobremesa"].ToString()),//pegando o Id da tabela Bebida
                     idPedido = int.Parse(reader["fk_PedidoSobremesa_Pedido"].ToString()),
                 };
 
-                pedidoSobremesas.Add(pedidoSobremesa);//add o obj na lista bebidas
+                pedidoSobremesas.Add(pedidoSobremesa);
             }
 
             return pedidoSobremesas;
@@ -74,7 +73,7 @@ namespace RestauranteSustentavel_BE.Repository
             deleteCmd.ExecuteNonQuery();
         }
 
-        //BUSCA UM PEDIDO na tabela PedidoSobremesa
+        //BUSCA: Pedido
         public List<PedidoSobremesa> BuscaPedidoEmPedidoSobremesa(int idPedido)
         {
            var pedidoSobremesas = new List<PedidoSobremesa>();
@@ -97,8 +96,8 @@ namespace RestauranteSustentavel_BE.Repository
             return pedidoSobremesas;
         }
 
-        
-        public PedidoSobremesa BuscaUmaSobremesaEmPedido(int idSobremesa, int idPedido)
+        //BUSCA: Sobremesa
+        public PedidoSobremesa BuscaSobremesaEmPedidoSobremesa(int idSobremesa, int idPedido)
         {
             SQLiteCommand getCmd = new SQLiteCommand("SELECT PedidoSobremesa.fk_PedidoSobremesa_Sobremesa, PedidoSobremesa.fk_PedidoSobremesa_Pedido, PedidoSobremesa.quantidade\r\nFROM PedidoSobremesa\r\nWHERE PedidoSobremesa.fk_PedidoSobremesa_Sobremesa = @idSobremesa AND PedidoSobremesa.fk_PedidoSobremesa_Pedido = @idPedido;", dbContext.connection);
             getCmd.Parameters.AddWithValue("@idSobremesa", idSobremesa);

@@ -28,7 +28,7 @@ namespace RestauranteSustentavel_BE.Controllers
         }
 
 
-        [HttpGet("Read")]
+        [HttpGet("GetAll")]
         public List<Pedido> GetAllPedidos()
         {
             return pedidoService.GetAllPedidos();
@@ -69,11 +69,11 @@ namespace RestauranteSustentavel_BE.Controllers
         }
 
 
-        [HttpPost("RemoveSobremesaEmPedidoSobremesa")]
-        public void RemoveSobremesaEmPedidoSobremesa(PedidoSobremesa pedidoSobremesa, int quantidadeRemover)
+        [HttpPost("UpdateQuantidadeSobremesaEmPedidoSobremesa")]
+        public void UpdateQuantidadeSobremesaEmPedidoSobremesa(PedidoSobremesa pedidoSobremesa, int quantidadeRemover)
         {
 
-            pedidoService.RemoveSobremesaEmPedidoSobremesa(pedidoSobremesa, quantidadeRemover);
+            pedidoService.UpdateQuantidadeSobremesaEmPedidoSobremesa(pedidoSobremesa, quantidadeRemover);
 
         }
 
@@ -117,7 +117,7 @@ namespace RestauranteSustentavel_BE.Controllers
         [HttpPost("InsertIngredientePrato")]
         public void InsertIngredientePrato(IngredientePrato ingredientePrato)
         {
-            pratoService.Insert(ingredientePrato);
+            pratoService.InsertIngredientePrato(ingredientePrato);
         }
 
 
@@ -127,10 +127,10 @@ namespace RestauranteSustentavel_BE.Controllers
             return pratoService.GetAllIngredientePrato();
         }
 
-        [HttpPut("UpdateIngredientePrato")]
-        public void UpdateIngredientePrato(IngredientePrato ingredientePrato, int quantidadeRemover)
+        [HttpPut("UpdateQuantidadeIngredienteEmIngredientePrato")]
+        public void UpdateQuantidadeIngredienteEmIngredientePrato(IngredientePrato ingredientePrato, int quantidadeRemover)
         {
-            pratoService.UpdateIngredientePrato(ingredientePrato, quantidadeRemover);
+            pratoService.UpdateQuantidadeIngredienteEmIngredientePrato(ingredientePrato, quantidadeRemover);
         }
 
         [HttpDelete("DeleteIngredientePrato")]
@@ -146,8 +146,8 @@ namespace RestauranteSustentavel_BE.Controllers
             return pratoService.BuscaPratoEmIngredientePrato(idPrato);
         }
 
-        [HttpGet("BuscaIngredienteDePrato")]
-        public IngredientePrato BuscaIngredienteEmPrato(int idIngrediente, int idPrato)
+        [HttpGet("BuscaIngredienteEmIngredientePrato")]
+        public IngredientePrato BuscaIngredienteEmIngredientePrato(int idIngrediente, int idPrato)
         {
             return pratoService.BuscaIngredienteEmIngredientePrato(idIngrediente, idPrato);
         }

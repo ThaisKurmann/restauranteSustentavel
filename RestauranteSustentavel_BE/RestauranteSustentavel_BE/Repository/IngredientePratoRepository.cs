@@ -34,7 +34,7 @@ namespace RestauranteSustentavel_BE.Repository
 
 
         //READ
-        public List<IngredientePrato> GetAllIngredientePrato()
+        public List<IngredientePrato> GetAll()
         {
             var ingredientePratos = new List<IngredientePrato>();
 
@@ -58,7 +58,7 @@ namespace RestauranteSustentavel_BE.Repository
 
 
         //UPDATE
-        public IngredientePrato UpadateIngredientePrato(IngredientePrato ingredientePrato)
+        public IngredientePrato Update(IngredientePrato ingredientePrato)
         {
             SQLiteCommand updateCmd = new SQLiteCommand("UPDATE IngredientePrato \r\nSET quantidade = @quantidade\r\nWHERE IngredientePrato.fk_IngredientePrato_Ingrediente = @idIngrediente AND IngredientePrato.fk_IngredientePrato_Prato = @idPrato;", dbContext.connection);
             updateCmd.Parameters.AddWithValue("@quantidade", ingredientePrato.quantidade);
@@ -74,7 +74,7 @@ namespace RestauranteSustentavel_BE.Repository
 
 
         //DELETE
-        public void DeleteIngredientePrato(IngredientePrato ingredientePrato)
+        public void Delete(IngredientePrato ingredientePrato)
         {
             SQLiteCommand deleteCmd = new SQLiteCommand("DELETE FROM IngredientePrato WHERE fk_IngredientePrato_Ingrediente = @idIngrediente AND fk_IngredientePrato_Prato = @idPrato", dbContext.connection);
             deleteCmd.Parameters.AddWithValue("@idIngrediente", ingredientePrato.idIngrediente);
@@ -85,7 +85,7 @@ namespace RestauranteSustentavel_BE.Repository
 
        
          //BUSCA UM Prato na tabela IngredientePrato
-        public List<IngredientePrato> BuscaPratoEmIngredientePratoBD(int idPrato)
+        public List<IngredientePrato> BuscaPratoEmIngredientePrato(int idPrato)
         {
            var ingredientePratos = new List<IngredientePrato>();
 
