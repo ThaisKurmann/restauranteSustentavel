@@ -1,4 +1,5 @@
 ﻿using RestauranteSustentavel_BE.Models;
+using RestauranteSustentavel_BE.Services;
 using System.Data.Entity;
 using System.Data.SQLite;
 
@@ -60,6 +61,17 @@ namespace RestauranteSustentavel_BE.Repository
             return pratos;
         }
 
+     
+        //todo: DELETE
+        public int Delete(int i)
+        {
+            SQLiteCommand deleteCmd = new SQLiteCommand("DELETE FROM Prato WHERE id = @id", dbContext.connection);
+            deleteCmd.Parameters.AddWithValue("@id", i);
+
+            deleteCmd.ExecuteNonQuery();
+
+            return i;//retorna o prato que foi excluido
+        }
 
 
 

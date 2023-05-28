@@ -30,6 +30,12 @@ namespace RestauranteSustentavel_BE.Services
             return pratoRepository.GetAll();
         }
 
+        //[Prato: DELETE]
+        public void DeletePrato(int id)
+        {
+            pratoRepository.Delete(id);
+        }
+
       
 
         //[IngredientePrato: CREATE]

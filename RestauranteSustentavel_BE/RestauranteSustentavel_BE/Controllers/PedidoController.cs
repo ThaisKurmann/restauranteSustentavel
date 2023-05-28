@@ -165,5 +165,11 @@ namespace RestauranteSustentavel_BE.Controllers
         {
             return pratoService.GetAllPrato();
         }
+
+        [HttpDelete("DeletePrato")]
+        public void DeletePrato(int idPrato)
+        {
+            pratoService.DeletePrato(idPrato);
+        }
     }
 }

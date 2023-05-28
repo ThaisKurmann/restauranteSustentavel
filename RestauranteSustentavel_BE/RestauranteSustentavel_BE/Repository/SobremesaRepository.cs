@@ -81,10 +81,10 @@ namespace RestauranteSustentavel_BE.Repository
         //DELETE
         public int DeleteSobremesa(int i)
         {
-            SQLiteCommand updateCmd = new SQLiteCommand("DELETE FROM Sobremesa WHERE id = @id", dbContext.connection);
-            updateCmd.Parameters.AddWithValue("@id", i);
+            SQLiteCommand deleteCmd = new SQLiteCommand("DELETE FROM Sobremesa WHERE id = @id", dbContext.connection);
+            deleteCmd.Parameters.AddWithValue("@id", i);
 
-            updateCmd.ExecuteNonQuery();
+            deleteCmd.ExecuteNonQuery();
 
             return i;//retorna a sobremesa que foi excluida
         }
