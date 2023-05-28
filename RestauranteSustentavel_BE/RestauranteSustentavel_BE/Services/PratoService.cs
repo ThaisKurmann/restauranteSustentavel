@@ -18,12 +18,19 @@ namespace RestauranteSustentavel_BE.Services
             this.pratoRepository = pratoRepository; 
         }
 
-
         //[Prato: CREATE]
+        public Prato InsertPrato(Prato prato)
+        {
+            return pratoRepository.Insert(prato);
+        }
+
+        //[Prato: READ]
         public List<Prato> GetAllPrato()
         {
             return pratoRepository.GetAll();
         }
+
+      
 
         //[IngredientePrato: CREATE]
         public void InsertIngredientePrato(IngredientePrato ingredientePrato)
