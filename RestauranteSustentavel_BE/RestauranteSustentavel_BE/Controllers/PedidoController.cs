@@ -48,17 +48,17 @@ namespace RestauranteSustentavel_BE.Controllers
         }
 
 
-        [HttpPost("GetAllPedidoSobremesa")]
+        [HttpPost("GetPedidoSobremesa")]
         public List<PedidoSobremesa> GetAllPedidoSobremesa()
         {
             return pedidoService.GetAllPedidoSobremesa();
         }
 
        
-        [HttpGet("BuscaPedidoEmPedidoSobremesa")]
-        public List<PedidoSobremesa> BuscaPedidoEmPedidoSobremesa(int idPedido)
+        [HttpGet("GetSobremesa")]
+        public List<PedidoSobremesa> GetSobremesa(int idPedido)
         {
-            return pedidoService.BuscaPedidoEmPedidoSobremesa(idPedido);
+            return pedidoService.GetSobremesa(idPedido);
         }
 
 
@@ -153,23 +153,6 @@ namespace RestauranteSustentavel_BE.Controllers
         }
 
         
-        [HttpPost("InsertPrato")]
-        public Prato InsertPrato(Prato prato)
-        {
-            return pratoService.InsertPrato(prato);
-        }
-
-
-        [HttpGet("GetAllPrato")]
-        public List<Prato> GetAllPrato()
-        {
-            return pratoService.GetAllPrato();
-        }
-
-        [HttpDelete("DeletePrato")]
-        public void DeletePrato(int idPrato)
-        {
-            pratoService.DeletePrato(idPrato);
-        }
+       
     }
 }

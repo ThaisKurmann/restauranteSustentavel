@@ -53,7 +53,7 @@ namespace RestauranteSustentavel_BE.Services
 
 
         //[PedidoSobremesa: BUSCA PEDIDO]
-        public List<PedidoSobremesa> BuscaPedidoEmPedidoSobremesa(int idPedido)
+        public List<PedidoSobremesa> GetSobremesa(int idPedido)
         {
 
             return pedidoSobremesaRepository.BuscaPedidoEmPedidoSobremesa(idPedido);
@@ -115,7 +115,7 @@ namespace RestauranteSustentavel_BE.Services
                 //atualiza quantidade de sobremesas nesse pedido
                 pedidoBebidaBD.quantidade += pedidoBebida.quantidade;
                 //atualiza dados no BD
-                pedidoBebidaRepository.Upadate(pedidoBebidaBD);
+                pedidoBebidaRepository.Update(pedidoBebidaBD);
             }
             else
             {
@@ -146,7 +146,7 @@ namespace RestauranteSustentavel_BE.Services
 
             if (pedidoBebidaBD.quantidade > 0)
             {
-                pedidoBebidaRepository.Upadate(pedidoBebidaBD);
+                pedidoBebidaRepository.Update(pedidoBebidaBD);
             }
             else
             {

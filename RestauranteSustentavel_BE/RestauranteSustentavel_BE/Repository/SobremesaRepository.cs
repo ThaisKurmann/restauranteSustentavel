@@ -90,20 +90,7 @@ namespace RestauranteSustentavel_BE.Repository
         }
 
 
-        //BUSCA SOBREMESA X
-        public Sobremesa BuscaSobremesa(Sobremesa sobremesa)
-        {
-            //SELECT Sobremesa.nome FROM Sobremesa WHERE Sobremesa.nome LIKE '%Tiramissu%'
-            //OBS.: Isso tambem eh possivel fazer: SELECT Sobremesa.nome, Sobremesa.id, Sobremesa.preco FROM Sobremesa WHERE Sobremesa.nome LIKE '%Tiramissu%'
-            SQLiteCommand buscaCmd = new SQLiteCommand("SELECT Sobremesa.nome FROM Sobremesa WHERE Sobremesa.nome LIKE '%Teste%' = @nomeSobremesa", dbContext.connection);
-            buscaCmd.Parameters.AddWithValue("@nomeSobremesa", sobremesa);
-
-
-            buscaCmd.ExecuteNonQuery();
-
-            return sobremesa;
-        }
-
+       
 
     }
 }

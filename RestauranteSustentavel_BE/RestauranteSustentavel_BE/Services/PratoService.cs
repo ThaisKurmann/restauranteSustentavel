@@ -36,7 +36,11 @@ namespace RestauranteSustentavel_BE.Services
             pratoRepository.Delete(id);
         }
 
-      
+       //[Prato: BUSCA -> retorna todos os pratos de um pedido]
+       public List<Prato> BuscaPratosEmPedido(int idPedido)
+        {
+            return pratoRepository.BuscaPratoEmPedido(idPedido);
+        }
 
         //[IngredientePrato: CREATE]
         public void InsertIngredientePrato(IngredientePrato ingredientePrato)
@@ -98,11 +102,13 @@ namespace RestauranteSustentavel_BE.Services
             return ingredientePratoRepository.BuscaPratoEmIngredientePrato(idPrato);
         }
 
-        //todo: BUSCA: Retorna ingrediente x se estah na tabela IngredientePrato
+        //[IngredientePrato: BUSCA -> Retorna ingrediente x se estah na tabela IngredientePrato]
         public IngredientePrato BuscaIngredienteEmIngredientePrato(int idIngrediente, int idPrato)
         {
             return ingredientePratoRepository.BuscaIngredienteEmIngredientePrato(idIngrediente, idPrato);
         }
+
+        
 
 
 

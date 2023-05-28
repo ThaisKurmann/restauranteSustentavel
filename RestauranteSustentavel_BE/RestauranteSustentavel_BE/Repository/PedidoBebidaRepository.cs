@@ -56,7 +56,7 @@ namespace RestauranteSustentavel_BE.Repository
 
         
         //UPDATE
-        public PedidoBebida Upadate(PedidoBebida pedidoBebida)
+        public PedidoBebida Update(PedidoBebida pedidoBebida)
         {
             SQLiteCommand updateCmd = new SQLiteCommand("UPDATE PedidoBebida \r\nSET quantidade = @quantidade\r\nWHERE PedidoBebida.fk_PedidoBebida_Bebida = @idBebida AND PedidoBebida.fk_PedidoBebida_Pedido = @idPedido;", dbContext.connection);
             updateCmd.Parameters.AddWithValue("@quantidade", pedidoBebida.quantidade);

@@ -62,7 +62,7 @@ namespace RestauranteSustentavel_BE.Repository
         }
 
      
-        //todo: DELETE
+        //DELETE
         public int Delete(int i)
         {
             SQLiteCommand deleteCmd = new SQLiteCommand("DELETE FROM Prato WHERE id = @id", dbContext.connection);
@@ -73,6 +73,27 @@ namespace RestauranteSustentavel_BE.Repository
             return i;//retorna o prato que foi excluido
         }
 
+        //BUSCA todos os Prato do Pedido x
+        public List<Prato> BuscaPratoEmPedido(int idPedido)
+        {
+            var pratos = new List<Prato>();
+
+            SQLiteCommand getCmd = new SQLiteCommand("SELECT * FROM Prato WHERE fk_Prato_Pedido = @idPedido", dbContext.connection);
+            getCmd.Parameters.AddWithValue("@idPedido", idPedido);
+            SQLiteDataReader reader = getCmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var prato = new Prato()
+                {
+                    id = int.Parse(reader["id"].ToString()),
+                    idPedido = int.Parse(reader["fk_Prato_Pedido"].ToString()),
+                };
+                pratos.Add(prato);
+            }
+
+            return pratos;
+        }
 
 
 

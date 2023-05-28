@@ -39,10 +39,6 @@ namespace RestauranteSustentavel_BE.Services
 
         }
 
-        //busca nome de Sobremesa
-        public Sobremesa Busca(Sobremesa sobremesa)
-        {
-            return sobremesaRepository.BuscaSobremesa(sobremesa);
-        }
+       
     }
 }
