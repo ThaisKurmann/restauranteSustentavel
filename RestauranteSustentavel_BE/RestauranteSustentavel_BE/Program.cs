@@ -24,6 +24,8 @@ builder.Services.AddSingleton<PedidoSobremesaRepository>();
 builder.Services.AddSingleton<PedidoBebidaRepository>();
 
 builder.Services.AddSingleton<IngredientePratoRepository>();
+
+builder.Services.AddSingleton<PratoRepository>();
 builder.Services.AddSingleton<PratoService>();
 
 

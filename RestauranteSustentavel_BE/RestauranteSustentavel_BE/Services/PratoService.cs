@@ -8,15 +8,24 @@ namespace RestauranteSustentavel_BE.Services
     {
 
         private readonly IngredientePratoRepository ingredientePratoRepository;
+        private readonly PratoRepository pratoRepository;
 
 
 
-        public PratoService(IngredientePratoRepository ingredientePratoRepository)
+        public PratoService(IngredientePratoRepository ingredientePratoRepository, PratoRepository pratoRepository)
         {
             this.ingredientePratoRepository = ingredientePratoRepository;
+            this.pratoRepository = pratoRepository; 
         }
 
-        //CREATE 
+
+        //[Prato: CREATE]
+        public List<Prato> GetAllPrato()
+        {
+            return pratoRepository.GetAll();
+        }
+
+        //[IngredientePrato: CREATE]
         public void InsertIngredientePrato(IngredientePrato ingredientePrato)
         {
             IngredientePrato ingredientePratoBD = ingredientePratoRepository.BuscaIngredienteEmIngredientePrato(ingredientePrato.idIngrediente, ingredientePrato.idPrato);
@@ -34,13 +43,13 @@ namespace RestauranteSustentavel_BE.Services
             }
         }
 
-        //READ
+        //[IngredientePrato: READ]
         public List<IngredientePrato> GetAllIngredientePrato()
         {
             return ingredientePratoRepository.GetAll();
         }
 
-        //UPDATE
+        //[IngredientePrato:UPDATE]
         public void UpdateQuantidadeIngredienteEmIngredientePrato(IngredientePrato ingredientePrato, int quantidadeRemover)
         {
             var ingredientePratoBD = ingredientePratoRepository.BuscaIngredienteEmIngredientePrato(ingredientePrato.idIngrediente, ingredientePrato.idPrato);
@@ -64,13 +73,13 @@ namespace RestauranteSustentavel_BE.Services
 
         }
 
-        //DELETE
+        //[IngredientePrato: DELETE]
         public void DeleteIngredientePrato(IngredientePrato ingredientePrato)
         {
             ingredientePratoRepository.Delete(ingredientePrato);
         }
 
-        //BUSCA: Retorna prato da tabela IngredientePrato
+        //[IngredientePrato:BUSCA -> Retorna prato da tabela IngredientePrato]
         public List<IngredientePrato> BuscaPratoEmIngredientePrato(int idPrato)
         {
             return ingredientePratoRepository.BuscaPratoEmIngredientePrato(idPrato);
