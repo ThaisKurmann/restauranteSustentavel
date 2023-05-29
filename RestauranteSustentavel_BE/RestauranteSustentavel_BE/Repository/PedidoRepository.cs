@@ -26,7 +26,7 @@ namespace RestauranteSustentavel_BE.Repository
             insertCmd.Parameters.AddWithValue("@hora", pedido.hora);
             insertCmd.ExecuteNonQuery();
 
-            //pegando o Id da tabela Bebida
+            //pegando o Id da tabela 
             insertCmd.CommandText = "select last_insert_rowid()";
             Int64 LastRowID64 = (Int64)insertCmd.ExecuteScalar();
             pedido.id = (int)LastRowID64;

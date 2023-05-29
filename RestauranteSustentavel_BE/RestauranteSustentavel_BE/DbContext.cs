@@ -12,5 +12,9 @@ namespace RestauranteSustentavel_BE
             connection = new SQLiteConnection("Data Source = ../../RestauranteSustentavelDB.db; Version = 3; New = True; Compress = True;");
             connection.Open();
         }
+        public DbContext(SQLiteConnection connection)
+        {
+            this.connection = connection;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using RestauranteSustentavel_BE.Models;
 using RestauranteSustentavel_BE.Repository;
 using System.Security.Permissions;
+using Xunit;
 
 namespace RestauranteSustentavel_BE.Services
 {
@@ -28,6 +29,7 @@ namespace RestauranteSustentavel_BE.Services
         //[Pedido: READ]
         public List<Pedido> GetAllPedidos()
         {
+            
             return pedidoRepository.GetAll();
         }
 
