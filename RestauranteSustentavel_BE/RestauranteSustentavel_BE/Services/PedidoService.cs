@@ -28,8 +28,7 @@ namespace RestauranteSustentavel_BE.Services
 
         //[Pedido: READ]
         public List<Pedido> GetAllPedidos()
-        {
-            
+        {            
             return pedidoRepository.GetAll();
         }
 
@@ -39,11 +38,18 @@ namespace RestauranteSustentavel_BE.Services
             return pedidoRepository.Upate(pedido);
         }
 
-
         //[Pedido: DELETE]
         public int DeletePedido(int i)
         {
             return pedidoRepository.Delete(i);
+        }
+
+        //[Pedido: Busca um Pedido]
+        public Pedido BuscaUmPedido(int idPedido)
+        {
+            var pedido = pedidoRepository.GetById(idPedido);
+
+            return pedido;
         }
 
 
@@ -106,7 +112,6 @@ namespace RestauranteSustentavel_BE.Services
 
         }
 
-
         //[PedidoBebida: INSERT] 
         public void InsertPedidoBebida(PedidoBebida pedidoBebida)
         {
@@ -163,12 +168,12 @@ namespace RestauranteSustentavel_BE.Services
             pedidoBebidaRepository.Delete(pedidoBebida);
         }
 
-        //[PedidoBebida: BUSCA PEDIDOS] 
+        //[PedidoBebida: BUSCA] 
         public List<PedidoBebida> BuscaPedidoEmPedidoBebida(int idPedido)
         {
             return pedidoBebidaRepository.BuscaPedidoEmPedidoBebida(idPedido);
         }
 
-
+        
     }
 }

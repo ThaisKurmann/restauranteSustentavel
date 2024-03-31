@@ -86,6 +86,27 @@ namespace RestauranteSustentavel_BE.Repository
             return i;
         }
 
+        //Retorna um pedido 
+        public Pedido GetById(int id) {
+
+            SQLiteCommand getIdCmd = new SQLiteCommand("SELECT * FROM Pedido Where id = @id", dbContext.connection);
+            getIdCmd.Parameters.AddWithValue("id", id);
+
+            SQLiteDataReader reader = getIdCmd.ExecuteReader();
+
+
+            if (reader.Read())
+            {
+                return new Pedido()
+                {
+                    data = reader["data"].ToString(),
+                    hora = reader["hora"].ToString(),
+                    id = int.Parse(reader["id"].ToString())//pegando o Id da tabela Pedido
+                };
+
+            }
+            return null;
+        }
 
     }
 }

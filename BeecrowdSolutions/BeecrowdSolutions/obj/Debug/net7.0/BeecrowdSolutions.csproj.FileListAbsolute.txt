@@ -1,0 +1,15 @@
+D:\Projetcs\VisualStudio22\Unigran2023.1\TCCII\BeecrowdSolutions\BeecrowdSolutions\bin\Debug\net7.0\BeecrowdSolutions.exe
+D:\Projetcs\VisualStudio22\Unigran2023.1\TCCII\BeecrowdSolutions\BeecrowdSolutions\bin\Debug\net7.0\BeecrowdSolutions.deps.json
+D:\Projetcs\VisualStudio22\Unigran2023.1\TCCII\BeecrowdSolutions\BeecrowdSolutions\bin\Debug\net7.0\BeecrowdSolutions.runtimeconfig.json
+D:\Projetcs\VisualStudio22\Unigran2023.1\TCCII\BeecrowdSolutions\BeecrowdSolutions\bin\Debug\net7.0\BeecrowdSolutions.dll
+D:\Projetcs\VisualStudio22\Unigran2023.1\TCCII\BeecrowdSolutions\BeecrowdSolutions\bin\Debug\net7.0\BeecrowdSolutions.pdb
+D:\Projetcs\VisualStudio22\Unigran2023.1\TCCII\BeecrowdSolutions\BeecrowdSolutions\obj\Debug\net7.0\BeecrowdSolutions.csproj.AssemblyReference.cache
+D:\Projetcs\VisualStudio22\Unigran2023.1\TCCII\BeecrowdSolutions\BeecrowdSolutions\obj\Debug\net7.0\BeecrowdSolutions.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projetcs\VisualStudio22\Unigran2023.1\TCCII\BeecrowdSolutions\BeecrowdSolutions\obj\Debug\net7.0\BeecrowdSolutions.AssemblyInfoInputs.cache
+D:\Projetcs\VisualStudio22\Unigran2023.1\TCCII\BeecrowdSolutions\BeecrowdSolutions\obj\Debug\net7.0\BeecrowdSolutions.AssemblyInfo.cs
+D:\Projetcs\VisualStudio22\Unigran2023.1\TCCII\BeecrowdSolutions\BeecrowdSolutions\obj\Debug\net7.0\BeecrowdSolutions.csproj.CoreCompileInputs.cache
+D:\Projetcs\VisualStudio22\Unigran2023.1\TCCII\BeecrowdSolutions\BeecrowdSolutions\obj\Debug\net7.0\BeecrowdSolutions.dll
+D:\Projetcs\VisualStudio22\Unigran2023.1\TCCII\BeecrowdSolutions\BeecrowdSolutions\obj\Debug\net7.0\refint\BeecrowdSolutions.dll
+D:\Projetcs\VisualStudio22\Unigran2023.1\TCCII\BeecrowdSolutions\BeecrowdSolutions\obj\Debug\net7.0\BeecrowdSolutions.pdb
+D:\Projetcs\VisualStudio22\Unigran2023.1\TCCII\BeecrowdSolutions\BeecrowdSolutions\obj\Debug\net7.0\BeecrowdSolutions.genruntimeconfig.cache
+D:\Projetcs\VisualStudio22\Unigran2023.1\TCCII\BeecrowdSolutions\BeecrowdSolutions\obj\Debug\net7.0\ref\BeecrowdSolutions.dll
