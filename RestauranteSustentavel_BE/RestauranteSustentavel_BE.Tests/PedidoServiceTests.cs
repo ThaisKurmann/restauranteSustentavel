@@ -14,6 +14,7 @@ namespace RestauranteSustentavel_BE.Tests
     public class PedidoServiceTests
     {
 
+      
         
 
         [Fact]
@@ -31,7 +32,7 @@ namespace RestauranteSustentavel_BE.Tests
             var pedidoBebidaRepository = new PedidoBebidaRepository(dbContext);
             
             var pedidoService = new PedidoService(pedidoRepository, pedidoSobremesaRepository, pedidoBebidaRepository);
-
+            
             //Act: testa oq deseja
             pedidoService.InsertPedido(new Pedido() { data = "14/05/2022", hora = "11:00"});
             
@@ -111,6 +112,41 @@ namespace RestauranteSustentavel_BE.Tests
 
         }
 
+
+        
+        [Fact]
+        public void DeletePedido_BancoDeDadosTemPedidoX_ExcluiPedidoXDoBancoDeDados()
+        {
+            //Arrange
+            DbContext dbContext = new DbContext(new SQLiteConnection("DataSource=:memory:"));
+            dbContext.connection.Open();
+
+            SQLiteCommand createTableCmmd = new SQLiteCommand("CREATE TABLE Pedido (\r\n\tid INTEGER NOT NULL,\r\n\tdata TEXT,\r\n\thora TEXT,\r\n\tPRIMARY KEY(id AUTOINCREMENT)\r\n)", dbContext.connection);
+            createTableCmmd.ExecuteNonQuery();
+
+            var pedidoRepository = new PedidoRepository(dbContext);
+            var pedidoSobremesaRepository = new PedidoSobremesaRepository(dbContext);
+            var pedidoBebidaRepository = new PedidoBebidaRepository(dbContext);
+
+            var pedidoService = new PedidoService(pedidoRepository, pedidoSobremesaRepository, pedidoBebidaRepository);
+
+            var pedidoInserido = pedidoService.InsertPedido(new Pedido() { data = "02/04/2024", hora = "12:00" });
+            
+            var quantidadePedidosAntesDeletePedido = pedidoService.GetAllPedidos().Count();
+
+            //Act
+            pedidoService.DeletePedido(pedidoInserido.id);
+
+            var quantidadePedidosDepoisDeletePedido = pedidoService.GetAllPedidos().Count();
+
+            //Assert
+            Assert.Equal(1, quantidadePedidosAntesDeletePedido);
+            Assert.Equal(0, quantidadePedidosDepoisDeletePedido);
+
+
+            //Assert.Equal(0, pedidoInserido.Where(pedido => pedido.data == "02/04/2024" && pedido.hora == "12:00").Count());
+            dbContext.connection.Close();
+        }
 
 
 
