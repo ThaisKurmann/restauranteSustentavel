@@ -134,6 +134,37 @@ namespace RestauranteSustentavel_BE.Tests
         }
 
 
+        //Corrigir erro de logica provavavel
+        [Fact]
+        public void BuscaUmPedido_BancoDeDadosTemPedidoX_RetornaPedidoXDoBancoDeDados()
+        {
+            //Arrange:
+            var dbContext = new DbContext(new SQLiteConnection("DataSource=:memory:"));
+            dbContext.connection.Open();
+
+            var pedidoService = PreparaBancoDeDadosParaRealizarOsTestes(dbContext);
+
+            var pedidoInseridoParaTeste = pedidoService.InsertPedido(new Pedido() { data = "08/04/2024", hora = "15:00" });
+           
+            pedidoService.InsertPedido(new Pedido() { data = "01/02/2024", hora = "12:00" });
+            pedidoService.InsertPedido(new Pedido() { data = "10/07/2024", hora = "12:45" });
+            pedidoService.InsertPedido(new Pedido() { data = "03/04/2024", hora = "13:00" });
+
+            var pedidoList = pedidoService.GetAllPedidos();
+
+            //Act:
+            var pedidoQueSeraTestado = pedidoService.BuscaUmPedido(pedidoInseridoParaTeste.id);
+            
+            
+
+            //Assert:
+            Assert.Equal(pedidoQueSeraTestado.id, pedidoList.Where(pedido => pedido.data == "08/04/2024" && pedido.hora == "15:00").Count());
+
+
+
+
+            dbContext.connection.Close();
+        }
 
 
 
