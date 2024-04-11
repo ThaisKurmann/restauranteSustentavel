@@ -74,7 +74,7 @@ namespace RestauranteSustentavel_BE.Repository
         }
 
         //BUSCA: Pedido
-        public List<PedidoSobremesa> BuscaPedidoEmPedidoSobremesa(int idPedido)
+        public List<PedidoSobremesa> BuscaPedidoPorIdEmPedidoSobremesa(int idPedido)
         {
            var pedidoSobremesas = new List<PedidoSobremesa>();
 

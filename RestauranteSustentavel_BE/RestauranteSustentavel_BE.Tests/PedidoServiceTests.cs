@@ -15,10 +15,26 @@ namespace RestauranteSustentavel_BE.Tests
     {
 
       
-        public PedidoService PreparaBancoDeDadosParaRealizarOsTestesEmPedidoService(DbContext dbContext)
+        public PedidoService CriaTabelaPedidoParaRealizarTestes(DbContext dbContext)
         {
             //Arrange: prepara todas as coisas que precisa para realizar o teste
             SQLiteCommand createTableCmmd = new SQLiteCommand("CREATE TABLE Pedido (\r\n\tid INTEGER NOT NULL,\r\n\tdata TEXT,\r\n\thora TEXT,\r\n\tPRIMARY KEY(id AUTOINCREMENT)\r\n)", dbContext.connection);
+            createTableCmmd.ExecuteNonQuery();
+
+            var pedidoRepository = new PedidoRepository(dbContext);
+            var pedidoSobremesaRepository = new PedidoSobremesaRepository(dbContext);
+            var pedidoBebidaRepository = new PedidoBebidaRepository(dbContext);
+
+            var pedidoService = new PedidoService(pedidoRepository, pedidoSobremesaRepository, pedidoBebidaRepository);
+
+            return pedidoService;
+
+        }
+
+        public PedidoService CriaTabelaPedidoSoobremesaParaRealizarTestes(DbContext dbContext)
+        {
+            //Arrange: prepara todas as coisas que precisa para realizar o teste
+            SQLiteCommand createTableCmmd = new SQLiteCommand("INSERT into PedidoSobremesa(quantidade, fk_PedidoSobremesa_Sobremesa, fk_PedidoSobremesa_Pedido) values (@quantidade, @idSobremesa, @idPedido); ", dbContext.connection);
             createTableCmmd.ExecuteNonQuery();
 
             var pedidoRepository = new PedidoRepository(dbContext);
@@ -38,7 +54,7 @@ namespace RestauranteSustentavel_BE.Tests
             DbContext dbContext = new DbContext(new SQLiteConnection("DataSource=:memory:"));
             dbContext.connection.Open();
 
-            var pedidoService = PreparaBancoDeDadosParaRealizarOsTestesEmPedidoService(dbContext);
+            var pedidoService = CriaTabelaPedidoParaRealizarTestes(dbContext);
 
             //Act: 
             pedidoService.InsertPedido(new Pedido() { data = "14/05/2022", hora = "11:00"});
@@ -61,7 +77,7 @@ namespace RestauranteSustentavel_BE.Tests
             DbContext dbContext = new DbContext(new SQLiteConnection("DataSource=:memory:"));
             dbContext.connection.Open();
             
-            var pedidoService = PreparaBancoDeDadosParaRealizarOsTestesEmPedidoService(dbContext);
+            var pedidoService = CriaTabelaPedidoParaRealizarTestes(dbContext);
 
             //Act:Os pedidos que "estao" no BD
             pedidoService.InsertPedido(new Pedido() { data = "14/05/2022", hora = "12:00" });
@@ -85,7 +101,7 @@ namespace RestauranteSustentavel_BE.Tests
             DbContext dbContext = new DbContext(new SQLiteConnection("DataSource=:memory:"));
             dbContext.connection.Open();
            
-            var pedidoService = PreparaBancoDeDadosParaRealizarOsTestesEmPedidoService(dbContext);
+            var pedidoService = CriaTabelaPedidoParaRealizarTestes(dbContext);
 
             pedidoService.InsertPedido(new Pedido() { data = "14/05/2022", hora = "11:00" });
                   
@@ -113,7 +129,7 @@ namespace RestauranteSustentavel_BE.Tests
             DbContext dbContext = new DbContext(new SQLiteConnection("DataSource=:memory:"));
             dbContext.connection.Open();
             
-            var pedidoService = PreparaBancoDeDadosParaRealizarOsTestesEmPedidoService(dbContext);
+            var pedidoService = CriaTabelaPedidoParaRealizarTestes(dbContext);
 
             var pedidoInserido = pedidoService.InsertPedido(new Pedido() { data = "02/04/2024", hora = "12:00" });
             
@@ -136,13 +152,13 @@ namespace RestauranteSustentavel_BE.Tests
 
         //Corrigir erro de logica provavavel
         [Fact]
-        public void BuscaUmPedido_BancoDeDadosTemPedidoX_RetornaPedidoXDoBancoDeDados()
+        public void BuscaUmPedido_BuscaUmPedidoPorId_RetornaPedidoDoBancoDeDados()
         {
             //Arrange:
             var dbContext = new DbContext(new SQLiteConnection("DataSource=:memory:"));
             dbContext.connection.Open();
 
-            var pedidoService = PreparaBancoDeDadosParaRealizarOsTestesEmPedidoService(dbContext);
+            var pedidoService = CriaTabelaPedidoParaRealizarTestes(dbContext);
 
             var pedidoInseridoParaTeste = pedidoService.InsertPedido(new Pedido() { data = "08/04/2024", hora = "15:00" });
            
@@ -168,20 +184,32 @@ namespace RestauranteSustentavel_BE.Tests
 
         //Metodos a serem testados:
         //[PedidoSobremesa: READ]
-        public void GetAllPedidoSobremesa_PedidosQuePossuemSobremesaNoBancoDeDados_RetornaUmPedidoQueTemNSobremesas()
+        public void GetAllPedidoSobremesa_BancoDeDadosTemPedidoSobremesa_RetornaListaComTodosOsPedidosSobremesaExistentesNoBD()
         {
             //Arrange: Criar BD em Memoria onde PedidoSobremesa exista
             var dbContext = new DbContext(new SQLiteConnection("DataSource=:memory:"));
             dbContext.connection.Open();
 
+            var pedidoService = CriaTabelaPedidoSoobremesaParaRealizarTestes(dbContext);
 
-          
+            
+
+
+
+
+
             //Act:Usar metodo que retorna todos os pedidos que tem n Sobremesas
 
             //Assert: Verificar oq retornou
 
             dbContext.connection.Close();
         }
+
+
+
+
+
+
         //[PedidoSobremesa: BUSCA PEDIDO]
 
         //Arrange:

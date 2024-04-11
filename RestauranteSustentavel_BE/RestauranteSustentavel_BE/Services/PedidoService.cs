@@ -53,18 +53,13 @@ namespace RestauranteSustentavel_BE.Services
         }
 
 
-        //[PedidoSobremesa: READ]
-        public List<PedidoSobremesa> GetAllPedidoSobremesa()
-        {
-            return pedidoSobremesaRepository.GetAll();
-        }
-
+       
 
         //[PedidoSobremesa: BUSCA PEDIDO]
-        public List<PedidoSobremesa> GetSobremesa(int idPedido)
+        public List<PedidoSobremesa> BuscaPedidoPorIdEmPedidoSobremesa(int idPedido)
         {
 
-            return pedidoSobremesaRepository.BuscaPedidoEmPedidoSobremesa(idPedido);
+            return pedidoSobremesaRepository.BuscaPedidoPorIdEmPedidoSobremesa(idPedido);
 
         }
 
@@ -88,8 +83,14 @@ namespace RestauranteSustentavel_BE.Services
             }
         }
 
+        //[PedidoSobremesa: READ]
+        public List<PedidoSobremesa> GetAllPedidoSobremesa()
+        {
+            return pedidoSobremesaRepository.GetAll();
+        }
+
         //[PedidoSobremesa: UPDATE]
-        public void UpdateQuantidadeSobremesaEmPedidoSobremesa(PedidoSobremesa pedidoSobremesa, int quantidadeRemover)
+        public void UpdateQuantidadeDeSobremesasEmPedidoSobremesa(PedidoSobremesa pedidoSobremesa, int quantidadeRemover)
         {
             var pedidoSobremesa1 = pedidoSobremesaRepository.BuscaSobremesaEmPedidoSobremesa(pedidoSobremesa.idSobremesa, pedidoSobremesa.idPedido);
 
