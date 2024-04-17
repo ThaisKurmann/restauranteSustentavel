@@ -14,36 +14,25 @@ namespace RestauranteSustentavel_BE.Tests
     public class PedidoServiceTests
     {
 
-      
-        public PedidoService CriaTabelaPedidoParaRealizarTestes(DbContext dbContext)
+        public void CriaTabelaPedido(DbContext dbContext)
         {
-            //Arrange: prepara todas as coisas que precisa para realizar o teste
             SQLiteCommand createTableCmmd = new SQLiteCommand("CREATE TABLE Pedido (\r\n\tid INTEGER NOT NULL,\r\n\tdata TEXT,\r\n\thora TEXT,\r\n\tPRIMARY KEY(id AUTOINCREMENT)\r\n)", dbContext.connection);
             createTableCmmd.ExecuteNonQuery();
 
-            var pedidoRepository = new PedidoRepository(dbContext);
-            var pedidoSobremesaRepository = new PedidoSobremesaRepository(dbContext);
-            var pedidoBebidaRepository = new PedidoBebidaRepository(dbContext);
-
-            var pedidoService = new PedidoService(pedidoRepository, pedidoSobremesaRepository, pedidoBebidaRepository);
-
-            return pedidoService;
-
         }
 
-        public PedidoService CriaTabelaPedidoSoobremesaParaRealizarTestes(DbContext dbContext)
+        public void CriaTabelaSobremesa(DbContext dbContext)
+        {
+            SQLiteCommand insertCmd = new SQLiteCommand("CREATE TABLE Sobremesa(\r\n\tnome TEXT,\r\n\tporcao INTEGER,\r\n\tpreco REAL NOT NULL,\r\n\tid INTEGER NOT NULL,\r\n\tPRIMARY KEY(id AUTOINCREMENT)\r\n)", dbContext.connection);
+            insertCmd.ExecuteNonQuery();
+
+        }
+        public void CriaTabelaPedidoSoobremesa(DbContext dbContext)
         {
             //Arrange: prepara todas as coisas que precisa para realizar o teste
-            SQLiteCommand createTableCmmd = new SQLiteCommand("INSERT into PedidoSobremesa(quantidade, fk_PedidoSobremesa_Sobremesa, fk_PedidoSobremesa_Pedido) values (@quantidade, @idSobremesa, @idPedido); ", dbContext.connection);
+            SQLiteCommand createTableCmmd = new SQLiteCommand("CREATE TABLE \"PedidoSobremesa\" (\r\n\t\"quantidade\"\tINTEGER,\r\n\t\"fk_PedidoSobremesa_Sobremesa\"\tINTEGER NOT NULL,\r\n\t\"fk_PedidoSobremesa_Pedido\"\tINTEGER NOT NULL,\r\n\tFOREIGN KEY(\"fk_PedidoSobremesa_Sobremesa\") REFERENCES \"Sobremesa\"(\"id\"),\r\n\tFOREIGN KEY(\"fk_PedidoSobremesa_Pedido\") REFERENCES \"Pedido\"(\"id\")\r\n);", dbContext.connection);
+
             createTableCmmd.ExecuteNonQuery();
-
-            var pedidoRepository = new PedidoRepository(dbContext);
-            var pedidoSobremesaRepository = new PedidoSobremesaRepository(dbContext);
-            var pedidoBebidaRepository = new PedidoBebidaRepository(dbContext);
-
-            var pedidoService = new PedidoService(pedidoRepository, pedidoSobremesaRepository, pedidoBebidaRepository);
-
-            return pedidoService;
 
         }
 
@@ -54,10 +43,17 @@ namespace RestauranteSustentavel_BE.Tests
             DbContext dbContext = new DbContext(new SQLiteConnection("DataSource=:memory:"));
             dbContext.connection.Open();
 
-            var pedidoService = CriaTabelaPedidoParaRealizarTestes(dbContext);
+
+            var pedidoRepository = new PedidoRepository(dbContext);
+            var pedidoSobremesaRepository = new PedidoSobremesaRepository(dbContext);
+            var pedidoBebidaRepository = new PedidoBebidaRepository(dbContext);
+
+            var pedidoService = new PedidoService(pedidoRepository, pedidoSobremesaRepository, pedidoBebidaRepository);
+
+            CriaTabelaPedido(dbContext);
 
             //Act: 
-            pedidoService.InsertPedido(new Pedido() { data = "14/05/2022", hora = "11:00"});
+            pedidoRepository.Insert(new Pedido() { data = "14/05/2022", hora = "11:00"});
             
             //Assert:
             var pedidoList = pedidoService.GetAllPedidos();
@@ -69,21 +65,27 @@ namespace RestauranteSustentavel_BE.Tests
            dbContext.connection.Close(); 
             
         }
-
+        //REVER: NAO TERIA QUE TESTAR APENAS OQ A FUNCAO FAZ? ou seja, ela apenas retorna os pedidos que estao no BD
         [Fact]
         public void GetAllPedidos_BanconDeDadosTemPedidos_RetornaListaComTodosOsPedidosExistentesNoBD()
         {
             //Arrange: prepara todas as coisas que precisa para realizar o teste
             DbContext dbContext = new DbContext(new SQLiteConnection("DataSource=:memory:"));
             dbContext.connection.Open();
+
+            var pedidoRepository = new PedidoRepository(dbContext);
+            var pedidoSobremesaRepository = new PedidoSobremesaRepository(dbContext);
+            var pedidoBebidaRepository = new PedidoBebidaRepository(dbContext);
+
+            var pedidoService = new PedidoService(pedidoRepository, pedidoSobremesaRepository, pedidoBebidaRepository);
+
+            CriaTabelaPedido(dbContext);
+                      
+            pedidoRepository.Insert(new Pedido() { data = "14/05/2022", hora = "12:00" });
+            pedidoRepository.Insert(new Pedido() { data = "18/05/2022", hora = "11:00" });
+            pedidoRepository.Insert(new Pedido() { data = "14/05/2022", hora = "18:30" });
             
-            var pedidoService = CriaTabelaPedidoParaRealizarTestes(dbContext);
-
-            //Act:Os pedidos que "estao" no BD
-            pedidoService.InsertPedido(new Pedido() { data = "14/05/2022", hora = "12:00" });
-            pedidoService.InsertPedido(new Pedido() { data = "18/05/2022", hora = "11:00" });
-            pedidoService.InsertPedido(new Pedido() { data = "14/05/2022", hora = "18:30" });
-
+            //Act:
             var pedidoList = pedidoService.GetAllPedidos();
 
             //Assert: verifica se os pedidos estao de acordo com a quantidade dos dados que estao no BD
@@ -100,10 +102,17 @@ namespace RestauranteSustentavel_BE.Tests
             //Arrange: prepara todas as coisas que precisa para realizar o teste
             DbContext dbContext = new DbContext(new SQLiteConnection("DataSource=:memory:"));
             dbContext.connection.Open();
-           
-            var pedidoService = CriaTabelaPedidoParaRealizarTestes(dbContext);
 
-            pedidoService.InsertPedido(new Pedido() { data = "14/05/2022", hora = "11:00" });
+            var pedidoRepository = new PedidoRepository(dbContext);
+            var pedidoSobremesaRepository = new PedidoSobremesaRepository(dbContext);
+            var pedidoBebidaRepository = new PedidoBebidaRepository(dbContext);
+
+            var pedidoService = new PedidoService(pedidoRepository, pedidoSobremesaRepository, pedidoBebidaRepository);
+
+
+            CriaTabelaPedido(dbContext);
+
+            pedidoRepository.Insert(new Pedido() { data = "14/05/2022", hora = "11:00" });
                   
 
             //Act: testa o que deseja
@@ -120,51 +129,58 @@ namespace RestauranteSustentavel_BE.Tests
 
         }
 
-
-        
         [Fact]
         public void DeletePedido_BancoDeDadosTemPedidoX_ExcluiPedidoXDoBancoDeDados()
         {
             //Arrange
             DbContext dbContext = new DbContext(new SQLiteConnection("DataSource=:memory:"));
             dbContext.connection.Open();
-            
-            var pedidoService = CriaTabelaPedidoParaRealizarTestes(dbContext);
 
-            var pedidoInserido = pedidoService.InsertPedido(new Pedido() { data = "02/04/2024", hora = "12:00" });
+            var pedidoRepository = new PedidoRepository(dbContext);
+            var pedidoSobremesaRepository = new PedidoSobremesaRepository(dbContext);
+            var pedidoBebidaRepository = new PedidoBebidaRepository(dbContext);
+
+            var pedidoService = new PedidoService(pedidoRepository, pedidoSobremesaRepository, pedidoBebidaRepository);
+
+            CriaTabelaPedido(dbContext);
+
+            var pedidoInserido = pedidoRepository.Insert(new Pedido() { data = "02/04/2024", hora = "12:00" });
             
-            var quantidadePedidosAntesDeletePedido = pedidoService.GetAllPedidos().Count();
+            var quantidadePedidosAntesDeletePedido = pedidoService.GetAllPedidos();
 
             //Act
             pedidoService.DeletePedido(pedidoInserido.id);
 
-            var quantidadePedidosDepoisDeletePedido = pedidoService.GetAllPedidos().Count();
+            var quantidadePedidosDepoisDeletePedido = pedidoService.GetAllPedidos();
 
             //Assert
-            Assert.Equal(1, quantidadePedidosAntesDeletePedido);
-            Assert.Equal(0, quantidadePedidosDepoisDeletePedido);
+            Assert.Equal(1, quantidadePedidosAntesDeletePedido.Count());
+            Assert.Equal(0, quantidadePedidosDepoisDeletePedido.Count());
 
 
             
             dbContext.connection.Close();
         }
 
-
-        //Corrigir erro de logica provavavel
         [Fact]
-        public void BuscaUmPedido_BuscaUmPedidoPorId_RetornaPedidoDoBancoDeDados()
+        public void BuscaUmPedido_BuscaUmPedidoPorPedidoId_RetornaPedidoDoBancoDeDados()
         {
             //Arrange:
             var dbContext = new DbContext(new SQLiteConnection("DataSource=:memory:"));
             dbContext.connection.Open();
+            var pedidoRepository = new PedidoRepository(dbContext);
+            var pedidoSobremesaRepository = new PedidoSobremesaRepository(dbContext);
+            var pedidoBebidaRepository = new PedidoBebidaRepository(dbContext);
 
-            var pedidoService = CriaTabelaPedidoParaRealizarTestes(dbContext);
+            var pedidoService = new PedidoService(pedidoRepository, pedidoSobremesaRepository, pedidoBebidaRepository);
 
-            var pedidoInseridoParaTeste = pedidoService.InsertPedido(new Pedido() { data = "08/04/2024", hora = "15:00" });
-           
-            pedidoService.InsertPedido(new Pedido() { data = "01/02/2024", hora = "12:00" });
-            pedidoService.InsertPedido(new Pedido() { data = "10/07/2024", hora = "12:45" });
-            pedidoService.InsertPedido(new Pedido() { data = "03/04/2024", hora = "13:00" });
+            CriaTabelaPedido(dbContext);
+
+            var pedidoInseridoParaTeste = pedidoRepository.Insert(new Pedido() { data = "08/04/2024", hora = "15:00" });
+
+            pedidoRepository.Insert(new Pedido() { data = "01/02/2024", hora = "12:00" });
+            pedidoRepository.Insert(new Pedido() { data = "10/07/2024", hora = "12:45" });
+            pedidoRepository.Insert(new Pedido() { data = "03/04/2024", hora = "13:00" });
 
             
             //Act:
@@ -181,103 +197,72 @@ namespace RestauranteSustentavel_BE.Tests
             dbContext.connection.Close();
         }
 
+        //Proximas Task's:
 
-        //Metodos a serem testados:
-        //[PedidoSobremesa: READ]
-        public void GetAllPedidoSobremesa_BancoDeDadosTemPedidoSobremesa_RetornaListaComTodosOsPedidosSobremesaExistentesNoBD()
+        //[PedidoSobremesa: Busca pedidoSobremesas por pedido id em PedidoSobremesa]
+        [Fact]
+        public void BuscaPedidoSobremesasPorPedidoId_PedidoTemSobremesas_RetornaListaDeSobremesasDoPedido()
         {
-            //Arrange: Criar BD em Memoria onde PedidoSobremesa exista
+            //Arrange:
             var dbContext = new DbContext(new SQLiteConnection("DataSource=:memory:"));
             dbContext.connection.Open();
+            var pedidoRepository = new PedidoRepository(dbContext);
+            var pedidoSobremesaRepository = new PedidoSobremesaRepository(dbContext);
+            var pedidoBebidaRepository = new PedidoBebidaRepository(dbContext);
+            var sobremesaRepository = new SobremesaRepository(dbContext);
 
-            var pedidoService = CriaTabelaPedidoSoobremesaParaRealizarTestes(dbContext);
+            var pedidoService = new PedidoService(pedidoRepository, pedidoSobremesaRepository, pedidoBebidaRepository);
+
+            CriaTabelaPedido(dbContext);
+            CriaTabelaSobremesa(dbContext);
+            CriaTabelaPedidoSoobremesa(dbContext);
+                
+            var pedidoParaTeste1 = pedidoRepository.Insert(new Pedido() { data = "02/05/2024", hora = "11:30"});
+            var pedidoParaTeste2 = pedidoRepository.Insert(new Pedido() { data = "01/05/2024", hora = "12:30" });
+            var pedidoParaTeste3 = pedidoRepository.Insert(new Pedido() { data = "03/06/2024", hora = "12:30" });
 
             
+            sobremesaRepository.InsertSobremesa(new Sobremesa() {nome = "profiteroles", porcao = 90, preco = 7});
+            sobremesaRepository.InsertSobremesa(new Sobremesa() { nome = "mousse de maracuja", porcao = 100, preco = 10});
 
+           
+            pedidoSobremesaRepository.Insert(new PedidoSobremesa() {idPedido = 2, idSobremesa = 2, quantidade = 3});
+            pedidoSobremesaRepository.Insert(new PedidoSobremesa() { idPedido = 2, idSobremesa = 1, quantidade = 1 });
+            pedidoSobremesaRepository.Insert(new PedidoSobremesa() { idPedido = 1, idSobremesa = 1, quantidade = 5 });
 
+            //Act:
+            var pedidoTemUmaSobremesa = pedidoService.BuscaPedidoSobremesasPorPedidoId(pedidoParaTeste1.id);
+            var pedidoTemMaisDeUmaSobremesa = pedidoService.BuscaPedidoSobremesasPorPedidoId(pedidoParaTeste2.id);
+            var pedidoNaoTemSobremesa = pedidoService.BuscaPedidoSobremesasPorPedidoId(pedidoParaTeste3.id);
 
+            //Assert:
+            //pedido tem mais de uma sobremesa
+            Assert.Equal(2, pedidoTemMaisDeUmaSobremesa.Count());
+            //pedido tem uma sobremesa
+            Assert.Equal(1, pedidoTemUmaSobremesa.Count());
+            //pedido nao tem sobremesa
+            Assert.Equal(0, pedidoNaoTemSobremesa.Count());
 
-
-            //Act:Usar metodo que retorna todos os pedidos que tem n Sobremesas
-
-            //Assert: Verificar oq retornou
 
             dbContext.connection.Close();
         }
 
-
-
-
-
-
-        //[PedidoSobremesa: BUSCA PEDIDO]
-
-        //Arrange:
-        //Act:
-        //Assert:
+        
 
         //[PedidoSobremesa: INSERT]
-        //Arrange:
-        //Act:
-        //Assert:
+        //public void InsertSobremesaEmPedidoSobremesa_
 
+
+        //[PedidoSobremesa: READ]
         //[PedidoSobremesa: UPDATE]
-        //Arrange:
-        //Act:
-        //Assert:
+        //------------------------> NAO DEVERIA TER DELETE??
 
         //[PedidoBebida: INSERT] 
-        //Arrange:
-        //Act:
-        //Assert:
-
         //[PedidoBebida: READ] 
-        //Arrange:
-        //Act:
-        //Assert:
-
         //[PedidoBebida: UPDATE]
-        //Arrange:
-        //Act:
-        //Assert:
-
         //[PedidoBebida: DELETE]
-        //Arrange:
-        //Act:
-        //Assert:
-
         //[PedidoBebida: BUSCA] 
-        //Arrange:
-        //Act:
-        //Assert:
+
 
     }
 }
-
-/* SQLiteCommand insertCmd = new SQLiteCommand("insert into Pedido(data, hora) values(@data, @hora)", dbContext.connection);
-           insertCmd.Parameters.AddWithValue("@data","10/05/2023");
-           insertCmd.Parameters.AddWithValue("@hora", "11:00");
-           insertCmd.ExecuteNonQuery();
-
-           //pegando o Id da tabela 
-           insertCmd.CommandText = "select last_insert_rowid()";
-           Int64 LastRowID64 = (Int64)insertCmd.ExecuteScalar();
-           var id = (int)LastRowID64;
-
-           var pedidos = new List<Pedido>();
-
-           SQLiteCommand getCmd = new SQLiteCommand("SELECT * FROM Pedido", dbContext.connection);
-           SQLiteDataReader reader = getCmd.ExecuteReader();
-
-           while (reader.Read())
-           {
-               var pedido = new Pedido()
-               {
-                   data = reader["data"].ToString(),
-                   hora = reader["hora"].ToString(),
-                   id = int.Parse(reader["id"].ToString())//pegando o Id da tabela 
-               };
-
-               pedidos.Add(pedido);//add o obj na lista 
-           }
-          */

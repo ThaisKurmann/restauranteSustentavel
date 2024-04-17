@@ -74,7 +74,7 @@ namespace RestauranteSustentavel_BE.Repository
         }
 
         //BUSCA: Pedido
-        public List<PedidoSobremesa> BuscaPedidoPorIdEmPedidoSobremesa(int idPedido)
+        public List<PedidoSobremesa> BuscaPedidoSobremesasPorPedidoId(int idPedido)
         {
            var pedidoSobremesas = new List<PedidoSobremesa>();
 
@@ -95,7 +95,7 @@ namespace RestauranteSustentavel_BE.Repository
 
             return pedidoSobremesas;
         }
-
+        //PS.. ESSE METODO PARECE SER inutil, pois faz a mesma que o metodo acima, porem atraves da sobremesa VER COMO RAFA
         //BUSCA: Sobremesa
         public PedidoSobremesa BuscaSobremesaEmPedidoSobremesa(int idSobremesa, int idPedido)
         {

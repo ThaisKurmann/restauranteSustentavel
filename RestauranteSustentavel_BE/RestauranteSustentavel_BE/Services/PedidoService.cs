@@ -44,7 +44,7 @@ namespace RestauranteSustentavel_BE.Services
             return pedidoRepository.Delete(i);
         }
 
-        //[Pedido: Busca um Pedido]
+        //[Pedido: Busca um Pedido por Pedido id no Banco de Dados]
         public Pedido BuscaUmPedido(int idPedido)
         {
             var pedido = pedidoRepository.GetById(idPedido);
@@ -52,20 +52,14 @@ namespace RestauranteSustentavel_BE.Services
             return pedido;
         }
 
-
-       
-
-        //[PedidoSobremesa: BUSCA PEDIDO]
-        public List<PedidoSobremesa> BuscaPedidoPorIdEmPedidoSobremesa(int idPedido)
+        //[PedidoSobremesa: BUSCA PedidoSobremesas por Pedido id em PedidoSobremesa]
+        public List<PedidoSobremesa> BuscaPedidoSobremesasPorPedidoId(int idPedido)
         {
-
-            return pedidoSobremesaRepository.BuscaPedidoPorIdEmPedidoSobremesa(idPedido);
-
+            return pedidoSobremesaRepository.BuscaPedidoSobremesasPorPedidoId(idPedido);
         }
 
-
         //[PedidoSobremesa: INSERT]
-        public void InsertSobremesaEmPedidoSobremesa(PedidoSobremesa pedidoSobremesa)
+        public void InsertSobremesaEmPedido(PedidoSobremesa pedidoSobremesa)
         {
             PedidoSobremesa pedidoSobremesaBD = pedidoSobremesaRepository.BuscaSobremesaEmPedidoSobremesa(pedidoSobremesa.idSobremesa, pedidoSobremesa.idPedido);
 
@@ -81,6 +75,7 @@ namespace RestauranteSustentavel_BE.Services
                 pedidoSobremesaRepository.Insert(pedidoSobremesa);
 
             }
+
         }
 
         //[PedidoSobremesa: READ]

@@ -50,7 +50,7 @@ namespace RestauranteSustentavel_BE.Controllers
         [HttpPut("InsertPedidoSobremesa")]
         public void InsertSobremesaEmPedidoSobremesa(PedidoSobremesa pedidoSobremesa)
         {
-            pedidoService.InsertSobremesaEmPedidoSobremesa(pedidoSobremesa);
+            pedidoService.InsertSobremesaEmPedido(pedidoSobremesa);
         }
 
 
@@ -69,9 +69,9 @@ namespace RestauranteSustentavel_BE.Controllers
         }
 
         [HttpGet("BuscaPedidoPoIdEmPedidoSobremesa")]
-        public List<PedidoSobremesa> BuscaPedidoEmPedidoSobremesa(int idPedido)
+        public List<PedidoSobremesa> BuscaPedidoSobremesasPorPedidoId(int idPedido)
         {
-            return pedidoService.BuscaPedidoPorIdEmPedidoSobremesa(idPedido);
+            return pedidoService.BuscaPedidoSobremesasPorPedidoId(idPedido);
         }
 
 
