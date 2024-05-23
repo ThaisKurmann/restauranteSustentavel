@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestauranteSustentavel_BE.Models;
 using RestauranteSustentavel_BE.Services;
@@ -18,6 +19,7 @@ namespace RestauranteSustentavel_BE.Controllers
 
         //READ
         [HttpGet("GetAll")]
+      
         public IEnumerable<Bebida> GetAll()
         {
             return bebidaService.GetAll();

@@ -46,13 +46,13 @@ namespace RestauranteSustentavel_BE.Controllers
         {
             return pedidoService.DeletePedido(i);
         }
-
-        [HttpPut("InsertPedidoSobremesa")]
-        public void InsertSobremesaEmPedidoSobremesa(PedidoSobremesa pedidoSobremesa)
+        
+        [HttpPut("InsertSobremesaEmPedido")]
+        public void InsertSobremesaEmPedidoSobremesa(int idSobremesa, int idPedido, int quantidadeSobremesa)
         {
-            pedidoService.InsertSobremesaEmPedido(pedidoSobremesa);
+            pedidoService.InsertSobremesaEmPedido(idSobremesa, idPedido, quantidadeSobremesa);
         }
-
+       
 
         [HttpPost("GetAllPedidoSobremesa")]
         public List<PedidoSobremesa> GetAllPedidoSobremesa()

@@ -13,17 +13,24 @@ namespace RestauranteSustentavel_BE.Repository
             this.dbContext = dbContext; 
 
         }
-
+        
         //CREATE
-        public PedidoSobremesa Insert(PedidoSobremesa pedidoSobremesa)
+        public PedidoSobremesa Insert(int idSobremesa, int idPedido, int quantidadeSobremesa)
         {
             SQLiteCommand insertComd = new SQLiteCommand("INSERT into PedidoSobremesa(quantidade, fk_PedidoSobremesa_Sobremesa, fk_PedidoSobremesa_Pedido) values (@quantidade, @idSobremesa, @idPedido); ", dbContext.connection);
-            insertComd.Parameters.AddWithValue("@quantidade", pedidoSobremesa.quantidade);
-            insertComd.Parameters.AddWithValue("@idSobremesa", pedidoSobremesa.idSobremesa);
-            insertComd.Parameters.AddWithValue("@idPedido", pedidoSobremesa.idPedido);
+            insertComd.Parameters.AddWithValue("@quantidade", quantidadeSobremesa);
+            insertComd.Parameters.AddWithValue("@idSobremesa", idSobremesa);
+            insertComd.Parameters.AddWithValue("@idPedido", idPedido);
             insertComd.ExecuteNonQuery();
 
+            var pedidoSobremesa = new PedidoSobremesa()
+            {
+                quantidade = quantidadeSobremesa,
+                idSobremesa = idSobremesa,//pegando o Id da tabela Bebida
+                idPedido = idPedido,
+            };
 
+       
             return pedidoSobremesa;
         }
 
@@ -95,7 +102,7 @@ namespace RestauranteSustentavel_BE.Repository
 
             return pedidoSobremesas;
         }
-        //PS.. ESSE METODO PARECE SER inutil, pois faz a mesma que o metodo acima, porem atraves da sobremesa VER COMO RAFA
+        
         //BUSCA: Sobremesa
         public PedidoSobremesa BuscaSobremesaEmPedidoSobremesa(int idSobremesa, int idPedido)
         {

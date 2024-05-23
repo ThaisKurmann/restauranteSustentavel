@@ -199,7 +199,7 @@ namespace RestauranteSustentavel_BE.Tests
 
         //Proximas Task's:
 
-        //[PedidoSobremesa: Busca pedidoSobremesas por pedido id em PedidoSobremesa]
+        //[PedidoSobremesa: BUSCA pedido por Id]
         [Fact]
         public void BuscaPedidoSobremesasPorPedidoId_PedidoTemSobremesas_RetornaListaDeSobremesasDoPedido()
         {
@@ -222,13 +222,13 @@ namespace RestauranteSustentavel_BE.Tests
             var pedidoParaTeste3 = pedidoRepository.Insert(new Pedido() { data = "03/06/2024", hora = "12:30" });
 
             
-            sobremesaRepository.InsertSobremesa(new Sobremesa() {nome = "profiteroles", porcao = 90, preco = 7});
-            sobremesaRepository.InsertSobremesa(new Sobremesa() { nome = "mousse de maracuja", porcao = 100, preco = 10});
+            var sobremesa1 = sobremesaRepository.InsertSobremesa(new Sobremesa() {nome = "profiteroles", porcao = 90, preco = 7});
+            var sobremesa2 = sobremesaRepository.InsertSobremesa(new Sobremesa() { nome = "mousse de maracuja", porcao = 100, preco = 10});
 
            
-            pedidoSobremesaRepository.Insert(new PedidoSobremesa() {idPedido = 2, idSobremesa = 2, quantidade = 3});
-            pedidoSobremesaRepository.Insert(new PedidoSobremesa() { idPedido = 2, idSobremesa = 1, quantidade = 1 });
-            pedidoSobremesaRepository.Insert(new PedidoSobremesa() { idPedido = 1, idSobremesa = 1, quantidade = 5 });
+            pedidoSobremesaRepository.Insert(sobremesa2.id, pedidoParaTeste2.id, 3);
+            pedidoSobremesaRepository.Insert(sobremesa1.id, pedidoParaTeste1.id, 1);
+            pedidoSobremesaRepository.Insert(sobremesa1.id, pedidoParaTeste2.id, 5);
 
             //Act:
             var pedidoTemUmaSobremesa = pedidoService.BuscaPedidoSobremesasPorPedidoId(pedidoParaTeste1.id);
@@ -247,10 +247,57 @@ namespace RestauranteSustentavel_BE.Tests
             dbContext.connection.Close();
         }
 
-        
 
-        //[PedidoSobremesa: INSERT]
-        //public void InsertSobremesaEmPedidoSobremesa_
+        //[PedidoSobremesa: INSERT sobremesa]
+        [Fact]
+        public void InsertSobremesaEmPedido_PedidoNaoTemSobremesa_RetornaSobremesaAdicionadaAoPedido()
+        {
+            //Arrange:
+            var dbContext = new DbContext(new SQLiteConnection("DataSource=:memory:"));
+            dbContext.connection.Open();
+            var pedidoRepository = new PedidoRepository(dbContext);
+            var pedidoSobremesaRepository = new PedidoSobremesaRepository(dbContext);
+            var pedidoBebidaRepository = new PedidoBebidaRepository(dbContext);
+            var sobremesaRepository = new SobremesaRepository(dbContext);
+
+            var pedidoService = new PedidoService(pedidoRepository, pedidoSobremesaRepository, pedidoBebidaRepository);
+
+            CriaTabelaPedido(dbContext);
+            CriaTabelaSobremesa(dbContext);
+            CriaTabelaPedidoSoobremesa(dbContext);
+
+            var pedidoTeste1 = pedidoRepository.Insert(new Pedido() { data = "02/05/2024", hora = "11:30" });
+            var pedidoTeste2 = pedidoRepository.Insert(new Pedido() { data = "01/05/2024", hora = "12:30" });
+            var pedidoTeste3 = pedidoRepository.Insert(new Pedido() { data = "03/06/2024", hora = "12:30" });
+
+
+            var sobremesaTeste1 = sobremesaRepository.InsertSobremesa(new Sobremesa() { nome = "profiteroles", porcao = 90, preco = 7 });
+            var sobremesaTeste2 = sobremesaRepository.InsertSobremesa(new Sobremesa() { nome = "mousse de maracuja", porcao = 100, preco = 10 });
+
+            //Act:
+            //
+            pedidoService.InsertSobremesaEmPedido(sobremesaTeste2.id, pedidoTeste2.id, 5);
+            var pedidoComUmaSobremesaInserida = pedidoService.GetAllPedidoSobremesa();
+
+            pedidoService.InsertSobremesaEmPedido(sobremesaTeste1.id, pedidoTeste1.id, 3);
+            pedidoService.InsertSobremesaEmPedido(sobremesaTeste2.id, pedidoTeste1.id, 2);
+            pedidoService.InsertSobremesaEmPedido(sobremesaTeste2.id, pedidoTeste1.id, 2);
+
+            var pedidoComVariasSobremesas = pedidoService.GetAllPedidoSobremesa();
+
+            //Assert:
+            //Verifica se inseriu uma sobremesa a um pedido
+            Assert.Equal(1, pedidoComUmaSobremesaInserida.Where(pedido => pedido.idPedido == 2).Count());
+            //Verifica se inseriu mais de uma sobremesa a um pedido
+            var A = pedidoComVariasSobremesas.Where(pedido => pedido.idPedido == 1).ToList();
+            Assert.Equal(2, pedidoComVariasSobremesas.Where(pedido => pedido.idPedido == 1).Count());
+            //Nao inseriu sobremesas
+            Assert.Equal(0, pedidoComVariasSobremesas.Where(pedido => pedido.idPedido == 3).Count());
+            
+
+            dbContext.connection.Close();
+
+        }
 
 
         //[PedidoSobremesa: READ]
