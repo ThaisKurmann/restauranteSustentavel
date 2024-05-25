@@ -1,13 +1,7 @@
 ﻿//realiza requisicoes no BD
 
 using RestauranteSustentavel_BE.Models;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.SQLite;
-using System.IO;
-using System.Runtime.CompilerServices;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Xml.Linq;
 
 namespace RestauranteSustentavel_BE.Repository
 {

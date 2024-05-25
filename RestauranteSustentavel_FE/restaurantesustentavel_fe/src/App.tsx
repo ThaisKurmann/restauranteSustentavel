@@ -1,8 +1,10 @@
 //Arquivo para definir as rotas da aplicacao
-/*import React, { useState } from "react";
+
+import React, { useState } from "react";
 import BebidaList from "./components/BebidaList";
 import BebidaForm from "./components/BebidaForm";
 import { Bebida } from "./models/Bebida";
+import BebidaListApi from "./components/BebidaListApi";
 
 const App: React.FC = () => {
   const [editBebida, setEditBebida] = useState<Bebida | undefined>(undefined);
@@ -16,23 +18,29 @@ const App: React.FC = () => {
   return (
     <div>
       <h1>CRUD de Bebidas</h1>
+
       <BebidaForm bebida={editBebida} onSave={handleSave} />
+      
+      <br></br>
+
       <BebidaList refresh={refresh} />
+
+      <BebidaListApi />
+    
+     
     </div>
+
   );
 };
 
 export default App;
 
 
-
-*/
-
-
-
-
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+/*
+import { BrowserRouter, Link, Outlet, Route, Routes } from "react-router-dom";
 import Bebidas from "./components/Bebidas/Bebidas";
+import { getBebidas } from "./services/BebidaService";
+
 
 
 const BebidasContainer = () => {
@@ -57,5 +65,9 @@ export default function App(){
         </Routes>        
       </BrowserRouter>
     </div>
+
+
   )
 }
+*/
+

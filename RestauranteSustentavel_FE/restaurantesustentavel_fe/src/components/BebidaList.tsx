@@ -17,6 +17,7 @@ const BebidaList: React.FC<BebidaListProps> = ({refresh}) => {
   const fetchBebidas = async () => {
     const bebidas = await getBebidas();
     setBebidas(bebidas);
+    //console.log(bebidas);
   };
 
   const handleDelete = async (id: number) => {
@@ -28,6 +29,7 @@ const BebidaList: React.FC<BebidaListProps> = ({refresh}) => {
     <div>
       <h2>Lista de Bebidas</h2>
       <ul>
+        
         {bebidas.map(bebida => (
           <li key={bebida.id}>
             {bebida.nome} - R$ {bebida.preco.toFixed(2)} - {bebida.alcoolica ? "Alcoólica" : "Não alcoólica"}
