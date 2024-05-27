@@ -5,6 +5,8 @@ import BebidaList from "./components/BebidaList";
 import BebidaForm from "./components/BebidaForm";
 import { Bebida } from "./models/Bebida";
 import BebidaListApi from "./components/BebidaListApi";
+import BebidaPostApi from "./components/BebidaPostApi";
+
 
 const App: React.FC = () => {
   const [editBebida, setEditBebida] = useState<Bebida | undefined>(undefined);
@@ -26,6 +28,8 @@ const App: React.FC = () => {
       <BebidaList refresh={refresh} />
 
       <BebidaListApi />
+
+      <BebidaPostApi />
     
      
     </div>

@@ -13,7 +13,7 @@ const BebidaListApi: React.FC<{}> = () => {
   
     useEffect(() => {
         getBebidas();
-        console.log(bebidas);
+       // console.log(bebidas);
     }, []);
 
     return (
