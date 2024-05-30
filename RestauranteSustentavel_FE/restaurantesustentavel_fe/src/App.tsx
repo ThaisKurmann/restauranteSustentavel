@@ -8,6 +8,12 @@ import BebidaListApi from "./components/BebidaListApi";
 import BebidaPostApi from "./components/BebidaPostApi";
 import BebidaFormApi from "./components/BebidaFormApi";
 import BebidaDeleteApi from "./components/BebidaDeleteApi";
+import { Router, Link, Route, Routes, BrowserRouter } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import NewPage from "./pages/NewPage";
+import FazerPedidoPage from "./pages/NewPage";
+import PedidoPage from "./pages/PedidoPage";
+import { Pedido } from "./models/Pedido";
 
 const App: React.FC = () => {
   const [editBebida, setEditBebida] = useState<Bebida | undefined>(undefined);
@@ -18,7 +24,56 @@ const App: React.FC = () => {
     setRefresh(!refresh);
   };
 
+  const pedidoEstatico: Pedido = {
+      id:8,
+      data: '05/03/2024',
+      hora: '12:00',
+  }
+
   return (
+    <BrowserRouter>
+            <div>
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/new">NewPage</Link>
+                        </li>
+                        <li>
+                          <Link to="/pedido">Pedido</Link>
+                        </li>
+                    </ul>
+                </nav>
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/new" element={<NewPage />} />
+                    <Route path="pedido" element={<PedidoPage pedido={pedidoEstatico}/>} />
+                </Routes>
+            </div>
+        </BrowserRouter>
+   
+  );
+};
+
+export default App;
+
+/**
+ * backup do que estava implementado antes de criar a NewPage.tsx
+ * 
+ * 
+ * 
+const App: React.FC = () => {
+  const [editBebida, setEditBebida] = useState<Bebida | undefined>(undefined);
+  const [refresh, setRefresh] = useState(false);
+
+  const handleSave = () => {
+    setEditBebida(undefined);
+    setRefresh(!refresh);
+  };
+
+   return (
     <div>
       <h1>CRUD de Bebidas</h1>
 
@@ -39,43 +94,5 @@ const App: React.FC = () => {
     </div>
 
   );
-};
-
-export default App;
-
-
-/*
-import { BrowserRouter, Link, Outlet, Route, Routes } from "react-router-dom";
-import Bebidas from "./components/Bebidas/Bebidas";
-import { getBebidas } from "./services/BebidaService";
-
-
-
-const BebidasContainer = () => {
-  return (
-    <>
-    <h1>Restaurante Sustentavel</h1>
-    <Outlet />
-    </>
-  );
-};
-
-
-export default function App(){
-  return (
-    <div className="App">
-    
-     <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<BebidasContainer />}>
-          <Route index element={<Bebidas />}/> 
-          </Route>
-        </Routes>        
-      </BrowserRouter>
-    </div>
-
-
-  )
-}
-*/
-
+ * 
+ */

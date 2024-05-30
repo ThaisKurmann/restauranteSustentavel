@@ -68,7 +68,7 @@ namespace RestauranteSustentavel_BE.Controllers
 
         }
 
-        [HttpGet("BuscaPedidoPoIdEmPedidoSobremesa")]
+        [HttpGet("BuscaPedidoPorIdEmPedidoSobremesa")]
         public List<PedidoSobremesa> BuscaPedidoSobremesasPorPedidoId(int idPedido)
         {
             return pedidoService.BuscaPedidoSobremesasPorPedidoId(idPedido);
