@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fV23vklP7VCfQ5rkimzVBoymN98F9DJohzHX4DXNFOR+QrkBOic+w1q4hUEpKH2hyDp8uyv0gVSeqDMHHjZsSw==",
+  "dgSpecHash": "LEQuTwJLzrnPdpaaKAmqk5QmBG/4A4zAlfr5nQI+crjmx/Fff1c5uesVXL8cKqPKBF5uvt7rnk7KSh3+Ts1QHw==",
   "success": true,
-  "projectFilePath": "D:\\Projetcs\\VisualStudio22\\Unigran2023.1\\TCCII\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE.csproj",
+  "projectFilePath": "D:\\Projetcs\\VisualStudio22\\Unigran2023.1\\TCCII\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\41786\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\41786\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.2\\microsoft.aspnetcore.openapi.7.0.2.nupkg.sha512",

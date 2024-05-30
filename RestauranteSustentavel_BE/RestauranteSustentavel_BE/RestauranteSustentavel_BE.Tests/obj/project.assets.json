@@ -8843,11 +8843,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projetcs\\VisualStudio22\\Unigran2023.1\\TCCII\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE.Tests\\RestauranteSustentavel_BE.Tests.csproj",
+      "projectUniqueName": "D:\\Projetcs\\VisualStudio22\\Unigran2023.1\\TCCII\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE.Tests\\RestauranteSustentavel_BE.Tests.csproj",
       "projectName": "RestauranteSustentavel_BE.Tests",
-      "projectPath": "D:\\Projetcs\\VisualStudio22\\Unigran2023.1\\TCCII\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE.Tests\\RestauranteSustentavel_BE.Tests.csproj",
+      "projectPath": "D:\\Projetcs\\VisualStudio22\\Unigran2023.1\\TCCII\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE.Tests\\RestauranteSustentavel_BE.Tests.csproj",
       "packagesPath": "C:\\Users\\41786\\.nuget\\packages\\",
-      "outputPath": "D:\\Projetcs\\VisualStudio22\\Unigran2023.1\\TCCII\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE.Tests\\obj\\",
+      "outputPath": "D:\\Projetcs\\VisualStudio22\\Unigran2023.1\\TCCII\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -8868,8 +8868,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\Projetcs\\VisualStudio22\\Unigran2023.1\\TCCII\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE.csproj": {
-              "projectPath": "D:\\Projetcs\\VisualStudio22\\Unigran2023.1\\TCCII\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE.csproj"
+            "D:\\Projetcs\\VisualStudio22\\Unigran2023.1\\TCCII\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE.csproj": {
+              "projectPath": "D:\\Projetcs\\VisualStudio22\\Unigran2023.1\\TCCII\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE.csproj"
             }
           }
         }

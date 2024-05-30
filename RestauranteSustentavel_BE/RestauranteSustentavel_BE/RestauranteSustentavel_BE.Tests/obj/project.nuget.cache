@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1nJOx9jAHbqKrdilNahadyE6kcVqrFgjv/XeI9mGP2MFkgVs06I4BChUxoiL8Hi4BfdeU0UVqSGEH8sRaqKLSQ==",
+  "dgSpecHash": "AzHLXVFiPI8icBNcfRARhheLGu4xHayMJPWEvypxyujbifcN8Zg94MzV/ILPz0NOq7MUDYeavBLRFl6em5vcWw==",
   "success": true,
-  "projectFilePath": "D:\\Projetcs\\VisualStudio22\\Unigran2023.1\\TCCII\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE.Tests\\RestauranteSustentavel_BE.Tests.csproj",
+  "projectFilePath": "D:\\Projetcs\\VisualStudio22\\Unigran2023.1\\TCCII\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE\\RestauranteSustentavel_BE.Tests\\RestauranteSustentavel_BE.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\41786\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\41786\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",

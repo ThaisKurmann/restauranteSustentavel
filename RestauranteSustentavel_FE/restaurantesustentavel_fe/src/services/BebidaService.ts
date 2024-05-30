@@ -43,6 +43,7 @@ const Bebidas: React.FC = () => {
 
 };
 */
+import axios from "axios";
 import { Bebida } from "../models/Bebida";
 
 //codigo anterior ao teste de pegar e mostrar os dados da APi
@@ -77,3 +78,57 @@ export const deleteBebida = (id: number): Promise<void> => {
   return Promise.resolve();
 };
 
+export const postBebiddasApi = async(bebida: Bebida) => {
+  
+  axios({
+      method: 'post',
+      url: 'https://localhost:7163/Bebida/Insert', 
+      headers: {},
+      data: {
+          nome: bebida.nome,
+          alcoolica: bebida.alcoolica,
+          id: bebida.id,
+          preco: bebida.preco
+      } 
+  });
+};
+
+
+
+/**
+ * import axios from "axios";
+import { Bebida } from "../models/Bebida";
+import { useEffect } from "react";
+
+
+//Post on AP
+const AddBebidaApi = (bebida: Bebida): React.FunctionComponent<{}> => {
+    
+    const postBebiddasApi = async() => {
+        axios({
+            method: 'post',
+            url: 'https://localhost:7163/Bebida/Insert', 
+            headers: {},
+            data: {
+                nome: bebida.nome,
+                alcoolica: bebida.alcoolica,
+                id: bebida.id,
+                preco: bebida.preco
+            } 
+        });
+    };
+    
+    useEffect(()=>{
+    }, []);
+
+    return(
+        <div>
+            <br></br>
+            <h1>Bebida Post on API</h1>
+            <button onClick={() => postBebiddasApi()}>POST</button>
+        </div>
+    );
+};
+
+export default AddBebidaApi;
+ */

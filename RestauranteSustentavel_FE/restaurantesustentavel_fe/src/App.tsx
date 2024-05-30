@@ -6,6 +6,7 @@ import BebidaForm from "./components/BebidaForm";
 import { Bebida } from "./models/Bebida";
 import BebidaListApi from "./components/BebidaListApi";
 import BebidaPostApi from "./components/BebidaPostApi";
+import BebidaFormApi from "./components/BebidaFormApi";
 
 
 const App: React.FC = () => {
@@ -30,8 +31,9 @@ const App: React.FC = () => {
       <BebidaListApi />
 
       <BebidaPostApi />
-    
-     
+
+      <BebidaFormApi/>
+
     </div>
 
   );

@@ -19,21 +19,16 @@ const BebidaListApi: React.FC<{}> = () => {
     return (
         //retrna html, mas tbm da pra colocar javascript/tyscript quando coloco {} pra manipular os dados
         <div>
-            <h2>Lista de Bebidas API</h2>
-            <ul>
-        
-        {bebidas.map(bebida => (
-          <li key={bebida.id}>
-            {bebida.nome} - R$ {bebida.preco.toFixed(2)} - {bebida.alcoolica ? "Alcoólica" : "Não alcoólica"}
-            <button onClick={() => console.log('Apagar ' + bebida.nome)}>Excluir</button>
-          </li>
-        ))}
-      </ul>
+          <h2>Lista de Bebidas [API]</h2>
+          <ul>
+            {bebidas.map(bebida => (
+              <li key={bebida.id}>
+                {bebida.nome} - R$ {bebida.preco.toFixed(2)} - {bebida.alcoolica ? "Alcoólica" : "Não alcoólica"}
+              </li>
+            ))}
+          </ul>
         </div>
-          
-
     );
-
 } 
 
 export default BebidaListApi;

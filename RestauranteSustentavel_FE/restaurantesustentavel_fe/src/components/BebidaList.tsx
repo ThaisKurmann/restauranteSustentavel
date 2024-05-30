@@ -27,7 +27,7 @@ const BebidaList: React.FC<BebidaListProps> = ({refresh}) => {
 
   return (
     <div>
-      <h2>Lista de Bebidas</h2>
+      <h2>Lista de Bebidas [estatico]</h2>
       <ul>
         {bebidas.map(bebida => (
           <li key={bebida.id}>
@@ -41,3 +41,6 @@ const BebidaList: React.FC<BebidaListProps> = ({refresh}) => {
 };
 
 export default BebidaList;
+
+
+//exemplo de debugacao <button onClick={() => console.log('Apagar ' + bebida.nome)}>Excluir</button>
