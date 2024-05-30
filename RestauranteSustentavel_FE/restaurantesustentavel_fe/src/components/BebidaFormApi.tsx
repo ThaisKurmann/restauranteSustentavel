@@ -1,18 +1,12 @@
 import { Bebida } from "../models/Bebida";
 import React, {useState } from "react";
-import { addBebida, postBebiddasApi, updateBebida } from "../services/BebidaService";
 import axios from "axios";
-
-interface BebidaFormApiProps {
-    bebida?: Bebida;
-    onSave: () => void; //aqui precisa ser salv no BD
-}
 
 
 const BebidaFormApi: React.FC=  () => {
 
     //campos formulario
-    const[bebida, setBebida] = useState<Bebida>({nome: '', preco: 0, id: 0, alcoolica:false});
+    const[bebida, setBebida] = useState<Bebida>({nome: '', preco: 0, id: 0, alcoolica: false});
    
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const {name, type, checked, value} = e.target;
@@ -33,15 +27,25 @@ const BebidaFormApi: React.FC=  () => {
   };
 
   return (
-    <div>
-        <input type="text" name="nome" value={bebida.nome} onChange={handleChange} placeholder="Nome" />
+    <form>
+      <div>
+        <label>Nome: </label>
+        <input type="text" name="nome" value={bebida.nome} onChange={handleChange} placeholder="nome bebida" />
+      </div>
+
+      <div>
+        <label>Preço: </label>
         <input type="number" name="preco" value={bebida.preco} onChange={handleChange} placeholder="Preço" />
-        <label>
-            Alcoólica:
-            <input type="checkbox" name="alcoolica" checked={bebida.alcoolica} onChange={handleChange} />
-        </label>
+      </div>
+
+      <div>
+        <label>Alcoólica: </label>
+        <input type="checkbox" name="alcoolica" checked={bebida.alcoolica} onChange={handleChange} />
+      </div>
+
         <button onClick={onSave}>Salvar</button>
-    </div>
+    </form>
+    
 );
 }
 

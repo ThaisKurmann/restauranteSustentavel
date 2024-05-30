@@ -7,7 +7,7 @@ import { Bebida } from "./models/Bebida";
 import BebidaListApi from "./components/BebidaListApi";
 import BebidaPostApi from "./components/BebidaPostApi";
 import BebidaFormApi from "./components/BebidaFormApi";
-
+import BebidaDeleteApi from "./components/BebidaDeleteApi";
 
 const App: React.FC = () => {
   const [editBebida, setEditBebida] = useState<Bebida | undefined>(undefined);
@@ -33,6 +33,8 @@ const App: React.FC = () => {
       <BebidaPostApi />
 
       <BebidaFormApi/>
+
+      <BebidaDeleteApi />
 
     </div>
 

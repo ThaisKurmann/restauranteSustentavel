@@ -23,7 +23,7 @@ const BebidaListApi: React.FC<{}> = () => {
           <ul>
             {bebidas.map(bebida => (
               <li key={bebida.id}>
-                {bebida.nome} - R$ {bebida.preco.toFixed(2)} - {bebida.alcoolica ? "Alcoólica" : "Não alcoólica"}
+                {bebida.nome} - R$ {bebida.preco.toFixed(2)} - {bebida.alcoolica ? "Alcoólica" : "Não alcoólica"} - Id: {bebida.id}
               </li>
             ))}
           </ul>
