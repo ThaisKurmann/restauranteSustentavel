@@ -16,7 +16,9 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
         const buscaBebidas = async () => {
             try {
                 const response = await axios.get('https://localhost:7163/Bebida/GetAll');
+                console.log(response);
                 setBebidas(response.data);
+                
             } catch (error) {
                 console.error('Erro ao carregar bebidas no BD:', error);
             }
@@ -26,10 +28,10 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
 
     }, []);
 
-    const handleAddBebida = async () => {
-        if (bebidaSelecionadaId === null) {
-            alert('Selecione uma bebida.');
-            return;
+        const handleAddBebida = async () => {
+            if (bebidaSelecionadaId === null) {
+                alert('Selecione uma bebida.');
+                return;
         }
 
         const pedidoBebida: PedidoBebida = {

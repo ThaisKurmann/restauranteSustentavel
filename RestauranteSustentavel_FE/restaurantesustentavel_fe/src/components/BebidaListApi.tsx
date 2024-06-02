@@ -19,7 +19,6 @@ const BebidaListApi: React.FC<{}> = () => {
     return (
         //retrna html, mas tbm da pra colocar javascript/tyscript quando coloco {} pra manipular os dados
         <div>
-          <h2>Lista de Bebidas [API]</h2>
           <ul>
             {bebidas.map(bebida => (
               <li key={bebida.id}>

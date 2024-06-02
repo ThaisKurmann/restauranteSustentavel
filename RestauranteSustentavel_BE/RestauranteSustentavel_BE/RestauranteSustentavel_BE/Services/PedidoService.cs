@@ -44,6 +44,23 @@ namespace RestauranteSustentavel_BE.Services
             return pedidoRepository.Delete(i);
         }
 
+        public void DeletePedidos()
+        {
+            //colocar os pedidos num vetor|lista
+            var pedidos = new List<Pedido>();
+
+            pedidos = pedidoRepository.GetAll();
+
+            //excluir pedidos a partir de pedido de id 18
+            foreach(var pedido in pedidos)
+            {
+                if(pedido.id >= 18)
+                {
+                    DeletePedido(pedido.id);
+                }
+            }
+        }
+
         //[Pedido: Busca um Pedido por Pedido id no Banco de Dados]
         public Pedido BuscaUmPedido(int idPedido)
         {

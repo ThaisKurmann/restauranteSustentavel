@@ -86,6 +86,7 @@ namespace RestauranteSustentavel_BE.Repository
             return i;
         }
 
+
         //Retorna um pedido 
         public Pedido GetById(int id) {
 

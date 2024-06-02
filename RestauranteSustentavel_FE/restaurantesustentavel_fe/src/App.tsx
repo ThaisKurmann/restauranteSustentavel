@@ -1,19 +1,13 @@
 //Arquivo para definir as rotas da aplicacao
 
 import React, { useState } from "react";
-import BebidaList from "./components/BebidaList";
-import BebidaForm from "./components/BebidaForm";
 import { Bebida } from "./models/Bebida";
-import BebidaListApi from "./components/BebidaListApi";
-import BebidaPostApi from "./components/BebidaPostApi";
-import BebidaFormApi from "./components/BebidaFormApi";
-import BebidaDeleteApi from "./components/BebidaDeleteApi";
 import { Router, Link, Route, Routes, BrowserRouter } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import NewPage from "./pages/NewPage";
-import FazerPedidoPage from "./pages/NewPage";
 import PedidoPage from "./pages/PedidoPage";
 import { Pedido } from "./models/Pedido";
+import SinglePedidoPage from "./pages/SinglePedidoPage";
 
 const App: React.FC = () => {
   const [editBebida, setEditBebida] = useState<Bebida | undefined>(undefined);
@@ -46,13 +40,33 @@ const App: React.FC = () => {
                         </li>
                     </ul>
                 </nav>
+                <p>---------------------------------------------------------------------------</p>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/new" element={<NewPage />} />
-                    <Route path="pedido" element={<PedidoPage pedido={pedidoEstatico}/>} />
+                    <Route path="/pedido" element={<PedidoPage pedido={pedidoEstatico}/>} />
+                    <Route path="/pedido/:id" element={<SinglePedidoPage />}/>
+
                 </Routes>
+                
+            </div>   
+            
+          {/** <div>
+            <p>---------------------------------------------------------------------------</p>
+              <h1>BEBIDA (API): </h1>
+              <h2>CREATE: </h2>
+              <BebidaFormApi />
+              <h2>GET: </h2>
+              <BebidaListApi />
+              <h2>DELETE: </h2>
+              <BebidaDeleteApi />
+              <p>---------------------------------------------------------------------------</p>  
             </div>
+              */} 
+           
         </BrowserRouter>
+
+    
    
   );
 };

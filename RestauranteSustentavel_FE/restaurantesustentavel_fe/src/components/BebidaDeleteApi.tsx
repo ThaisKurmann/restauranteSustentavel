@@ -30,13 +30,12 @@ const BebidaDeleteApi: React.FC = () => {
             // Atualizar a lista de bebidas após a exclusão
             setBebidas(bebidas.filter(bebida => bebida.id !== id));
         } catch (error) {
-            console.error('Erro ao excluir bebida no BD:', error);
+            console.error('Erro ao excluir bebida no:', error);
         }
     };
 
     return (
         <div>
-            <h1>Delete API:</h1>
             <ul>
                 {bebidas.map(bebida => (
                     <li key={bebida.id}>

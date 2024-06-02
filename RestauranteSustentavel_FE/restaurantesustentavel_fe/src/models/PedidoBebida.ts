@@ -3,3 +3,8 @@ export interface PedidoBebida{
     idBebida: number;
     idPedido: number;
 }
+
+export interface BebidasSelecionada{
+    idBebida: number|null;
+    quantidadeBebida: number
+};
