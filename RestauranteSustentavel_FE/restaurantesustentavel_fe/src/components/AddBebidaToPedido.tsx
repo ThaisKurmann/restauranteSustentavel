@@ -12,11 +12,10 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
     const [bebidaSelecionadaId, setBebidaSelecionadaId] = useState<number | null>(null);
     const [quantidade, setQuantidade] = useState<number>(1);
 
-    useEffect(() => {
+
         const buscaBebidas = async () => {
             try {
                 const response = await axios.get('https://localhost:7163/Bebida/GetAll');
-                console.log(response);
                 setBebidas(response.data);
                 
             } catch (error) {
@@ -24,14 +23,15 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
             }
         };
 
-        buscaBebidas();
 
+    useEffect(() => {
+        buscaBebidas();
     }, []);
 
-        const handleAddBebida = async () => {
-            if (bebidaSelecionadaId === null) {
-                alert('Selecione uma bebida.');
-                return;
+    const handleAddBebida = async () => {
+        if (bebidaSelecionadaId === null) {
+            alert('Selecione uma bebida.');
+            return;
         }
 
         const pedidoBebida: PedidoBebida = {
@@ -41,8 +41,9 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
         };
 
         try {
-            await axios.post('https://localhost:7163/api/Pedido/InsertPedidoBebida', pedidoBebida);
-            alert('Bebida adicionada ao pedido com sucesso!');
+            const response = await axios.post('https://localhost:7163/api/Pedido/InsertPedidoBebida', pedidoBebida);
+            console.log('resposta do servidor: ', response.data)
+            alert('Bebida adicionada ao pedido com sucesso!'); //dar um refresh na pag
         } catch (error) {
             console.error('Erro ao adicionar bebida ao pedido:', error);
         }
@@ -65,7 +66,7 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
                 onChange={(e) => setQuantidade(Number(e.target.value))}
                 min="1"
             />
-            <button onClick={handleAddBebida}>Adicionar ao Pedido</button>
+            <button onClick={() => handleAddBebida()}>Adicionar ao Pedido</button>
         </div>
     );
 };

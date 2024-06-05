@@ -8,6 +8,9 @@ import NewPage from "./pages/NewPage";
 import PedidoPage from "./pages/PedidoPage";
 import { Pedido } from "./models/Pedido";
 import SinglePedidoPage from "./pages/SinglePedidoPage";
+import BebidaDeleteApi from "./components/BebidaDeleteApi";
+import BebidaFormApi from "./components/BebidaFormApi";
+import BebidaListApi from "./components/BebidaListApi";
 
 const App: React.FC = () => {
   const [editBebida, setEditBebida] = useState<Bebida | undefined>(undefined);
@@ -50,19 +53,22 @@ const App: React.FC = () => {
                 </Routes>
                 
             </div>   
-            
           {/** <div>
-            <p>---------------------------------------------------------------------------</p>
+            
               <h1>BEBIDA (API): </h1>
-              <h2>CREATE: </h2>
+              
+              <h2>CREATE:(BebidaFormApi)</h2>
               <BebidaFormApi />
-              <h2>GET: </h2>
+              
+              <h2>GET: (BebidaListApi)</h2>
               <BebidaListApi />
-              <h2>DELETE: </h2>
+              
+              <h2>DELETE: (BebidaDeleteApi)</h2>
               <BebidaDeleteApi />
-              <p>---------------------------------------------------------------------------</p>  
+            
             </div>
-              */} 
+          */}  
+           
            
         </BrowserRouter>
 

@@ -18,13 +18,13 @@ const BebidaFormApi: React.FC=  () => {
     };
 
     const onSave = async () => {
-      try {
-          const response = await axios.post('https://localhost:7163/Bebida/Insert', bebida);
-          console.log('Resposta do servidor:', response.data);
-      } catch (error) {
-          console.error('Erro ao enviar dados:', error);
-      }
-  };
+        try {
+            const response = await axios.post('https://localhost:7163/Bebida/Insert', bebida);
+            console.log('Resposta do servidor:', response.data);
+        } catch (error) {
+            console.error('Erro ao enviar dados:', error);
+        }
+    };
 
   return (
     <form>

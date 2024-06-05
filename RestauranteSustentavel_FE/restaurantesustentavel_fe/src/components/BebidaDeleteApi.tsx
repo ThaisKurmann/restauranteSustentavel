@@ -39,7 +39,7 @@ const BebidaDeleteApi: React.FC = () => {
             <ul>
                 {bebidas.map(bebida => (
                     <li key={bebida.id}>
-                        {bebida.nome} - R$ {bebida.preco.toFixed(2)} - {bebida.alcoolica ? 'Alcoólica' : 'Não Alcoólica'}
+                        {bebida.nome} - R$ {bebida.preco.toFixed(2)} - {bebida.alcoolica ? 'Alcoólica' : 'Não Alcoólica'} - ID: {bebida.id}
                         <button onClick={() => handleDelete(bebida.id)}>Excluir</button>
                     </li>
                 ))}
