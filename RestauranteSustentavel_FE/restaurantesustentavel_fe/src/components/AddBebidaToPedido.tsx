@@ -8,6 +8,7 @@ interface AddBebidaToPedidoProps {
 }
 
 const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
+
     const [bebidas, setBebidas] = useState<Bebida[]>([]);
     const [bebidaSelecionadaId, setBebidaSelecionadaId] = useState<number | null>(null);
     const [quantidade, setQuantidade] = useState<number>(1);
@@ -17,6 +18,7 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
             try {
                 const response = await axios.get('https://localhost:7163/Bebida/GetAll');
                 setBebidas(response.data);
+                console.log(response.data)
                 
             } catch (error) {
                 console.error('Erro ao carregar bebidas no BD:', error);
@@ -42,7 +44,7 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
 
         try {
             const response = await axios.post('https://localhost:7163/api/Pedido/InsertPedidoBebida', pedidoBebida);
-            console.log('resposta do servidor: ', response.data)
+            console.log('resposta do servidor em AddBebida: ', response.data)
             alert('Bebida adicionada ao pedido com sucesso!'); //dar um refresh na pag
         } catch (error) {
             console.error('Erro ao adicionar bebida ao pedido:', error);

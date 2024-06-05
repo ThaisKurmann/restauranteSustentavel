@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import api from "../api";
-import { Bebida } from "../models/Bebida";
-import { PedidoBebida } from "../models/PedidoBebida";
 import AddBebidaToPedido from "../components/AddBebidaToPedido";
-import BebidaListApi from "../components/BebidaListApi";
 import AddSobremesaToPedido from "../components/AddSobremesaToPedido";
-import GetPedido from "../components/GetPedido";
+import GetPedido from "../components/GetPedidoAtual";
 
 
 
@@ -30,9 +26,12 @@ const SinglePedidoPage: React.FC=  () => {
             <AddBebidaToPedido pedidoId={pedidoAtualId}/>
           </div>
 
-          <AddSobremesaToPedido pedidoId={pedidoAtualId}/>
+           <AddSobremesaToPedido pedidoId={pedidoAtualId}/>
 
-          <GetPedido pedidoID={pedidoAtualId}/>
+          
+          <div>
+            <GetPedido pedidoID={pedidoAtualId}/>
+          </div>
         </div>
     );
 
