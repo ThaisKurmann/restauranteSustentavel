@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Bebida } from '../models/Bebida';
 import { PedidoBebida } from '../models/PedidoBebida';
+import GetBebidaEmPedidoAtual2 from './GetBebidaEmPedidoAtual2';
+import api from '../api';
 
 interface AddBebidaToPedidoProps {
     pedidoId: number;
@@ -12,11 +14,12 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
     const [bebidas, setBebidas] = useState<Bebida[]>([]);
     const [bebidaSelecionadaId, setBebidaSelecionadaId] = useState<number | null>(null);
     const [quantidade, setQuantidade] = useState<number>(1);
+    const [bebidasOnPedido, setBebidasOnPedido] = useState<PedidoBebida[]>([]);
 
 
         const buscaBebidas = async () => {
             try {
-                const response = await axios.get('https://localhost:7163/Bebida/GetAll');
+                const response = await axios.get('https://localhost:7163/Bebida/api/GetAll');
                 setBebidas(response.data);
                 console.log(response.data)
                 
@@ -25,10 +28,17 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
             }
         };
 
+        const updatePedidoBebidas = useCallback(async () => {
+            await api.get("/Pedido/api/Busca/PedidoEmPedidoBebida?idPedido=" + pedidoId).then((response) => setBebidasOnPedido(response.data));
+            console.log("omg")
+        }, [pedidoId])
+
 
     useEffect(() => {
+        console.log("useEffect")
         buscaBebidas();
-    }, []);
+        updatePedidoBebidas();
+    }, [pedidoId, updatePedidoBebidas]);
 
     const handleAddBebida = async () => {
         if (bebidaSelecionadaId === null) {
@@ -41,17 +51,17 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
             idPedido: pedidoId,
             quantidade,
         };
-
         try {
-            const response = await axios.post('https://localhost:7163/api/Pedido/InsertPedidoBebida', pedidoBebida);
-            console.log('resposta do servidor em AddBebida: ', response.data)
-            alert('Bebida adicionada ao pedido com sucesso!'); //dar um refresh na pag
+            await axios.post('https://localhost:7163/Pedido/api/Insert/PedidoBebida', pedidoBebida);
+           alert('Bebida adicionada ao pedido com sucesso!'); //dar um refresh na pag
+            updatePedidoBebidas();
         } catch (error) {
             console.error('Erro ao adicionar bebida ao pedido:', error);
         }
     };
 
     return (
+        <>
         <div>
             <h2>Adicionar Bebida ao Pedido</h2>
             <select onChange={(e) => setBebidaSelecionadaId(Number(e.target.value))} value={bebidaSelecionadaId ?? ''}>
@@ -70,7 +80,10 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
             />
             <button onClick={() => handleAddBebida()}>Adicionar ao Pedido</button>
         </div>
+        <GetBebidaEmPedidoAtual2 pedidos= {bebidasOnPedido}/>
+        </>
     );
 };
 
 export default AddBebidaToPedido;
+

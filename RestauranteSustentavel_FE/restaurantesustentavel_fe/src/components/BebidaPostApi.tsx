@@ -11,7 +11,7 @@ import axios from "axios";
         //await api.post("/Bebida/Insert", bebidas).then((response) => console.log(response)).catch((error)=> console.log(error));
         axios({
             method: 'post',
-            url: 'https://localhost:7163/Bebida/Insert', 
+            url: 'https://localhost:7163/Bebida/api/Insert', 
             headers: {},
             data: {
                 nome: 'TESTE 5',

@@ -15,7 +15,8 @@ const GetBebidaEmPedidoAtual: React.FC<PedidoProps> = ({pedidoID}) => {
      //buscar bebidas que estao no pedido atual
      const buscaBebidasEmPedido = async () => {
         try{
-            await api.get("/api/Pedido/BuscaPedidoEmPedidoBebida?idPedido=" + pedidoID).then((response) => setBuscaPedidoPorIdEmPedidoBebida(response.data)); 
+            await api.get("/Pedido/api/Busca/PedidoEmPedidoBebida?idPedido=" + pedidoID).then((response) => setBuscaPedidoPorIdEmPedidoBebida(response.data)); 
+            console.log("buscabebida realizada na");
         }catch(error){
             console.error('Erro ao buscar bebbidas no BD: ', error);
         }
@@ -24,30 +25,25 @@ const GetBebidaEmPedidoAtual: React.FC<PedidoProps> = ({pedidoID}) => {
 
     useEffect(()=>{
         buscaBebidasEmPedido();
-    },);
+    },[]);
 
 
     
     return(
         <div>
             <div>
-                <h2>Bebidas:</h2>
+            <h2>Bebidas:</h2>
                 <ul>
-                    {buscaPedidoPorIdEmPedidoBebida.map((item, index)=>{
-                        console.log(item);
-                        return ( <li key={index}> Pedido: {item.idPedido} Quantidade: {item.quantidade} - ID Bebida: {item.idBebida }</li>);
-                        
-                    }
-                    //(
-                        
-                    //    <li key={index}> Pedido: {item.idPedido} Quantidade: {item.quantidade} - ID Bebida: {item.idBebida }</li>
-                    //console.log(item)
-                   // ))
-                )}
-                </ul>
+                    {buscaPedidoPorIdEmPedidoBebida.map((item, index)=> (
+                        <li key={index}> Pedido: {item.idPedido} Quantidade: {item.quantidade} - ID Bebida: {item.idBebida }</li>
+                    
+                    ))}
+                </ul>  
             </div>
         </div>
     );
 }
 
 export default GetBebidaEmPedidoAtual;
+
+

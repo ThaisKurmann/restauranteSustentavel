@@ -14,13 +14,13 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId })
     const [sobremesaSelecionadaId, setSobremesaSelecionadaId] = useState<number | null>(null);
     const [quantidade, setQuantidade] = useState<number>(1);
 
-    console.log('ID do pedido',pedidoId);
+    
 
         const buscaSobremesas = async () => {
             try {
-                const response = await axios.get('https://localhost:7163/Sobremesa/GetAll');
+                const response = await axios.get('https://localhost:7163/Sobremesa/api/GetAll');
                 setSobremesas(response.data);
-              
+                
             } catch (error) {
                 console.error('Erro ao carregar sobremesas no BD:', error);
             }
@@ -36,22 +36,19 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId })
             alert('Selecione uma sobremesa.');
             return;
         }
-
+ 
         const pedidoSobremesa: PedidoSobremesa = {
             idSobremesa: sobremesaSelecionadaId,
             idPedido: pedidoId,
             quantidade
         };
-
+       
         try {
-            const retorno = await axios.put('https://localhost:7163/api/Pedido/InsertPedidoSobremesa', pedidoSobremesa);
-           console.log(retorno);
+            await axios.post('https://localhost:7163/Pedido/api/Insert/PedidoSobremesa', pedidoSobremesa);
             alert('Sobremesa adicionada ao pedido com sucesso!'); //dar um refresh na pag
             
         } catch (error) {
-            console.log('entrou aqui');
             console.error('Erro ao adicionar sobremesa ao pedido:', error);
-            
         }
     };
 

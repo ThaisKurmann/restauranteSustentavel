@@ -24,7 +24,7 @@ const PedidoDeleteApi: React.FC = () =>{
         //exclui pedidos
         const handleDeletePedido = async (id: number) => {
                 try{
-                    await axios.delete(`https://localhost:7163/api/Pedido/Delete?i=${id}`);
+                    await axios.delete(`https://localhost:7163/Pedido/api/Delete?i=${id}`);
                     // Atualizar a lista de pedidos após a exclusão
                     console.log('entrou aqui' + id);
                     setPedidos(pedidos.filter(pedido => pedido.id !== id));

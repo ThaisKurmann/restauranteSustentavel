@@ -7,7 +7,7 @@ const BebidaListApi: React.FC<{}> = () => {
     const [bebidas, setBebidas] = useState<Bebida[]>([]);
 
     const getBebidas = async () => {
-        await api.get("/Bebida/GetAll").then((response) => setBebidas(response.data));
+        await api.get("/Bebida/api/GetAll").then((response) => setBebidas(response.data));
     };
 
   

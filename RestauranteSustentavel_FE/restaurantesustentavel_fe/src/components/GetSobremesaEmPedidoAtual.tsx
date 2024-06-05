@@ -12,19 +12,25 @@ const GetSobremesasEmPedidoAtual: React.FC<PedidoProps> = ({pedidoID}) => {
 
     const [buscaPedidoPorIdEmPedidoSobremesa, setBuscaPedidoPorIdEmPedidoSobremesa] = useState<PedidoSobremesa[]>([]);
     
-     //buscar sobremesas que estao no pedido atual
-     const buscaSobremesaEmPedido = async () => {
+    useEffect(()=>{
+         //buscar sobremesas que estao no pedido atual
+      async function buscaSobremesaEmPedido(){
         try{
-            await api.get("/api/Pedido/BuscaPedidoPorIdEmPedidoSobremesa?idPedido=" + pedidoID).then((response) => setBuscaPedidoPorIdEmPedidoSobremesa(response.data)); 
+            const response = await api.get("/Pedido/api/Busca/PedidoPorIdEmPedidoSobremesa?idPedido=" + pedidoID)
+            setBuscaPedidoPorIdEmPedidoSobremesa(response.data); 
+
+            console.log('entrou aqui sobremesa');
 
         }catch(error){
             console.error('Erro ao buscar sobremesa no BD: ', error);
         }       
     };
 
-    useEffect(()=>{
         buscaSobremesaEmPedido();
-    },);
+
+    },[pedidoID]);
+
+  
 
 
     
@@ -35,7 +41,6 @@ const GetSobremesasEmPedidoAtual: React.FC<PedidoProps> = ({pedidoID}) => {
                 <ul>
                     {buscaPedidoPorIdEmPedidoSobremesa.map((item, index)=> (
                         <li key={index}> Pedido: {item.idPedido} Quantidade: {item.quantidade} - ID Bebida: {item.idSobremesa }</li>
-                    
                     ))}
                 </ul>
             </div>

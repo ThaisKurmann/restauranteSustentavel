@@ -8,7 +8,7 @@ const CreatePedidoButton: React.FC = () => {
 
     const handleCreatePedido = async () => {
         try {
-            const response = await axios.post('https://localhost:7163/api/Pedido/Insert', {
+            const response = await axios.post('https://localhost:7163/Pedido/api/Insert', {
                 data: new Date().toISOString().split('T')[0], // Exemplo de data
                 hora: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), // Exemplo de hora
             });
