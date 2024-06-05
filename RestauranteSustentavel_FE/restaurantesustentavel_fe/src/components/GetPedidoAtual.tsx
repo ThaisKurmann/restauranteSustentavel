@@ -18,6 +18,10 @@ const GetPedidoAtual: React.FC<PedidoProps> = ({pedidoID}) =>{
             <GetBebidaEmPedidoAtual pedidoID={pedidoID}/>
 
             <GetSobremesaEmPedidoAtual pedidoID={pedidoID}/>
+
+            {/**FALTA: GET PRATOS*/}
+
+            {/**FALTA: MOSTRAR CODIGO DA COMPRA DO CLIENTE*/}
              
         </div>
     );

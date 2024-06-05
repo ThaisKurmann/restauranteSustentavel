@@ -5,7 +5,7 @@ using RestauranteSustentavel_BE.Services;
 
 namespace RestauranteSustentavel_BE.Controllers
 {
-    [Route("[controller]")]
+    [Route("[controller]/api")]
     [ApiController]
     public class IngredienteController : ControllerBase
     {

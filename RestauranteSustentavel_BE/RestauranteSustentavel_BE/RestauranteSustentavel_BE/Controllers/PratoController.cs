@@ -4,7 +4,10 @@ using RestauranteSustentavel_BE.Services;
 
 namespace RestauranteSustentavel_BE.Controllers
 {
-    public class PratoController
+
+    [Route("[controller]/api")]
+    [ApiController]
+    public class PratoController: ControllerBase
     {
 
 

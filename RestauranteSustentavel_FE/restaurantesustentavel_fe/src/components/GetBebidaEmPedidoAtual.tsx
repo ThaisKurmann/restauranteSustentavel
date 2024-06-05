@@ -33,10 +33,17 @@ const GetBebidaEmPedidoAtual: React.FC<PedidoProps> = ({pedidoID}) => {
             <div>
                 <h2>Bebidas:</h2>
                 <ul>
-                    {buscaPedidoPorIdEmPedidoBebida.map((item, index)=> (
-                        <li key={index}> Pedido: {item.idPedido} Quantidade: {item.quantidade} - ID Bebida: {item.idBebida }</li>
-                    
-                    ))}
+                    {buscaPedidoPorIdEmPedidoBebida.map((item, index)=>{
+                        console.log(item);
+                        return ( <li key={index}> Pedido: {item.idPedido} Quantidade: {item.quantidade} - ID Bebida: {item.idBebida }</li>);
+                        
+                    }
+                    //(
+                        
+                    //    <li key={index}> Pedido: {item.idPedido} Quantidade: {item.quantidade} - ID Bebida: {item.idBebida }</li>
+                    //console.log(item)
+                   // ))
+                )}
                 </ul>
             </div>
         </div>
