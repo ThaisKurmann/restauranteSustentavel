@@ -14,8 +14,12 @@ const GetBebidaEmPedidoAtual: React.FC<PedidoProps> = ({pedidoID}) => {
     
      //buscar bebidas que estao no pedido atual
      const buscaBebidasEmPedido = async () => {
-        await api.get("/api/Pedido/BuscaPedidoEmPedidoBebida?idPedido=" + pedidoID).then((response) => setBuscaPedidoPorIdEmPedidoBebida(response.data)); 
-       
+        try{
+            await api.get("/api/Pedido/BuscaPedidoEmPedidoBebida?idPedido=" + pedidoID).then((response) => setBuscaPedidoPorIdEmPedidoBebida(response.data)); 
+        }catch(error){
+            console.error('Erro ao buscar bebbidas no BD: ', error);
+        }
+        
     };
 
     useEffect(()=>{

@@ -14,6 +14,7 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId })
     const [sobremesaSelecionadaId, setSobremesaSelecionadaId] = useState<number | null>(null);
     const [quantidade, setQuantidade] = useState<number>(1);
 
+    console.log('ID do pedido',pedidoId);
 
         const buscaSobremesas = async () => {
             try {
@@ -30,7 +31,7 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId })
         buscaSobremesas();
     }, []);
 
-    const handleAddSobremesa = async () => {
+    const handleAddSobremesa = async () => { 
         if (sobremesaSelecionadaId === null) {
             alert('Selecione uma sobremesa.');
             return;
@@ -43,11 +44,12 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId })
         };
 
         try {
-            await axios.post('https://localhost:7163/api/Pedido/InsertPedidoSobremesa', pedidoSobremesa);
-           
+            const retorno = await axios.put('https://localhost:7163/api/Pedido/InsertPedidoSobremesa', pedidoSobremesa);
+           console.log(retorno);
             alert('Sobremesa adicionada ao pedido com sucesso!'); //dar um refresh na pag
             
         } catch (error) {
+            console.log('entrou aqui');
             console.error('Erro ao adicionar sobremesa ao pedido:', error);
             
         }
@@ -59,9 +61,9 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId })
             <h2>Adicionar Sobremesa ao Pedido</h2>
             <select onChange={(e) => setSobremesaSelecionadaId(Number(e.target.value))} value={sobremesaSelecionadaId ?? ''}>
                 <option value="" disabled>Selecione uma sobremesa</option>
-                {sobremesas.map((sobremesa) => (
-                    <option key={sobremesa.id} value={sobremesa.id}>
-                        {sobremesa.nome}
+                    {sobremesas.map((sobremesa) => (
+                    <option key={sobremesa.id} value={sobremesa.id}> 
+                    {sobremesa.nome}
                     </option>
                 ))}
             </select>

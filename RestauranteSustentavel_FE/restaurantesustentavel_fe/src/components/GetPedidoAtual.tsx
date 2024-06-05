@@ -1,5 +1,6 @@
 
 import GetBebidaEmPedidoAtual from "./GetBebidaEmPedidoAtual";
+import GetSobremesaEmPedidoAtual from "./GetSobremesaEmPedidoAtual";
 
 
 interface PedidoProps{
@@ -16,6 +17,7 @@ const GetPedidoAtual: React.FC<PedidoProps> = ({pedidoID}) =>{
 
             <GetBebidaEmPedidoAtual pedidoID={pedidoID}/>
 
+            <GetSobremesaEmPedidoAtual pedidoID={pedidoID}/>
              
         </div>
     );
