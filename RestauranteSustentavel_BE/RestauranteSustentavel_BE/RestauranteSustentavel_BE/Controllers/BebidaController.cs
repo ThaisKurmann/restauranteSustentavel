@@ -44,7 +44,11 @@ namespace RestauranteSustentavel_BE.Controllers
             return bebidaService.Delete(i);
         }
 
-
+        [HttpGet("Busca/BebidaPorId")]
+        public Bebida BuscaBebidaPorId(int id)
+        {
+            return bebidaService.buscaBebidaPorId(id);
+        }
 
 
     }

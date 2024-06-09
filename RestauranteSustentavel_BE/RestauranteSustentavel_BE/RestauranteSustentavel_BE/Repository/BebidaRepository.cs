@@ -92,7 +92,28 @@ namespace RestauranteSustentavel_BE.Repository
             return i;//retorna a bebida que foi excluida
         }
 
+        //IMPLEMENTAR FUNCAO QUE BUSCA BEBIDAS POR ID NO BD!!!
+        public Bebida BuscaBebidaPorId(int idBebida)
+        {
+            SQLiteCommand searchCmd = new SQLiteCommand("SELECT * FROM Bebida Where id = @id", dbContext.connection);
+            searchCmd.Parameters.AddWithValue("@id", idBebida);
 
+            SQLiteDataReader reader = searchCmd.ExecuteReader();
+
+
+            if (reader.Read())
+            { 
+                return new Bebida() { 
+                    nome = reader["nome"].ToString(),
+                    alcoolica = int.Parse(reader["alcoolica"].ToString()) == 1, //pega o resultado e compara com 1, resultando em um booleano, ou seja, se a == 1, entao eh verdadeiro;
+                    id = int.Parse(reader["id"].ToString()),//pegando o Id da tabela Bebida
+                    preco = float.Parse(reader["preco"].ToString()),
+                };
+            }
+
+
+            return null;
+        }
 
 
 

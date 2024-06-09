@@ -39,5 +39,10 @@ namespace RestauranteSustentavel_BE.Services
             return bebidaRepository.DeleteBebida(i);
 
         }
+
+        public Bebida buscaBebidaPorId(int id)
+        {
+            return bebidaRepository.BuscaBebidaPorId(id);
+        }
     }
 }

@@ -22,7 +22,6 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
                 const response = await axios.get('https://localhost:7163/Bebida/api/GetAll');
                 setBebidas(response.data);
                 console.log(response.data)
-                
             } catch (error) {
                 console.error('Erro ao carregar bebidas no BD:', error);
             }
@@ -30,12 +29,11 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
 
         const updatePedidoBebidas = useCallback(async () => {
             await api.get("/Pedido/api/Busca/PedidoEmPedidoBebida?idPedido=" + pedidoId).then((response) => setBebidasOnPedido(response.data));
-            console.log("omg")
         }, [pedidoId])
 
 
     useEffect(() => {
-        console.log("useEffect")
+        console.log("useEffect on AddBebidaToPedido.tsx");
         buscaBebidas();
         updatePedidoBebidas();
     }, [pedidoId, updatePedidoBebidas]);
@@ -66,11 +64,7 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
             <h2>Adicionar Bebida ao Pedido</h2>
             <select onChange={(e) => setBebidaSelecionadaId(Number(e.target.value))} value={bebidaSelecionadaId ?? ''}>
                 <option value="" disabled>Selecione uma bebida</option>
-                {bebidas.map((bebida) => (
-                    <option key={bebida.id} value={bebida.id}>
-                        {bebida.nome}
-                    </option>
-                ))}
+                {bebidas.map((bebida) => (<option key={bebida.id} value={bebida.id}> {bebida.nome} </option>))}
             </select>
             <input
                 type="number"

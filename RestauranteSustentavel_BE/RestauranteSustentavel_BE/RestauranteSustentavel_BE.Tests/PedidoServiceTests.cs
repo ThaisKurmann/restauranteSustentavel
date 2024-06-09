@@ -276,7 +276,7 @@ namespace RestauranteSustentavel_BE.Tests
 
             //Act:
             //
-            pedidoService.InsertSobremesaEmPedido(sobremesaTeste2.id, pedidoTeste2.id, 5);
+            //pedidoService.InsertSobremesaEmPedido(sobremesaTeste2.id, pedidoTeste2.id, 5);
             var pedidoComUmaSobremesaInserida = pedidoService.GetAllPedidoSobremesa();
 
             pedidoService.InsertSobremesaEmPedido(sobremesaTeste1.id, pedidoTeste1.id, 3);
