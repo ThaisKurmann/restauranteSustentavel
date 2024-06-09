@@ -2,15 +2,14 @@
 
 import React, { useState } from "react";
 import { Bebida } from "./models/Bebida";
-import { Router, Link, Route, Routes, BrowserRouter } from "react-router-dom";
+import { Link, Route, Routes, BrowserRouter } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import NewPage from "./pages/NewPage";
 import PedidoPage from "./pages/PedidoPage";
 import { Pedido } from "./models/Pedido";
 import SinglePedidoPage from "./pages/SinglePedidoPage";
-import BebidaDeleteApi from "./components/BebidaDeleteApi";
-import BebidaFormApi from "./components/BebidaFormApi";
-import BebidaListApi from "./components/BebidaListApi";
+
+
 
 const App: React.FC = () => {
   const [editBebida, setEditBebida] = useState<Bebida | undefined>(undefined);

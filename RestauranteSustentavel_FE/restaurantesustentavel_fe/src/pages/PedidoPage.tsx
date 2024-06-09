@@ -1,12 +1,5 @@
-import { useEffect, useState } from "react";
+import CreatePedidoButton from "../components/Pedidos/CreatePedidoButton";
 import { Pedido } from "../models/Pedido";
-import CreatePedidoButton from "../components/CreatePedidoButton";
-import { Bebida } from "../models/Bebida";
-import api from "../api";
-import AddBebidaToPedido from "../components/AddBebidaToPedido";
-import PedidoDeleteApi from "../components/PedidoDeleteApi";
-import { BebidasSelecionada } from "../models/PedidoBebida";
-import axios from "axios";
 
 interface PedidoProps{
     pedido: Pedido;
