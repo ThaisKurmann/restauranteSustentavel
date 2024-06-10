@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import { PedidoBebida } from "../../models/PedidoBebida";
 import api from "../../api";
+import { PedidoSobremesa } from "../../models/PedidoSobremesa";
 
 
 
 interface PedidoProps{
-    pedidos: PedidoBebida[]
+    pedidoBebida: PedidoBebida[]
 
 }
 
-const MostraBebidaEmPedido: React.FC<PedidoProps> = ({pedidos}) => {
+const UpdateBebidasOnPedido: React.FC<PedidoProps> = ({pedidoBebida}) => {
 
-    const [pedidosIntern, setPedidosIntern] = useState<PedidoBebida[]>(pedidos);
+    const [pedidosIntern, setPedidoBebidaIntern] = useState<PedidoBebida[]>(pedidoBebida);
 
-    
-    const handleButtonBebidaChangeQuantity= async(pedidoBebida: PedidoBebida, increment: Boolean)=>{
+    //updateBebidas
+    const handleButtonBebidasChangeQuantity= async(pedidoBebida: PedidoBebida, increment: Boolean)=>{
 
         if(increment){
             pedidoBebida.quantidade++;
@@ -26,13 +27,13 @@ const MostraBebidaEmPedido: React.FC<PedidoProps> = ({pedidos}) => {
 
         const response = await api.get("/Pedido/api/Busca/PedidoEmPedidoBebida?idPedido=" + pedidoBebida.idPedido);
 
-        setPedidosIntern(response.data);
+        setPedidoBebidaIntern(response.data);
         
     }
 
     useEffect(()=>{
-        setPedidosIntern(pedidos)
-    }, [pedidos])
+        setPedidoBebidaIntern(pedidoBebida)
+    }, [pedidoBebida])
 
     return(
         <div>
@@ -42,18 +43,18 @@ const MostraBebidaEmPedido: React.FC<PedidoProps> = ({pedidos}) => {
                 <ul>
                     {pedidosIntern.map((item, index)=> (
                         <li key={index}> Pedido: {item.idPedido} Quantidade: {item.quantidade} - ID Bebida: {item.idBebida }
-                        <input type="button" onClick={()=>{handleButtonBebidaChangeQuantity(item, false)}} value="-"/>
-                        <input type="button" onClick={()=>{handleButtonBebidaChangeQuantity(item, true)}} value="+"/>
+                        <input type="button" onClick={()=>{handleButtonBebidasChangeQuantity(item, false)}} value="-"/>
+                        <input type="button" onClick={()=>{handleButtonBebidasChangeQuantity(item, true)}} value="+"/>
                         </li>
                     
                     ))}
                 </ul>  
-                
+
             </div>
         </div>
     );
 }
 
-export default MostraBebidaEmPedido;
+export default UpdateBebidasOnPedido;
 
 

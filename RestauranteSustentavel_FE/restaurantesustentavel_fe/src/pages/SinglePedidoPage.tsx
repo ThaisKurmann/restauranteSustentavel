@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import AddBebidaToPedido from "../components/Bebidas/AddBebidaToPedido";
 import AddSobremesaToPedido from "../components/Sobremesas/AddSobremesaToPedido";
-import UpdateBebidasEmPedido from "../components/Bebidas/UpdateBebidaEmPedido";
 
 
 
@@ -16,8 +15,8 @@ const SinglePedidoPage: React.FC=  () => {
         
           <AddBebidaToPedido pedidoId={pedidoAtualId}/>
           <AddSobremesaToPedido pedidoId={pedidoAtualId}/>
-          <UpdateBebidasEmPedido pedidoId={pedidoAtualId}/>
           
+
         </div>
     );
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Bebida } from '../../models/Bebida';
 import { PedidoBebida } from '../../models/PedidoBebida';
 import api from '../../api';
-import MostraBebidaEmPedido from './MostraBebidaEmPedido';
+import UpdateBebidasOnPedido from './UpdateBebidasOnPedido';
 
 interface AddBebidaToPedidoProps {
     pedidoId: number;
@@ -74,7 +74,7 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
             />
             <button onClick={() => handleAddBebida()}>Adicionar ao Pedido</button>
         </div>
-        <MostraBebidaEmPedido pedidos= {bebidasOnPedido}/>
+        <UpdateBebidasOnPedido pedidoBebida= {bebidasOnPedido}/>
         </>
     );
 };

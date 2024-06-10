@@ -67,10 +67,10 @@ namespace RestauranteSustentavel_BE.Controllers
         }
         
         [HttpPut("Update/QuantidadeDeSobremesaEmPedidoSobremesa")]
-        public void UpdateQuantidadeSobremesaEmPedidoSobremesa(PedidoSobremesa pedidoSobremesa, int quantidadeRemover)
+        public void UpdateQuantidadeSobremesaEmPedidoSobremesa(PedidoSobremesa pedidoSobremesa)
         {
 
-            pedidoService.UpdateQuantidadeDeSobremesasEmPedidoSobremesa(pedidoSobremesa, quantidadeRemover);
+            pedidoService.UpdateQuantidadeDeSobremesasEmPedidoSobremesa(pedidoSobremesa);
 
         }
 

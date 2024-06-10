@@ -104,7 +104,7 @@ namespace RestauranteSustentavel_BE.Services
         }
 
         //[PedidoSobremesa: UPDATE]
-        public void UpdateQuantidadeDeSobremesasEmPedidoSobremesa(PedidoSobremesa pedidoSobremesa, int quantidadeRemover)
+        public void UpdateQuantidadeDeSobremesasEmPedidoSobremesa(PedidoSobremesa pedidoSobremesa)
         {
             var pedidoSobremesa1 = pedidoSobremesaRepository.BuscaSobremesaEmPedidoSobremesa(pedidoSobremesa.idSobremesa, pedidoSobremesa.idPedido);
 
@@ -113,7 +113,7 @@ namespace RestauranteSustentavel_BE.Services
                 return;
             }
 
-            pedidoSobremesa1.quantidade = pedidoSobremesa1.quantidade - quantidadeRemover;
+            pedidoSobremesa1.quantidade = pedidoSobremesa.quantidade;
 
             if (pedidoSobremesa1.quantidade > 0)
             {
