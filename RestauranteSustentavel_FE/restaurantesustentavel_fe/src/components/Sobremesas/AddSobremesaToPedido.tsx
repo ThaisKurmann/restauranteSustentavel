@@ -3,7 +3,6 @@ import { Sobremesa } from "../../models/Sobremesa";
 import axios from "axios";
 import { PedidoSobremesa } from "../../models/PedidoSobremesa";
 import api from "../../api";
-import MostraSobremesasEmPedido from "./MostraSobremesasEmPedido";
 import UpdateSobremesasOnPedido from "./UpdateSobremesasOnPedido";
 
 
@@ -81,7 +80,6 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId })
             />
             <button onClick={() => handleAddSobremesa()}>Adicionar ao Pedido</button>
         </div>
-        <MostraSobremesasEmPedido pedidos={sobremesasOnPedido}/>
         <UpdateSobremesasOnPedido pedidos={sobremesasOnPedido}/>
         </>
     );

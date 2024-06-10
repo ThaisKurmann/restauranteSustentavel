@@ -8,6 +8,9 @@ import UpdateBebidasOnPedido from './UpdateBebidasOnPedido';
 interface AddBebidaToPedidoProps {
     pedidoId: number;
 }
+
+
+
 //codigo correto
 const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
 
@@ -15,7 +18,6 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
     const [bebidaSelecionadaId, setBebidaSelecionadaId] = useState<number | null>(null);
     const [quantidade, setQuantidade] = useState<number>(1);
     const [bebidasOnPedido, setBebidasOnPedido] = useState<PedidoBebida[]>([]);
-
 
         const buscaBebidas = async () => {
             try {
@@ -58,6 +60,25 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
         }
     };
 
+    const handleButtonBebidasChangeQuantity= async(pedidoBebida: PedidoBebida, increment: Boolean)=>{
+
+        if(increment){
+            pedidoBebida.quantidade++;
+        }else{
+            pedidoBebida.quantidade--;
+        }
+
+        await api.put("/Pedido/api/Update/QuantidadeBebidaEmPedidoBebida", pedidoBebida);
+
+        const response = await api.get("/Pedido/api/Busca/PedidoEmPedidoBebida?idPedido=" + pedidoBebida.idPedido);
+
+        setBebidasOnPedido(response.data);
+        
+    }
+
+
+
+
     return (
         <>
         <div>
@@ -74,7 +95,7 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
             />
             <button onClick={() => handleAddBebida()}>Adicionar ao Pedido</button>
         </div>
-        <UpdateBebidasOnPedido pedidoBebida= {bebidasOnPedido}/>
+        <UpdateBebidasOnPedido pedidoBebida= {bebidasOnPedido} updateBebidaOnPedido={handleButtonBebidasChangeQuantity} />
         </>
     );
 };
