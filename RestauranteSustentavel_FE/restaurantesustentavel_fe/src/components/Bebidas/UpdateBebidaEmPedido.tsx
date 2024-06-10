@@ -3,6 +3,7 @@ import { Bebida } from '../../models/Bebida';
 import { PedidoBebida } from '../../models/PedidoBebida';
 import api from '../../api';
 import MostraBebidaEmPedido from './MostraBebidaEmPedido';
+import DeleteBebidasEmPedido from './DeleteBebidasEmPedido';
 
 export interface PedidoProps{
     pedidoId: number
@@ -10,23 +11,29 @@ export interface PedidoProps{
 
 const UpdateBebidasEmPedido: React.FC<PedidoProps> = ({pedidoId}) => {
 
-
-    const [Nomebebidas, setNomeBebidas] = useState<Bebida[]>([]);
     const [bebidaSelecionadaId, setBebidaSelecionadaId] = useState<number | null>(null);
     const [quantidade, setQuantidade] = useState<number>(1);
-    const [bebidasOnPedido, setBebidasOnPedido] = useState<PedidoBebida[]>([]);
-
+    const [bebidasIdOnPedido, setBebidasIdOnPedido] = useState<PedidoBebida[]>([]);
     
      //busca bebidas do pedido atual
      const  updateBebidasEmPedido = useCallback(async ()=>{
         try{
             const response = await api.get("/Pedido/api/Busca/PedidoEmPedidoBebida?idPedido=" + pedidoId);
-            setBebidasOnPedido(response.data);
-            console.log('bebidas no pedido:', setBebidasOnPedido);
+            setBebidasIdOnPedido(response.data);
+            console.log('bebidas no pedido:', response.data);
+
+       
         }catch(error){
             console.error('Naso foi possivel buscar bebidas no pedido atual', error );
         }
-     },[pedidoId]);
+
+     },[ pedidoId]);
+
+     
+    useEffect(() => {
+        console.log("useEffect on UpdateBebidaToPedido.tsx");
+        updateBebidasEmPedido();
+    }, [pedidoId, updateBebidasEmPedido]);
 
     
      const handleUpdateBebida = async () =>{
@@ -44,8 +51,9 @@ const UpdateBebidasEmPedido: React.FC<PedidoProps> = ({pedidoId}) => {
 
         try{
             //excluir as bebidas selecioandas
-            await api.put("/Pedido/api/Update/QuantidadeBebidaEmPedidoBebida?quantidadeRemover="+ pedidoId);
+            const response =  await api.put("/Pedido/api/Update/QuantidadeBebidaEmPedidoBebida?quantidadeRemover="+ bebidaSelecionada.quantidade);
             //atualizar a quantidade de bebidas no pedido atual
+            console.log('quantidade a remover no BD: ', response.data);
             updateBebidasEmPedido();
 
         }catch(error){
@@ -53,18 +61,15 @@ const UpdateBebidasEmPedido: React.FC<PedidoProps> = ({pedidoId}) => {
         }
      };
 
-     const buscaNomeBebbidasOnPedido= async()=>{
-        //chamar funcao do backend que soh busca bebida por seu id
-     }
 
     return(
     <>
         
         <div>
-            <h1>Altere seu pedido:</h1>
+            <h1>Altere seu pedido: {pedidoId}</h1>
             <select onChange={(e) => setBebidaSelecionadaId(Number(e.target.value))} value={bebidaSelecionadaId ?? ''}>
                 <option value="" disabled>Selecione uma bebida</option>
-                {bebidasOnPedido.map((bebida, index) => (<option key={index} value={bebida.idBebida}> </option>))}
+                {bebidasIdOnPedido.map((bebida, index) => (<option key={index} value={bebida.idBebida}> </option>))}
             </select>
             <input
                 type="number"
@@ -74,7 +79,7 @@ const UpdateBebidasEmPedido: React.FC<PedidoProps> = ({pedidoId}) => {
             />
             <button onClick={() => handleUpdateBebida()}>Alterar</button>
         </div>
-        <MostraBebidaEmPedido pedidos={bebidasOnPedido}/>
+        
     </>
     );
 };

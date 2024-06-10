@@ -155,16 +155,16 @@ namespace RestauranteSustentavel_BE.Services
         }
 
         //[PedidoBebida: UPDATE]
-        public void UpdateQuantidadeBebidaEmPedidoBebida(PedidoBebida pedidoBebida, int quantidadeRemover)
+        public void UpdateQuantidadeBebidaEmPedidoBebida(PedidoBebida updatePedidoBebida)
         {
-            var pedidoBebidaBD = pedidoBebidaRepository.BuscaBebidaQueEstaEmPedido(pedidoBebida.idBebida, pedidoBebida.idPedido);
+            var pedidoBebidaBD = pedidoBebidaRepository.BuscaBebidaQueEstaEmPedido(updatePedidoBebida.idBebida, updatePedidoBebida.idPedido);
 
             if (pedidoBebidaBD == null)
             {
                 return;
             }
 
-            pedidoBebidaBD.quantidade -= quantidadeRemover;
+            pedidoBebidaBD.quantidade = updatePedidoBebida.quantidade;
 
             if (pedidoBebidaBD.quantidade > 0)
             {

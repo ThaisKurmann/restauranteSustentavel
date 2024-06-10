@@ -2,8 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Bebida } from '../../models/Bebida';
 import { PedidoBebida } from '../../models/PedidoBebida';
-import GetBebidaEmPedidoAtual2 from './MostraBebidaEmPedido';
 import api from '../../api';
+import MostraBebidaEmPedido from './MostraBebidaEmPedido';
 
 interface AddBebidaToPedidoProps {
     pedidoId: number;
@@ -74,7 +74,7 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
             />
             <button onClick={() => handleAddBebida()}>Adicionar ao Pedido</button>
         </div>
-        <GetBebidaEmPedidoAtual2 pedidos= {bebidasOnPedido}/>
+        <MostraBebidaEmPedido pedidos= {bebidasOnPedido}/>
         </>
     );
 };

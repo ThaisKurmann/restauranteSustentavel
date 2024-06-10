@@ -17,6 +17,7 @@ const SinglePedidoPage: React.FC=  () => {
           <AddBebidaToPedido pedidoId={pedidoAtualId}/>
           <AddSobremesaToPedido pedidoId={pedidoAtualId}/>
           <UpdateBebidasEmPedido pedidoId={pedidoAtualId}/>
+          
         </div>
     );
 

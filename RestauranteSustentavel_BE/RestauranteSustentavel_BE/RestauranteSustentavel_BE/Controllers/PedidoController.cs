@@ -98,9 +98,9 @@ namespace RestauranteSustentavel_BE.Controllers
 
 
         [HttpPut("Update/QuantidadeBebidaEmPedidoBebida")]
-        public void UpdateQuantidadeBebidaEmPedidoBebida(PedidoBebida pedidoBebida, int quantidadeRemover)
+        public void UpdateQuantidadeBebidaEmPedidoBebida(PedidoBebida updatePedidoBebida)
         {
-            pedidoService.UpdateQuantidadeBebidaEmPedidoBebida(pedidoBebida, quantidadeRemover);
+            pedidoService.UpdateQuantidadeBebidaEmPedidoBebida(updatePedidoBebida);
         }
 
 
