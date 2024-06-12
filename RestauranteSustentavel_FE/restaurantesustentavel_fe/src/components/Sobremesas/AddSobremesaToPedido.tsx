@@ -30,7 +30,6 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId })
 
     const updatePediddoSobremesa = useCallback(async ()=> {
         await api.get("/Pedido/api/Busca/PedidoPorIdEmPedidoSobremesa?idPedido=" + pedidoId).then((response)=> setSobremesasOnPedido(response.data));
-        console.log("update em sobremesas realizado com sucesso!");
     },[pedidoId])
 
     useEffect(() => {
@@ -60,6 +59,24 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId })
         }
     };
 
+    //updateBebidas
+    const handleButtonSobremesasChangeQuantity= async(pedidoSobremesa: PedidoSobremesa, increment: Boolean)=>{
+
+        if(increment){
+            pedidoSobremesa.quantidade++;
+        }else{
+            pedidoSobremesa.quantidade--;
+        }
+
+        await api.put("/Pedido/api/Update/QuantidadeDeSobremesaEmPedidoSobremesa", pedidoSobremesa);
+
+        const response = await api.get("/Pedido/api/Busca/PedidoPorIdEmPedidoSobremesa?idPedido=" + pedidoSobremesa.idPedido);
+
+        setSobremesasOnPedido(response.data);
+        
+    }
+
+
     return (
         <>
         <div>
@@ -80,7 +97,7 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId })
             />
             <button onClick={() => handleAddSobremesa()}>Adicionar ao Pedido</button>
         </div>
-        <UpdateSobremesasOnPedido pedidos={sobremesasOnPedido}/>
+        <UpdateSobremesasOnPedido pedidoSobremesa={sobremesasOnPedido} updateSobremesaOnPedido={handleButtonSobremesasChangeQuantity}/>
         </>
     );
 };

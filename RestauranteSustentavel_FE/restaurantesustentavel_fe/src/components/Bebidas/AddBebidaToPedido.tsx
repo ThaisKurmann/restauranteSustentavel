@@ -35,7 +35,6 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
 
 
     useEffect(() => {
-        console.log("useEffect on AddBebidaToPedido.tsx");
         buscaBebidas();
         updatePedidoBebidas();
     }, [pedidoId, updatePedidoBebidas]);

@@ -1,7 +1,6 @@
 //Arquivo para definir as rotas da aplicacao
 
-import React, { useState } from "react";
-import { Bebida } from "./models/Bebida";
+import React from "react";
 import { Link, Route, Routes, BrowserRouter } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import NewPage from "./pages/NewPage";
@@ -12,13 +11,6 @@ import SinglePedidoPage from "./pages/SinglePedidoPage";
 
 
 const App: React.FC = () => {
-  const [editBebida, setEditBebida] = useState<Bebida | undefined>(undefined);
-  const [refresh, setRefresh] = useState(false);
-
-  const handleSave = () => {
-    setEditBebida(undefined);
-    setRefresh(!refresh);
-  };
 
   const pedidoEstatico: Pedido = {
       id:8,
@@ -42,7 +34,6 @@ const App: React.FC = () => {
                         </li>
                     </ul>
                 </nav>
-                <p>---------------------------------------------------------------------------</p>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/new" element={<NewPage />} />
@@ -52,23 +43,7 @@ const App: React.FC = () => {
                 </Routes>
                 
             </div>   
-          {/** <div>
-            
-              <h1>BEBIDA (API): </h1>
-              
-              <h2>CREATE:(BebidaFormApi)</h2>
-              <BebidaFormApi />
-              
-              <h2>GET: (BebidaListApi)</h2>
-              <BebidaListApi />
-              
-              <h2>DELETE: (BebidaDeleteApi)</h2>
-              <BebidaDeleteApi />
-            
-            </div>
-          */}  
-           
-           
+          
         </BrowserRouter>
 
     

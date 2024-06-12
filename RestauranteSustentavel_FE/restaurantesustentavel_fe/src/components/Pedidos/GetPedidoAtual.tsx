@@ -17,9 +17,6 @@ const GetPedidoAtual: React.FC<PedidoProps> = ({pedidos}) =>{
 
             <MostraSobremesaEmPedido pedidos={pedidos}/>
 
-            {/**FALTA: GET PRATOS*/}
-
-            {/**FALTA: MOSTRAR CODIGO DA COMPRA DO CLIENTE*/}
              
         </div>
     );

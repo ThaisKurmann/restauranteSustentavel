@@ -13,17 +13,9 @@ const PedidoPage: React.FC<PedidoProps> = ({pedido}) => {
             <div>
                 <h1>PEDIDO (API): </h1>
                 <p>Bem-vindo a agina 'pedidos'!</p>
-                {/**<AddBebidaToPedido pedidoId={pedido.id} />*/}
-            </div>
 
-            <div>
-
-            </div>
-            <div>
                 <h2>Criar Pedido: </h2>
                 <CreatePedidoButton />
-              {/**<h2>Deletar Pedido: </h2>
-               <PedidoDeleteApi /> */} 
             </div>
         </div>
     );
