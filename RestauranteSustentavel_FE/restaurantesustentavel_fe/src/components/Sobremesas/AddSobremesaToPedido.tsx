@@ -22,7 +22,7 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId })
         try {
             const response = await axios.get('https://localhost:7163/Sobremesa/api/GetAll');
             setSobremesas(response.data);
-            console.log('componente AddSobremesaToPedidoSobremesaCorreto.tsxt: response.data =>', response.data);
+            //console.log('componente AddSobremesaToPedidoSobremesaCorreto.tsxt: response.data =>', response.data);
         } catch (error) {
             console.error('Erro ao carregar sobremesas no BD:', error);
         }

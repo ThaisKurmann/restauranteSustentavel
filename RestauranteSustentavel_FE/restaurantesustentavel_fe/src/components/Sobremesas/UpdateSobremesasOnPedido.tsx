@@ -15,30 +15,7 @@ interface PedidoProps{
 
 const UpdateBebidasOnPedido: React.FC<PedidoProps> = ({pedidoSobremesa, updateSobremesaOnPedido}) => {
 
-   /** const [pedidosSobremesaIntern, setPedidoSobremesaIntern] = useState<PedidoSobremesa[]>(pedidos);
-
-    //updateBebidas
-    const handleButtonSobremesasChangeQuantity= async(pedidoSobremesa: PedidoSobremesa, increment: Boolean)=>{
-
-        if(increment){
-            pedidoSobremesa.quantidade++;
-        }else{
-            pedidoSobremesa.quantidade--;
-        }
-
-        await api.put("/Pedido/api/Update/QuantidadeDeSobremesaEmPedidoSobremesa", pedidoSobremesa);
-
-        const response = await api.get("/Pedido/api/Busca/PedidoPorIdEmPedidoSobremesa?idPedido=" + pedidoSobremesa.idPedido);
-
-        setPedidoSobremesaIntern(response.data);
-        
-    }
-
-    useEffect(()=>{
-        setPedidoSobremesaIntern(pedidos)
-    }, [pedidos])
- */
-    return(
+   return(
         <div>
             <div>
             <h1>Carrinho de compra:</h1>

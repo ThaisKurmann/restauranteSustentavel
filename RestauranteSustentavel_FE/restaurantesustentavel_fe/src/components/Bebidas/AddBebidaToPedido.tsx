@@ -23,7 +23,7 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
             try {
                 const response = await axios.get('https://localhost:7163/Bebida/api/GetAll');
                 setBebidas(response.data);
-                console.log(response.data)
+                //console.log(response.data)
             } catch (error) {
                 console.error('Erro ao carregar bebidas no BD:', error);
             }

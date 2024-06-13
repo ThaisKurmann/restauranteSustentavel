@@ -7,7 +7,7 @@ namespace RestauranteSustentavel_BE.Controllers
 
     [Route("[controller]/api")]
     [ApiController]
-    public class PratoController: ControllerBase
+    public class PratoController : ControllerBase
     {
 
 
@@ -18,12 +18,12 @@ namespace RestauranteSustentavel_BE.Controllers
         public PratoController(PratoService pratoService)
         {
             this.pratoService = pratoService;
-        }   
+        }
 
         [HttpPost("InsertPrato")]
-        public Prato InsertPrato(Prato prato)
+        public Prato InsertPrato(int pedidoId)
         {
-            return pratoService.InsertPrato(prato);
+            return pratoService.InsertPrato(pedidoId);
         }
 
 
@@ -39,10 +39,20 @@ namespace RestauranteSustentavel_BE.Controllers
             pratoService.DeletePrato(idPrato);
         }
 
-        [HttpGet("BuscaPratosEmPedido")]
-        public List<Prato> BuscaPratosEmPedido(int idPedido)
+        [HttpGet("BuscaPratosPorPedidoId")]
+        public List<Prato> BuscaPratosPorPedidoId(int idPedido)
         {
-            return pratoService.BuscaPratosEmPedido(idPedido);
+            return pratoService.BuscaPratosPorPedidoId(idPedido);
         }
+
+        [HttpGet("BuscaPratoIngredienteListView")]
+        public List<PratoIngredienteListView> BuscaPratoIngredienteListView(int pratoId)
+        {
+
+            return pratoService.ShowIngredientesEmPratoPorPedidoId(pratoId);
+
+        }
+
+      
     }
 }

@@ -17,17 +17,21 @@ namespace RestauranteSustentavel_BE.Repository
 
 
         //CREATE
-        public Prato Insert(Prato prato)
+        public Prato Insert(int pedidoId)
         {
 
             SQLiteCommand insertCmd = new SQLiteCommand("insert into Prato(fk_Prato_Pedido) values(@idPedido)", dbContext.connection);
-            insertCmd.Parameters.AddWithValue("@idPedido", prato.idPedido);
+            insertCmd.Parameters.AddWithValue("@idPedido", pedidoId);
             insertCmd.ExecuteNonQuery();
 
-            //pegando o Id da tabela Sobremesa
+            //pegando o Id da tabela Prato
             insertCmd.CommandText = "select last_insert_rowid()";
             Int64 LastRowID64 = (Int64)insertCmd.ExecuteScalar();
-            prato.id = (int)LastRowID64;
+
+            var prato  = new Prato();
+
+            prato.idPrato = (int)LastRowID64;
+            prato.idPedido = pedidoId;
 
             return prato;
         }
@@ -49,7 +53,7 @@ namespace RestauranteSustentavel_BE.Repository
             {
                 var prato = new Prato()
                 {
-                    id = int.Parse(reader["id"].ToString()),
+                    idPrato = int.Parse(reader["id"].ToString()),
                     idPedido = int.Parse(reader["fk_Prato_Pedido"].ToString()),
 
                 };
@@ -74,7 +78,7 @@ namespace RestauranteSustentavel_BE.Repository
         }
 
         //BUSCA todos os Prato do Pedido x
-        public List<Prato> BuscaPratoEmPedido(int idPedido)
+        public List<Prato> BuscaPratosPorPedidoId(int idPedido)
         {
             var pratos = new List<Prato>();
 
@@ -86,7 +90,7 @@ namespace RestauranteSustentavel_BE.Repository
             {
                 var prato = new Prato()
                 {
-                    id = int.Parse(reader["id"].ToString()),
+                    idPrato = int.Parse(reader["id"].ToString()),
                     idPedido = int.Parse(reader["fk_Prato_Pedido"].ToString()),
                 };
                 pratos.Add(prato);
@@ -94,6 +98,7 @@ namespace RestauranteSustentavel_BE.Repository
 
             return pratos;
         }
+
 
 
 

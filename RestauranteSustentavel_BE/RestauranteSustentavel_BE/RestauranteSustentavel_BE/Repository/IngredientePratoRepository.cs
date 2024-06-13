@@ -14,10 +14,6 @@ namespace RestauranteSustentavel_BE.Repository
             this.dbContext = dbContext;
         }
 
-
-        /*TODO: CORRIGIR NOME DOS METODOS CRUD-> deixar de maneira mais limpa possivel, como: Insert*/
-
-
         //CREATE
         public IngredientePrato Insert(IngredientePrato ingredientePrato)
         {
@@ -83,17 +79,17 @@ namespace RestauranteSustentavel_BE.Repository
 
         }
 
-       
-         //BUSCA UM Prato na tabela IngredientePrato
-        public List<IngredientePrato> BuscaPratoEmIngredientePrato(int idPrato)
+
+        //BUSCA UM Prato na tabela IngredientePrato
+        public List<IngredientePrato> BuscaPorPratoId(int idPrato)
         {
-           var ingredientePratos = new List<IngredientePrato>();
+            var ingredientePratos = new List<IngredientePrato>();
 
             SQLiteCommand getCmd = new SQLiteCommand("SELECT * FROM IngredientePrato WHERE fk_IngredientePrato_Prato = @idPrato", dbContext.connection);
             getCmd.Parameters.AddWithValue("@idPrato", idPrato);
             SQLiteDataReader reader = getCmd.ExecuteReader();
 
-            while(reader.Read())
+            while (reader.Read())
             {
                 var ingredientePrato = new IngredientePrato()
                 {
@@ -102,40 +98,68 @@ namespace RestauranteSustentavel_BE.Repository
                     idPrato = int.Parse(reader["fk_IngredientePrato_Prato"].ToString()),
                 };
                 ingredientePratos.Add(ingredientePrato);
-            } 
+            }
 
             return ingredientePratos;
         }
 
-       //Busca ingrendiente x na tabela IngredientePrato
-       public IngredientePrato BuscaIngredienteEmIngredientePrato(int idIngrediente, int idPrato)
-       {
-           SQLiteCommand getCmd = new SQLiteCommand("SELECT IngredientePrato.fk_IngredientePrato_Ingrediente, IngredientePrato.fk_IngredientePrato_Prato, IngredientePrato.quantidade\r\nFROM IngredientePrato\r\nWHERE IngredientePrato.fk_IngredientePrato_Ingrediente = @idIngrediente AND IngredientePrato.fk_IngredientePrato_Prato = @idPrato;", dbContext.connection);
-           getCmd.Parameters.AddWithValue("@idIngrediente", idIngrediente);
-           getCmd.Parameters.AddWithValue("@idPrato", idPrato);
+        //Busca ingrendiente x na tabela IngredientePrato
+        public IngredientePrato BuscaIngredienteEmIngredientePrato(int idIngrediente, int idPrato)
+        {
+            SQLiteCommand getCmd = new SQLiteCommand("SELECT IngredientePrato.fk_IngredientePrato_Ingrediente, IngredientePrato.fk_IngredientePrato_Prato, IngredientePrato.quantidade\r\nFROM IngredientePrato\r\nWHERE IngredientePrato.fk_IngredientePrato_Ingrediente = @idIngrediente AND IngredientePrato.fk_IngredientePrato_Prato = @idPrato;", dbContext.connection);
+            getCmd.Parameters.AddWithValue("@idIngrediente", idIngrediente);
+            getCmd.Parameters.AddWithValue("@idPrato", idPrato);
 
 
-           SQLiteDataReader reader = getCmd.ExecuteReader();
+            SQLiteDataReader reader = getCmd.ExecuteReader();
 
-           reader.Read();
+            reader.Read();
 
-           if(!reader.HasRows) {
+            if (!reader.HasRows) {
 
-               return null;
+                return null;
 
-           }
-           var ingredientePrato = new IngredientePrato()
-           {
-               quantidade = int.Parse(reader["quantidade"].ToString()),
-               idIngrediente = int.Parse(reader["fk_IngredientePrato_Ingrediente"].ToString()),
-               idPrato = int.Parse(reader["fk_IngredientePrato_Prato"].ToString()),
-           };
+            }
+            var ingredientePrato = new IngredientePrato()
+            {
+                quantidade = int.Parse(reader["quantidade"].ToString()),
+                idIngrediente = int.Parse(reader["fk_IngredientePrato_Ingrediente"].ToString()),
+                idPrato = int.Parse(reader["fk_IngredientePrato_Prato"].ToString()),
+            };
 
 
-           return ingredientePrato;
-       }
-       
-       
+            return ingredientePrato;
+        }
 
+        public List<IngredientePrato> BuscaIngredientesEmIngredientePrato(int idPrato)
+        {
+            var ingredientePratoList = new List<IngredientePrato>();
+
+            SQLiteCommand getCmd = new SQLiteCommand("SELECT IngredientePrato.fk_IngredientePrato_Ingrediente, IngredientePrato.fk_IngredientePrato_Prato, IngredientePrato.quantidade\r\nFROM IngredientePrato\r\nWHERE IngredientePrato.fk_IngredientePrato_Prato = @idPrato");
+            getCmd.Parameters.AddWithValue("@idPrato", idPrato);
+
+            SQLiteDataReader reader = getCmd.ExecuteReader();
+
+            while (reader.HasRows)
+            {
+                var ingredientePrato = new IngredientePrato()
+                {
+                    quantidade = int.Parse(reader["quantidade"].ToString()),
+                    idIngrediente = int.Parse(reader["fk_IngredientePrato_Ingrediente"].ToString()),
+                    idPrato = int.Parse(reader["fk_IngredientePrato_Prato"].ToString()),
+                };
+
+                ingredientePratoList.Add(ingredientePrato);
+            }
+            if (!reader.HasRows)
+            {
+
+                return null;
+
+            }
+
+            return ingredientePratoList;
+        }
     }
+
 }
