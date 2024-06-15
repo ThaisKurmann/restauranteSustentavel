@@ -92,7 +92,32 @@ namespace RestauranteSustentavel_BE.Repository
            return i;//retorna a ingrediente excluido
        }
 
-       
+        //BUSCA UM INGREDIENTE NO BD
+        public Ingrediente BuscaIngredientePorId(int idIngrediente)
+        {
+            SQLiteCommand searchCmd = new SQLiteCommand("SELECT * FROM Ingrediente Where id = @id", dbContext.connection);
+            searchCmd.Parameters.AddWithValue("@id", idIngrediente);
+
+            SQLiteDataReader reader = searchCmd.ExecuteReader();
+
+
+            if (reader.Read())
+            {   //pega os dados do BD
+                return new Ingrediente()
+                {
+                    nome = reader["nome"].ToString(),
+                    id = int.Parse(reader["id"].ToString()),
+                    preco = float.Parse(reader["preco"].ToString()),
+                    porcao = int.Parse(reader["porcaoEmGramas"].ToString()),
+                    tipoAlimento = reader["tipoDoAlimento"].ToString()
+
+                };
+            }
+
+
+            return null;
+        }
+
 
 
     }

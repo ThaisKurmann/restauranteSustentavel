@@ -92,7 +92,7 @@ namespace RestauranteSustentavel_BE.Repository
             return i;//retorna a bebida que foi excluida
         }
 
-        //IMPLEMENTAR FUNCAO QUE BUSCA BEBIDAS POR ID NO BD!!!
+      
         public Bebida BuscaBebidaPorId(int idBebida)
         {
             SQLiteCommand searchCmd = new SQLiteCommand("SELECT * FROM Bebida Where id = @id", dbContext.connection);

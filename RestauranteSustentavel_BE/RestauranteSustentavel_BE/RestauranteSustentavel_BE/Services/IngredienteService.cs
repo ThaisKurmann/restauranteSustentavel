@@ -41,5 +41,11 @@ namespace RestauranteSustentavel_BE.Services
 
         }
 
+        //Busca um ingrediente por ID
+        public Ingrediente BuscaIngredientePorId(int idIngrediente)
+        {
+            return ingredienteRepository.BuscaIngredientePorId(idIngrediente);
+        }
+
     }
 }

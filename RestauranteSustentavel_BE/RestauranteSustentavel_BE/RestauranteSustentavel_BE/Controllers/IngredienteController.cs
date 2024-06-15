@@ -49,6 +49,12 @@ namespace RestauranteSustentavel_BE.Controllers
             ingredienteService.Delete(id);
         }
 
+        //Busca um ingrediente por id
+        [HttpGet("Busca/IngredientePorId")]
+        public Ingrediente BuscaIngredientePorId(int idIngrediente)
+        {
+            return ingredienteService.BuscaIngredientePorId(idIngrediente);
+        }
 
     }
 }

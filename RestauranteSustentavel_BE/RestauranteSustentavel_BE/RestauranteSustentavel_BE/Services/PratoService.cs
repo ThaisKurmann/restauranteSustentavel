@@ -71,7 +71,7 @@ namespace RestauranteSustentavel_BE.Services
         }
 
         //[IngredientePrato:UPDATE]
-        public void UpdateQuantidadeIngredienteEmIngredientePrato(IngredientePrato ingredientePrato, int quantidadeRemover)
+        public void UpdateQuantidadeIngredienteEmIngredientePrato(IngredientePrato ingredientePrato)
         {
             var ingredientePratoBD = ingredientePratoRepository.BuscaIngredienteEmIngredientePrato(ingredientePrato.idIngrediente, ingredientePrato.idPrato);
 
@@ -81,7 +81,7 @@ namespace RestauranteSustentavel_BE.Services
                 return;
             }
 
-            ingredientePratoBD.quantidade -= quantidadeRemover;
+            ingredientePratoBD.quantidade -= ingredientePrato.quantidade;
 
             if (ingredientePratoBD.quantidade > 0)
             {

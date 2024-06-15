@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
 import { PedidoBebida } from "../../models/PedidoBebida";
-import api from "../../api";
+
 
 
 
@@ -8,6 +7,10 @@ interface PedidoProps{
     pedidoBebida: PedidoBebida[],
     updateBebidaOnPedido: (pedidoBebida: PedidoBebida, increment: Boolean)=>{}
 }
+
+
+
+
 
 const UpdateBebidasOnPedido: React.FC<PedidoProps> = ({pedidoBebida, updateBebidaOnPedido}) => {
 
