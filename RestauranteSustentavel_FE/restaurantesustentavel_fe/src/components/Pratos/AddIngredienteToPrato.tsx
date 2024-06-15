@@ -5,12 +5,13 @@ import axios from "axios";
 import { IngredientePrato } from "../../models/IngredientePrato";
 
 interface AddIngredienteToPratoProps{
-
-    pratoId: number | null
+    pratoId: number | null,
+    pedidoId: number,
+    updateIngredientePratoListView: (pedidoId: number)=>{}
 }
 
 
-const AddIngredienteToPrato: React.FC<AddIngredienteToPratoProps> = ({pratoId})=>{
+const AddIngredienteToPrato: React.FC<AddIngredienteToPratoProps> = ({pratoId, pedidoId, updateIngredientePratoListView})=>{
 
     const [ingredientes, setIngredientes] = useState<Ingrediente[]>([])
     const [ingredienteSelecionadoId, setIngredienteSelecionadoId] = useState<number | null>(null);
@@ -30,20 +31,17 @@ const AddIngredienteToPrato: React.FC<AddIngredienteToPratoProps> = ({pratoId})=
     }
 
 
-    const updateIngredientesOnPrato = useCallback(async()=>{
+    const updateIngredientesOnPrato = useCallback(async(idPrato: number|null)=>{
+        idPrato = pratoId;
         if(pratoId !== null){//busca somente se jah tiver ingredientes no prato
             await api.get("/Ingrediente/api/Busca/IngredientePorId?idIngrediente=" + pratoId).then((response)=>setIngredientesOnPrato(response.data));
-        }        
+        }
+
     }, [pratoId])
 
 
-    useEffect(()=>{
-        buscaIngredientes()
-        updateIngredientesOnPrato()
-    },[pratoId, updateIngredientesOnPrato])
 
-
-    const handleAddIngrediente = async ()=>{
+    const handleAddIngrediente = async (pratoId: number)=>{
         if (ingredienteSelecionadoId === null) {
             alert('Selecione um ingrediente.');
             return;
@@ -57,34 +55,25 @@ const AddIngredienteToPrato: React.FC<AddIngredienteToPratoProps> = ({pratoId})=
         try {
             await axios.post('https://localhost:7163/Pedido/api/Insert/IngredientePrato', ingredientePrato);
            alert('Ingrediente adicionado ao prato com sucesso!'); //dar um refresh na pag
-           updateIngredientesOnPrato();
+           updateIngredientePratoListView(pedidoId);
+
+
         } catch (error) {
             console.error('Erro ao adicionar ingrediente ao prato:', error);
         }
+
     }
+    
+    
+    useEffect(()=>{
+        buscaIngredientes()
+        updateIngredientesOnPrato(pratoId)
+    },[pratoId, updateIngredientesOnPrato])
 
-    const handleButtonIngredienteChangeQuantity= async(ingredientePrato: IngredientePrato, increment: Boolean)=>{
-
-        if(increment){
-            ingredientePrato.quantidade++;
-        }else{
-            ingredientePrato.quantidade--;
-        }
-        //altera o ingrediente no prato
-        await api.put("/Prato/api/Update/QuantidadeIngredienteEmIngredientePrato", ingredientePrato);
-
-        //atualiza dados
-        const response = await api.get("/Pedido/api/Busca/PratoEmIngredientePrato?idPrato=" + ingredientePrato.idPrato);
-
-        setIngredientesOnPrato(response.data);
-  
-    }
 
     if(pratoId === null){
         return(<>
-                <h2>Prato Nao selecionado</h2>
-
-        
+                <h4>**Selecione um prato para editar.</h4>
         
         </>)
     }
@@ -103,7 +92,7 @@ return(
                 onChange={(e) => setQuantidade(Number(e.target.value))}
                 min="1"
             />
-            <button onClick={() => handleAddIngrediente()}>Adicionar ao Prato</button>
+            <button onClick={() => handleAddIngrediente(pratoId)}>Adicionar ao Prato</button>
         </div>
     </>
 

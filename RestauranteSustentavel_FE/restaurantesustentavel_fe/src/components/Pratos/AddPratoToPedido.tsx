@@ -16,7 +16,7 @@ interface AddPratoToPedidoProps{
 
 const AddPratoToPedido: React.FC<AddPratoToPedidoProps> = ({pedidoId})=>{
 
-    const [ingredientePratosOnPedido, setIngredientePratosOnPedido] = useState<IngredientePratoListView[]>([]);
+    const [ingredientePratosListView, setIngredientePratosListView] = useState<IngredientePratoListView[]>([]);
     const [ingredientes, setIngredientes] = useState<Ingrediente[]>([])
     const [ingredientesOnPrato, setIngredientesOnPrato] = useState<IngredientePrato[]>([]);
     const [ingredienteSelecionadoId, setIngredienteSelecionadoId] = useState<number | null>(null);
@@ -40,7 +40,7 @@ const AddPratoToPedido: React.FC<AddPratoToPedidoProps> = ({pedidoId})=>{
     const updateIngredientePratoListView=useCallback(async(pedidoId: number)=>{
         
         let response = await axios.get('https://localhost:7163/Prato/api/BuscaPratoIngredienteListView?pedidoId='+ pedidoId);
-        setIngredientePratosOnPedido(response.data);
+        setIngredientePratosListView(response.data);
         console.log(response.data);
               
     }, []);
@@ -83,11 +83,7 @@ const AddPratoToPedido: React.FC<AddPratoToPedidoProps> = ({pedidoId})=>{
         }
     }
 
-    const updateIngredientesOnPrato = useCallback(async()=>{
-        await api.get("/Ingrediente/api/Busca/IngredientePorId?idIngrediente="+ 2 ).then((response)=>setIngredientesOnPrato(response.data));
-    }, [2])
-
-
+   
 
     useEffect(()=>{
         buscaIngredientes()
@@ -101,8 +97,8 @@ const AddPratoToPedido: React.FC<AddPratoToPedidoProps> = ({pedidoId})=>{
             <h1>Adicionar Pratos ao Pedido: {pedidoId}</h1>
             <button onClick={() => handleAddPratoToPedido()}>Novo</button>
             
-            <ShowPratosOnPedido ingredientePratosList={ingredientePratosOnPedido} deletePrato={handleDeletePratoOnPedido} editaPrato={handleEditaPratoOnPedido}/>
-            <AddIngredienteToPrato pratoId={currentPratoId}/>
+            <ShowPratosOnPedido ingredientePratosList={ingredientePratosListView} deletePrato={handleDeletePratoOnPedido} editaPrato={handleEditaPratoOnPedido}/>
+            <AddIngredienteToPrato pratoId={currentPratoId} updateIngredientePratoListView={updateIngredientePratoListView} pedidoId={pedidoId}/>
         </div>
         </>
     )
