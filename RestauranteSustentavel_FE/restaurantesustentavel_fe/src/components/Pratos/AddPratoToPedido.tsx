@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { Prato } from "../../models/Prato";
-import api from "../../api";
 import ShowPratosOnPedido from "./ShowPratoOnPedido";
 import axios from "axios";
-import SinglePedidoPage from "../../pages/SinglePedidoPage";
+import { IngredientePratoListView } from "../../models/IngredientePratoListView";
 
 
 interface PedidoProps{
@@ -12,15 +11,13 @@ interface PedidoProps{
 
 const AddPratoToPedido: React.FC<PedidoProps> = ({pedidoId})=>{
 
-    const [createPrato, setCreatePrato] = useState<Prato>(); 
-    const [pedidoPratos, setPedidoPratos] = useState<Prato[]>([]);
+    const[ingredientePratosOnPedido, setIngredientePratosOnPedido] = useState<IngredientePratoListView[]>([]);
    
     const createPratoToPedido= useCallback(async()=>{
         
         try{
             const response = await axios.post("https://localhost:7163/Prato/api/InsertPrato?pedidoId=" + pedidoId);
-            setCreatePrato(response.data);
-            console.log('prato craido', response.data);
+            console.log('prato criado', response.data);
             alert('Prato adicionado com sucesso!');
 
         }catch(error){
@@ -28,38 +25,32 @@ const AddPratoToPedido: React.FC<PedidoProps> = ({pedidoId})=>{
         }
     }, [pedidoId]);
 
-    //mostrar na tela lista de pratos desse pedido  
-    const buscaPratosOnPedido= useCallback(async()=>{
-        try{
-            const response = await api.get('/Prato/api/BuscaPratosPorPedidoId?idPedido=' + pedidoId);
-            console.log('AddPratoToPedido:',response.data);
-            setPedidoPratos(response.data);
 
-        }catch(error){
-            console.error('Erro ao buscar pratos no BD do pedido atual', error);
-        }
-    },[pedidoId]);
-
-    
-
+    const buscaIngredientePratoListView=useCallback(async(pedidoId: number)=>{
+        
+        let response = await axios.get('https://localhost:7163/Prato/api/BuscaPratoIngredienteListView?pedidoId='+ pedidoId);
+        setIngredientePratosOnPedido(response.data);
+        console.log(response.data);
+              
+    }, []);
 
 
     const handleAddPratoToPedido= async()=>{
         createPratoToPedido();
-        buscaPratosOnPedido();
+        buscaIngredientePratoListView(pedidoId);
 
     };
 
     useEffect(()=>{
-        buscaPratosOnPedido()
-    },[pedidoId, buscaPratosOnPedido, createPratoToPedido])
+       buscaIngredientePratoListView(pedidoId)
+    },[pedidoId, buscaIngredientePratoListView, createPratoToPedido])
 
     return(
         <>
         <div>
             <h1>Adicionar Pratos ao Pedido: {pedidoId}</h1>
             <button onClick={() => handleAddPratoToPedido()}>Novo</button>
-            <ShowPratosOnPedido pedidoId={pedidoId} pratos={pedidoPratos}/>
+            <ShowPratosOnPedido ingredientePratosList={ingredientePratosOnPedido}/>
        
         </div>
         </>
