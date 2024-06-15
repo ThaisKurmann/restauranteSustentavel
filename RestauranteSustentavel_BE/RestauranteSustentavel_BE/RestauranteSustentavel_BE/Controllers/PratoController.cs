@@ -46,10 +46,10 @@ namespace RestauranteSustentavel_BE.Controllers
         }
 
         [HttpGet("BuscaPratoIngredienteListView")]
-        public List<PratoIngredienteListView> BuscaPratoIngredienteListView(int pratoId)
+        public List<PratoIngredienteListView> BuscaPratoIngredienteListView(int pedidoId)
         {
 
-            return pratoService.ShowIngredientesEmPratoPorPedidoId(pratoId);
+            return pratoService.ShowIngredientesEmPratoPorPedidoId(pedidoId);
 
         }
 

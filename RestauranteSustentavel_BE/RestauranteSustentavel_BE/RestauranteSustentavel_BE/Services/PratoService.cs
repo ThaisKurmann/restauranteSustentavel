@@ -113,7 +113,7 @@ namespace RestauranteSustentavel_BE.Services
         }
 
 
-        //[PratoIngredienteListView: Busca pratos com seu respectivs ingredientes]
+        //[PratoIngredienteListView: Busca pratos com seus respectivs ingredientes]
         public List<PratoIngredienteListView> ShowIngredientesEmPratoPorPedidoId(int idPedido)
         {
             var pratosView = new List<PratoIngredienteListView>();

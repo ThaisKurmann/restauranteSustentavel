@@ -28,11 +28,11 @@ const AddPratoToPedido: React.FC<PedidoProps> = ({pedidoId})=>{
         }
     }, [pedidoId]);
 
-    //mostrar na tela lista de pratos desse pedido
+    //mostrar na tela lista de pratos desse pedido  
     const buscaPratosOnPedido= useCallback(async()=>{
         try{
-            const response = await api.get('/Prato/api/BuscaPratosEmPedido?idPedido=' + pedidoId);
-            console.log(response.data);
+            const response = await api.get('/Prato/api/BuscaPratosPorPedidoId?idPedido=' + pedidoId);
+            console.log('AddPratoToPedido:',response.data);
             setPedidoPratos(response.data);
 
         }catch(error){

@@ -1,9 +1,10 @@
-import {  useState } from "react";
+import {  useCallback, useEffect, useState } from "react";
 import { Ingrediente } from "../../models/Ingrediente";
 import { Prato } from "../../models/Prato";
 import { IngredientePrato } from "../../models/IngredientePrato";
 import api from "../../api";
 import axios from "axios";
+import { IngredientePratoListView } from "../../models/IngredientePratoListView";
 
 interface PratoProps{
     pratos: Prato[]
@@ -12,8 +13,8 @@ interface PratoProps{
 
 const ShowPratosOnPedido: React.FC<PratoProps> = ({pratos, pedidoId})=>{
 
-    const[ingredientePratosOnPedido, setIngredientePratosOnPedido] = useState<IngredientePrato[]>([]);
-    const [ingredientesOnPrato, setIngrendientesOnPrato] = useState<Ingrediente[]>([]);
+    const[ingredientePratosOnPedido, setIngredientePratosOnPedido] = useState<IngredientePratoListView[]>([]);
+  
   
     //Mostar todos os PRATOs do pedido
     /** let test = [];
@@ -26,35 +27,38 @@ const ShowPratosOnPedido: React.FC<PratoProps> = ({pratos, pedidoId})=>{
     
     console.log('tamanho do vetor pratos: ', pratos.length);
   
-    const buscaIngredienteOnPratos=async()=>{
-        let response;
-        for(const index of pratos){
-           response = await axios.get('https://localhost:7163/Pedido/api/Busca/PratoEmIngredientePrato?idPrato='+ index.idPrato);
-           setIngredientePratosOnPedido(response.data);
-            //console.log('entou aqui:', response.data);
-        }
+    const buscaPratoIngredienteListView=useCallback(async()=>{
         
-    };
+        let response = await axios.get('https://localhost:7163/Prato/api/BuscaPratoIngredienteListView?pedidoId='+ pedidoId);
+        setIngredientePratosOnPedido(response.data);
+        console.log(response.data);
+              
+    }, [pedidoId]);
 
 
-   /*useEffect(()=>{
-        buscaIngredienteOnPratos()
-    }, [buscaIngredienteOnPratos, pratos]);
-*/
+
+
+   useEffect(()=>{
+    buscaPratoIngredienteListView()
+    }, [buscaPratoIngredienteListView, pedidoId]);
+
     
    
 
     return(
         <>
             <div>
+                
                 <ul>
-                    {pratos.map((item, index) => (
+                    {ingredientePratosOnPedido.map((item, index) => (
                     <li key={index}>
-                    Prato: {item.idPrato} 
+                    Prato {item.idPrato} : {item.nomeIngredientes}
                     </li>))}
 
                 </ul>
-                <button onClick={() => buscaIngredienteOnPratos()}>mostra ingrediente</button>
+
+                
+                <button onClick={() => buscaPratoIngredienteListView()}>mostra ingrediente</button>
             </div>
         </>
     )
