@@ -81,7 +81,7 @@ namespace RestauranteSustentavel_BE.Services
                 return;
             }
 
-            ingredientePratoBD.quantidade -= ingredientePrato.quantidade;
+            ingredientePratoBD.quantidade = ingredientePrato.quantidade;
 
             if (ingredientePratoBD.quantidade > 0)
             {

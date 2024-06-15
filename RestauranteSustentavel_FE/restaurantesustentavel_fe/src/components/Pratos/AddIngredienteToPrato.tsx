@@ -3,6 +3,8 @@ import api from "../../api";
 import { Ingrediente } from "../../models/Ingrediente";
 import axios from "axios";
 import { IngredientePrato } from "../../models/IngredientePrato";
+import UpdateBebidasOnPedido from "../Bebidas/UpdateBebidasOnPedido";
+import UpdateIngredientesOnPrato from "./UpdateIngredientesOnPrato";
 
 interface AddIngredienteToPratoProps{
     pratoId: number | null,
@@ -31,10 +33,13 @@ const AddIngredienteToPrato: React.FC<AddIngredienteToPratoProps> = ({pratoId, p
     }
 
 
-    const updateIngredientesOnPrato = useCallback(async(idPrato: number|null)=>{
-        idPrato = pratoId;
+    const updateIngredientesOnPrato = useCallback(async()=>{
+        
         if(pratoId !== null){//busca somente se jah tiver ingredientes no prato
-            await api.get("/Ingrediente/api/Busca/IngredientePorId?idIngrediente=" + pratoId).then((response)=>setIngredientesOnPrato(response.data));
+            const response = await axios.get("https://localhost:7163/Pedido/api/Busca/PratoEmIngredientePrato?idPrato=" + pratoId);
+            setIngredientesOnPrato(response.data);
+            console.log("AAA", response.data)
+
         }
 
     }, [pratoId])
@@ -56,19 +61,33 @@ const AddIngredienteToPrato: React.FC<AddIngredienteToPratoProps> = ({pratoId, p
             await axios.post('https://localhost:7163/Pedido/api/Insert/IngredientePrato', ingredientePrato);
            alert('Ingrediente adicionado ao prato com sucesso!'); //dar um refresh na pag
            updateIngredientePratoListView(pedidoId);
-
+           updateIngredientesOnPrato();
 
         } catch (error) {
             console.error('Erro ao adicionar ingrediente ao prato:', error);
         }
 
     }
-    
+    const handleButtonIngredientesChangeQuantity= async(ingredientePrato: IngredientePrato, increment: Boolean)=>{
+
+        if(increment){
+            ingredientePrato.quantidade++;
+        }else{
+            ingredientePrato.quantidade--;
+        }
+        console.log("asdasdasd", ingredientePrato)
+        await api.put("/Prato/api/Update/QuantidadeIngredienteEmIngredientePrato", ingredientePrato);
+
+        updateIngredientePratoListView(pedidoId);
+        updateIngredientesOnPrato();
+        
+    }
     
     useEffect(()=>{
         buscaIngredientes()
-        updateIngredientesOnPrato(pratoId)
+        updateIngredientesOnPrato()
     },[pratoId, updateIngredientesOnPrato])
+
 
 
     if(pratoId === null){
@@ -94,6 +113,7 @@ return(
             />
             <button onClick={() => handleAddIngrediente(pratoId)}>Adicionar ao Prato</button>
         </div>
+        <UpdateIngredientesOnPrato ingredientePrato={ingredientesOnPrato} updateIngredienteOnPrato={handleButtonIngredientesChangeQuantity}/>
     </>
 
 )

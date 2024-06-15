@@ -18,7 +18,6 @@ const UpdateBebidasOnPedido: React.FC<PedidoProps> = ({pedidoBebida, updateBebid
     return(
         <div>
             <div>
-            <h1>Carrinho de compra:</h1>
             <h2>Bebidas:</h2>
                 <ul>
                     {pedidoBebida.map((item, index)=> (

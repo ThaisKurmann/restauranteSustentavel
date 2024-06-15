@@ -8,12 +8,12 @@ interface UpdateIngredientesOnPratoProps{
 
 const UpdateIngredientesOnPrato: React.FC<UpdateIngredientesOnPratoProps> = ({ingredientePrato, updateIngredienteOnPrato}) => {
 
+    console.log("componente UpdateIngredienteOnPrato:", ingredientePrato)
     
     return(
         <div>
             <div>
-            <h1>Carrinho de compra:</h1>
-            <h2>Bebidas:</h2>
+            <h2>Ingredientes:</h2>
                 <ul>
                     {ingredientePrato.map((ingrediente, index)=> (
                         <li key={index}> Prato: {ingrediente.idPrato} Quantidade: {ingrediente.quantidade} - ID Ingrediente: {ingrediente.idIngrediente }

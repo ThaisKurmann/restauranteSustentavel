@@ -13,7 +13,6 @@ const UpdateBebidasOnPedido: React.FC<PedidoProps> = ({pedidoSobremesa, updateSo
    return(
         <div>
             <div>
-            <h1>Carrinho de compra:</h1>
             <h2>Sobremesas:</h2>
                 <ul>
                     {pedidoSobremesa.map((item, index)=> (
