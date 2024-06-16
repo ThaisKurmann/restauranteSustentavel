@@ -3,10 +3,12 @@ import { Pedido } from "../../models/Pedido";
 import axios from "axios";
 
 
+
 const PedidoDeleteApi: React.FC = () =>{
 
         const[pedidos, setPedidos] = useState<Pedido[]>([]);
 
+        console.log('entrou aqui');
         const loadPedidos = async () => {
             try{
                 const response = await axios.get('https://localhost:7163/api/Pedido/GetAll');

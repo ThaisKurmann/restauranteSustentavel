@@ -13,14 +13,13 @@ const UpdateIngredientesOnPrato: React.FC<UpdateIngredientesOnPratoProps> = ({in
     return(
         <div>
             <div>
-            <h2>Ingredientes:</h2>
+            <h3>Ingredientes:</h3>
                 <ul>
                     {ingredientePrato.map((ingrediente, index)=> (
                         <li key={index}> Prato: {ingrediente.idPrato} Quantidade: {ingrediente.quantidade} - ID Ingrediente: {ingrediente.idIngrediente }
                         <input type="button" onClick={()=>{updateIngredienteOnPrato(ingrediente, false)}} value="-"/>
                         <input type="button" onClick={()=>{updateIngredienteOnPrato(ingrediente, true)}} value="+"/>
                        
-                        
                         </li>
                     
                     ))}

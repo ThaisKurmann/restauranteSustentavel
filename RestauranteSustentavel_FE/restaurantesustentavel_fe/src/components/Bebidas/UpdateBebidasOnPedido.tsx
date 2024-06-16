@@ -18,10 +18,10 @@ const UpdateBebidasOnPedido: React.FC<PedidoProps> = ({pedidoBebida, updateBebid
     return(
         <div>
             <div>
-            <h2>Bebidas:</h2>
+            <h3>Bebidas:</h3>
                 <ul>
                     {pedidoBebida.map((item, index)=> (
-                        <li key={index}> Pedido: {item.idPedido} Quantidade: {item.quantidade} - ID Bebida: {item.idBebida }
+                        <li key={index}> Pedido: {item.idPedido}  - ID Bebida: {item.idBebida + ' ' } - Quantidade: {item.quantidade + ' '} 
                         <input type="button" onClick={()=>{updateBebidaOnPedido(item, false)}} value="-"/>
                         <input type="button" onClick={()=>{updateBebidaOnPedido(item, true)}} value="+"/>
                        

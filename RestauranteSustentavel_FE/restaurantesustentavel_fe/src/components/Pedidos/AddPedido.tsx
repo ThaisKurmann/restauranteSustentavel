@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Pedido } from '../../models/Pedido';
+import styles from './AddPedido.module.css'
+
+
+
 
 const AddPedido: React.FC = () => {
     const [data, setData] = useState<string>('');
@@ -24,10 +28,10 @@ const AddPedido: React.FC = () => {
         }
     };
     
-    console.log('addPedido');
+    console.log('addPedido', );
 
     return (
-        <div>
+        <div className='styles.AddPedidoContainer'>
             
             <form onSubmit={(e) => {e.preventDefault(); handleAddPedido();}}>
                 <div>
@@ -48,7 +52,7 @@ const AddPedido: React.FC = () => {
                         onChange={(e) => setHora(e.target.value)}
                     />
                 </div>
-                <button type="submit">Adicionar Pedido</button>
+                <button type="submit">Salvar</button>
             </form>
         </div>
     );

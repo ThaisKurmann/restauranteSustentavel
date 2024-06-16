@@ -7,10 +7,11 @@ import UpdateSobremesasOnPedido from "./UpdateSobremesasOnPedido";
 
 
 interface AddSobremesaToPedidoProps {
-    pedidoId: number;
+    pedidoId: number,
+    updatePrecoTotal:()=>{}
 }
 
-const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId }) => {
+const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId, updatePrecoTotal }) => {
 
     const [sobremesas, setSobremesas] = useState<Sobremesa[]>([]);
     const [sobremesaSelecionadaId, setSobremesaSelecionadaId] = useState<number | null>(null);
@@ -51,8 +52,9 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId })
        
         try {
             await axios.post('https://localhost:7163/Pedido/api/Insert/PedidoSobremesa', pedidoSobremesa);
-            alert('Sobremesa adicionada ao pedido com sucesso!'); //dar um refresh na pag
+           // alert('Sobremesa adicionada ao pedido com sucesso!'); //dar um refresh na pag
             updatePediddoSobremesa();
+            updatePrecoTotal();
             
         } catch (error) {
             console.error('Erro ao adicionar sobremesa ao pedido:', error);
@@ -73,6 +75,7 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId })
         const response = await api.get("/Pedido/api/Busca/PedidoPorIdEmPedidoSobremesa?idPedido=" + pedidoSobremesa.idPedido);
 
         setSobremesasOnPedido(response.data);
+        updatePrecoTotal();
         
     }
 
@@ -80,22 +83,17 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId })
     return (
         <>
         <div>
-            <h2>Adicionar Sobremesa ao Pedido</h2>
+            <h2>Selecionar Sobremesas:</h2>
             <select onChange={(e) => setSobremesaSelecionadaId(Number(e.target.value))} value={sobremesaSelecionadaId ?? ''}>
-                <option value="" disabled>Selecione uma sobremesa</option>
+                <option value="" disabled >Selecione uma sobremesa</option>
                     {sobremesas.map((sobremesa) => (
                     <option key={sobremesa.id} value={sobremesa.id}> 
                     {sobremesa.nome}
                     </option>
                 ))}
             </select>
-            <input
-                type="number"
-                value={quantidade}
-                onChange={(e) => setQuantidade(Number(e.target.value))}
-                min="1"
-            />
-            <button onClick={() => handleAddSobremesa()}>Adicionar ao Pedido</button>
+         
+            <button onClick={() => handleAddSobremesa()}>clique aqui</button>
         </div>
         <UpdateSobremesasOnPedido pedidoSobremesa={sobremesasOnPedido} updateSobremesaOnPedido={handleButtonSobremesasChangeQuantity}/>
         </>
@@ -103,3 +101,12 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId })
 };
 
 export default AddSobremesaToPedido;
+
+/**
+ *    <input
+                type="number"
+                value={quantidade}
+                onChange={(e) => setQuantidade(Number(e.target.value))}
+                min="1"
+            />
+ */

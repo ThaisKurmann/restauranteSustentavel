@@ -12,13 +12,13 @@ const ShowPratosOnPedido: React.FC<ShowPratosOnPedidoProps> = ({ingredientePrato
     return(
         <>
             <div>
-            <h2>Adicionar Ingredientes ao prato</h2>
                 <ul>
                     {ingredientePratosList.map((item, index) => (
                     <li key={index}>
                     Prato {item.idPrato} : {item.nomeIngredientes}
-                    <button onClick={() => deletePrato(item.idPrato)}>Excluir</button>
+                    
                     <button onClick={() => editaPrato(item.idPrato)}>Editar</button>
+                    <button onClick={() => deletePrato(item.idPrato)}>Excluir</button>
                     </li>))}
 
                 </ul>

@@ -162,6 +162,11 @@ namespace RestauranteSustentavel_BE.Controllers
 
         }
 
+        [HttpGet("Get/PrecoTotalDoPedido")]
+        public float GetPrecoTotal(int idPedido)
+        {
+            return pedidoService.GetPrecoTotal(idPedido);
+        }
         
        
     }

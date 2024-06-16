@@ -1,4 +1,5 @@
-﻿using RestauranteSustentavel_BE.Models;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using RestauranteSustentavel_BE.Models;
 using RestauranteSustentavel_BE.Repository;
 using System.Security.Permissions;
 using Xunit;
@@ -10,11 +11,30 @@ namespace RestauranteSustentavel_BE.Services
         private readonly PedidoRepository pedidoRepository;
         private readonly PedidoSobremesaRepository pedidoSobremesaRepository;
         private readonly PedidoBebidaRepository pedidoBebidaRepository;
-        public PedidoService(PedidoRepository pedidoRepository, PedidoSobremesaRepository pedidoSobremesaRepository, PedidoBebidaRepository pedidoBebidaRepository)
+        private readonly BebidaRepository bebidaRepository;
+        private readonly SobremesaRepository sobremesaRepository;
+        private readonly PratoRepository pratoRepository;
+        private readonly IngredientePratoRepository ingredientePratoRepository;
+        private readonly IngredienteRepository ingredienteRepository;
+
+        public PedidoService(
+            PedidoRepository pedidoRepository, 
+            PedidoSobremesaRepository pedidoSobremesaRepository, 
+            PedidoBebidaRepository pedidoBebidaRepository, 
+            BebidaRepository bebidaRepository, 
+            SobremesaRepository sobremesaRepository, 
+            PratoRepository pratoRepository,
+            IngredientePratoRepository ingredientePratoRepository, 
+            IngredienteRepository ingredienteRepository)
         {
             this.pedidoRepository = pedidoRepository;
             this.pedidoSobremesaRepository = pedidoSobremesaRepository;
             this.pedidoBebidaRepository = pedidoBebidaRepository;
+            this.bebidaRepository = bebidaRepository;
+            this.sobremesaRepository = sobremesaRepository;
+            this.pratoRepository = pratoRepository; 
+            this.ingredientePratoRepository = ingredientePratoRepository;
+            this.ingredienteRepository = ingredienteRepository;
         }
 
 
@@ -189,6 +209,48 @@ namespace RestauranteSustentavel_BE.Services
             return pedidoBebidaRepository.BuscaPedidoEmPedidoBebida(idPedido);
         }
 
+        //[Pedido: GET preco total]
+        public float GetPrecoTotal(int pedidoId)
+        {
+            List<PedidoBebida> bebidasNoPedido = pedidoBebidaRepository.BuscaPedidoEmPedidoBebida(pedidoId);
+            List<Bebida> bebidasNoBD = bebidaRepository.GetAllBebida();
+            float precoBebida = 0;
+
+            List<PedidoSobremesa> sobremesasNoPedido = pedidoSobremesaRepository.BuscaPedidoSobremesasPorPedidoId(pedidoId);
+            List<Sobremesa> sobremesasNoBD = sobremesaRepository.GetAllSobremesa();
+            float precoSobremesa = 0;
+
+            List<Prato> pratosEmPedido = pratoRepository.BuscaPratosPorPedidoId(pedidoId);
+
+            List<Ingrediente> ingredientesNoBD = ingredienteRepository.GetAllIngrediente();
+            
+            
+            
+
+            foreach( var bebidaPedido in bebidasNoPedido)
+            {
+                precoBebida += bebidasNoBD.Where(bebida => bebida.id == bebidaPedido.idBebida).First().preco * bebidaPedido.quantidade;
+            }
+            
+            foreach(var sobremesaPedido in sobremesasNoPedido)
+            {
+                precoSobremesa += sobremesasNoBD.Where(sobremesa => sobremesa.id == sobremesaPedido.idSobremesa).First().preco * sobremesaPedido.quantidade;
+            }
+
+            float precoTotalDosPratos = 0;
+            foreach (var pratoEmPedido in pratosEmPedido)
+            {
+                var ingredientePratoList = ingredientePratoRepository.BuscaPorPratoId(pratoEmPedido.idPrato);
+                foreach(var ingredientePrato in ingredientePratoList)
+                {
+                    precoTotalDosPratos += ingredientesNoBD.Where(ingrediente => ingrediente.id == ingredientePrato.idIngrediente).First().preco * ingredientePrato.quantidade;
+                }
+
+
+            }
+
+            return precoBebida + precoSobremesa + precoTotalDosPratos;
+        }
         
     }
 }

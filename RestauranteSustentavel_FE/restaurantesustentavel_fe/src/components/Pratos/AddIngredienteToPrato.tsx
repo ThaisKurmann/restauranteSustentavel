@@ -10,10 +10,11 @@ interface AddIngredienteToPratoProps{
     pratoId: number | null,
     pedidoId: number,
     updateIngredientePratoListView: (pedidoId: number)=>{}
+    updatePrecoTotal: ()=>{}
 }
 
 
-const AddIngredienteToPrato: React.FC<AddIngredienteToPratoProps> = ({pratoId, pedidoId, updateIngredientePratoListView})=>{
+const AddIngredienteToPrato: React.FC<AddIngredienteToPratoProps> = ({pratoId, pedidoId, updateIngredientePratoListView, updatePrecoTotal})=>{
 
     const [ingredientes, setIngredientes] = useState<Ingrediente[]>([])
     const [ingredienteSelecionadoId, setIngredienteSelecionadoId] = useState<number | null>(null);
@@ -38,7 +39,7 @@ const AddIngredienteToPrato: React.FC<AddIngredienteToPratoProps> = ({pratoId, p
         if(pratoId !== null){//busca somente se jah tiver ingredientes no prato
             const response = await axios.get("https://localhost:7163/Pedido/api/Busca/PratoEmIngredientePrato?idPrato=" + pratoId);
             setIngredientesOnPrato(response.data);
-            console.log("AAA", response.data)
+            
 
         }
 
@@ -59,9 +60,9 @@ const AddIngredienteToPrato: React.FC<AddIngredienteToPratoProps> = ({pratoId, p
         };
         try {
             await axios.post('https://localhost:7163/Pedido/api/Insert/IngredientePrato', ingredientePrato);
-           alert('Ingrediente adicionado ao prato com sucesso!'); //dar um refresh na pag
            updateIngredientePratoListView(pedidoId);
            updateIngredientesOnPrato();
+           updatePrecoTotal();
 
         } catch (error) {
             console.error('Erro ao adicionar ingrediente ao prato:', error);
@@ -80,6 +81,7 @@ const AddIngredienteToPrato: React.FC<AddIngredienteToPratoProps> = ({pratoId, p
 
         updateIngredientePratoListView(pedidoId);
         updateIngredientesOnPrato();
+        updatePrecoTotal();
         
     }
     
@@ -89,10 +91,12 @@ const AddIngredienteToPrato: React.FC<AddIngredienteToPratoProps> = ({pratoId, p
     },[pratoId, updateIngredientesOnPrato])
 
 
-
+    //FAZER: se pedido tem pratos, mude a mensagem para: selecione um prato ou prato nao selecionado
+    //se pedido tem zero pratos: msg-> nao ha pratos 
+    
     if(pratoId === null){
         return(<>
-                <h4>**Selecione um prato para editar.</h4>
+                <h4>**</h4>
         
         </>)
     }
@@ -100,17 +104,12 @@ const AddIngredienteToPrato: React.FC<AddIngredienteToPratoProps> = ({pratoId, p
 return(
     <>
         <div>
-            <h2>Adicionar Ingredientes ao prato</h2>
+            <h2>Adicionar Ingredientes ao prato: {pratoId}</h2>
             <select onChange={(e) => setIngredienteSelecionadoId(Number(e.target.value))} value={ingredienteSelecionadoId ?? ''}>
                 <option value="" disabled>Selecione um ingrediente</option>
-                {ingredientes.map((ingrediente) => (<option key={ingrediente.id} value={ingrediente.id}> {ingrediente.nome} R${ingrediente.preco}</option>))}
+                {ingredientes.map((ingrediente) => (<option key={ingrediente.id} value={ingrediente.id}> {ingrediente.nome} [R$ {ingrediente.preco}]</option>))}
             </select>
-            <input
-                type="number"
-                value={quantidade}
-                onChange={(e) => setQuantidade(Number(e.target.value))}
-                min="1"
-            />
+           
             <button onClick={() => handleAddIngrediente(pratoId)}>Adicionar ao Prato</button>
         </div>
         <UpdateIngredientesOnPrato ingredientePrato={ingredientesOnPrato} updateIngredienteOnPrato={handleButtonIngredientesChangeQuantity}/>
@@ -121,3 +120,12 @@ return(
 
 
 export default AddIngredienteToPrato;
+
+/**
+ *  <input
+                type="number"
+                value={quantidade}
+                onChange={(e) => setQuantidade(Number(e.target.value))}
+                min="1"
+/>
+ */

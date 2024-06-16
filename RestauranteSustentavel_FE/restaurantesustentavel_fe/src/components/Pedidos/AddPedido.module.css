@@ -1,0 +1,19 @@
+.Container{
+    background-color: #333;
+    border: 1px solid #111;
+}
+
+.Content{
+    color: #fff;
+    background-color: #333;
+    margin: 0;
+}
+
+.Button{
+    background-color: hsl(200, 100%, 50%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: none;
+    cursor: pointer;
+    text-align: center;
+}

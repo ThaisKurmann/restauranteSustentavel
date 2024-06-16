@@ -6,13 +6,14 @@ import api from '../../api';
 import UpdateBebidasOnPedido from './UpdateBebidasOnPedido';
 
 interface AddBebidaToPedidoProps {
-    pedidoId: number;
+    pedidoId: number,
+    updatePrecoTotal:()=>{}
 }
 
 
 
 //codigo correto
-const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
+const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId, updatePrecoTotal }) => {
 
     const [bebidas, setBebidas] = useState<Bebida[]>([]);
     const [bebidaSelecionadaId, setBebidaSelecionadaId] = useState<number | null>(null);
@@ -31,6 +32,7 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
 
         const updatePedidoBebidas = useCallback(async () => {
             await api.get("/Pedido/api/Busca/PedidoEmPedidoBebida?idPedido=" + pedidoId).then((response) => setBebidasOnPedido(response.data));
+           
         }, [pedidoId])
 
 
@@ -52,8 +54,8 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
         };
         try {
             await axios.post('https://localhost:7163/Pedido/api/Insert/PedidoBebida', pedidoBebida);
-           alert('Bebida adicionada ao pedido com sucesso!'); //dar um refresh na pag
             updatePedidoBebidas();
+            updatePrecoTotal();
         } catch (error) {
             console.error('Erro ao adicionar bebida ao pedido:', error);
         }
@@ -70,7 +72,7 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
         await api.put("/Pedido/api/Update/QuantidadeBebidaEmPedidoBebida", pedidoBebida);
 
         const response = await api.get("/Pedido/api/Busca/PedidoEmPedidoBebida?idPedido=" + pedidoBebida.idPedido);
-
+        updatePrecoTotal();
         setBebidasOnPedido(response.data);
         
     }
@@ -81,18 +83,13 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
     return (
         <>
         <div>
-            <h2>Adicionar Bebida ao Pedido</h2>
+            <h2>Selecionar Bebidas:</h2>
             <select onChange={(e) => setBebidaSelecionadaId(Number(e.target.value))} value={bebidaSelecionadaId ?? ''}>
                 <option value="" disabled>Selecione uma bebida</option>
                 {bebidas.map((bebida) => (<option key={bebida.id} value={bebida.id}> {bebida.nome} </option>))}
             </select>
-            <input
-                type="number"
-                value={quantidade}
-                onChange={(e) => setQuantidade(Number(e.target.value))}
-                min="1"
-            />
-            <button onClick={() => handleAddBebida()}>Adicionar ao Pedido</button>
+         
+            <button onClick={() => handleAddBebida()}>clique aqui</button>
         </div>
         <UpdateBebidasOnPedido pedidoBebida= {bebidasOnPedido} updateBebidaOnPedido={handleButtonBebidasChangeQuantity} />
         </>
@@ -101,3 +98,11 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId }) => {
 
 export default AddBebidaToPedido;
 
+/**
+ *    <input
+                type="number"
+                value={quantidade}
+                onChange={(e) => setQuantidade(Number(e.target.value))}
+                min="1"
+            />
+ */

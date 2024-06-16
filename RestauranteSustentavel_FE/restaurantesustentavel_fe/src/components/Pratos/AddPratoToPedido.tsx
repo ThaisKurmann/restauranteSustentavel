@@ -5,16 +5,16 @@ import { IngredientePratoListView } from "../../models/IngredientePratoListView"
 import { Ingrediente } from "../../models/Ingrediente";
 import api from "../../api";
 import { IngredientePrato } from "../../models/IngredientePrato";
-import EditaPrato from "./EditaPrato";
 import AddIngredienteToPrato from "./AddIngredienteToPrato";
 import { Prato } from "../../models/Prato";
 
 
 interface AddPratoToPedidoProps{
     pedidoId: number,
+    updatePrecoTotal:()=>{}
 }
 
-const AddPratoToPedido: React.FC<AddPratoToPedidoProps> = ({pedidoId})=>{
+const AddPratoToPedido: React.FC<AddPratoToPedidoProps> = ({pedidoId, updatePrecoTotal})=>{
 
     const [ingredientePratosListView, setIngredientePratosListView] = useState<IngredientePratoListView[]>([]);
     const [ingredientes, setIngredientes] = useState<Ingrediente[]>([])
@@ -30,7 +30,7 @@ const AddPratoToPedido: React.FC<AddPratoToPedidoProps> = ({pedidoId})=>{
             console.log('prato criado', response.data);
             setCurrentPratoID((response.data as Prato).idPrato);
 
-            alert('Prato adicionado com sucesso!');
+           // alert('Prato adicionado com sucesso!');
 
         }catch(error){
             console.error('Erro ao adicionar prato ao pedido no BD', error);
@@ -94,11 +94,9 @@ const AddPratoToPedido: React.FC<AddPratoToPedidoProps> = ({pedidoId})=>{
     return(
         <>
         <div>
-            <h1>Adicionar Pratos ao Pedido: {pedidoId}</h1>
-            <button onClick={() => handleAddPratoToPedido()}>Novo</button>
-            
+            <h2>Adicione Pratos: <button onClick={() => handleAddPratoToPedido()}>clique aqui</button></h2>            
             <ShowPratosOnPedido ingredientePratosList={ingredientePratosListView} deletePrato={handleDeletePratoOnPedido} editaPrato={handleEditaPratoOnPedido}/>
-            <AddIngredienteToPrato pratoId={currentPratoId} updateIngredientePratoListView={updateIngredientePratoListView} pedidoId={pedidoId}/>
+            <AddIngredienteToPrato pratoId={currentPratoId} updateIngredientePratoListView={updateIngredientePratoListView} pedidoId={pedidoId} updatePrecoTotal={updatePrecoTotal}/>
         </div>
         </>
     )

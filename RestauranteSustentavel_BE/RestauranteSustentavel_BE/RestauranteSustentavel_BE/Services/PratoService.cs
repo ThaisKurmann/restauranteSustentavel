@@ -127,7 +127,6 @@ namespace RestauranteSustentavel_BE.Services
                 var ingredientesString = "";
                 foreach(var ingredienteNoPrato in ingredientesNoPrato)
                 {
-                
 
                    ingredientesString += ingredientes.Where(ingrediente => ingrediente.id == ingredienteNoPrato.idIngrediente).First().nome + " " + ingredienteNoPrato.quantidade.ToString() + ", ";
                     
