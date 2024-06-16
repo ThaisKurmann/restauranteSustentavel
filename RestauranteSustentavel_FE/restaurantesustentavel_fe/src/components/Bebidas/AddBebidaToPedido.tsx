@@ -88,7 +88,14 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId, updateP
                 <option value="" disabled>Selecione uma bebida</option>
                 {bebidas.map((bebida) => (<option key={bebida.id} value={bebida.id}> {bebida.nome} </option>))}
             </select>
-         
+        
+            <input
+                type="number"
+                value={quantidade}
+                onChange={(e) => setQuantidade(Number(e.target.value))}
+                min="1"
+            />
+ 
             <button onClick={() => handleAddBebida()}>clique aqui</button>
         </div>
         <UpdateBebidasOnPedido pedidoBebida= {bebidasOnPedido} updateBebidaOnPedido={handleButtonBebidasChangeQuantity} />
@@ -98,11 +105,3 @@ const AddBebidaToPedido: React.FC<AddBebidaToPedidoProps> = ({ pedidoId, updateP
 
 export default AddBebidaToPedido;
 
-/**
- *    <input
-                type="number"
-                value={quantidade}
-                onChange={(e) => setQuantidade(Number(e.target.value))}
-                min="1"
-            />
- */

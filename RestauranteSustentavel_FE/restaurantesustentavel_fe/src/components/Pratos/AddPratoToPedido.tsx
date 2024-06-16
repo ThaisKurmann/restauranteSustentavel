@@ -3,7 +3,6 @@ import ShowPratosOnPedido from "./ShowPratoOnPedido";
 import axios from "axios";
 import { IngredientePratoListView } from "../../models/IngredientePratoListView";
 import { Ingrediente } from "../../models/Ingrediente";
-import api from "../../api";
 import { IngredientePrato } from "../../models/IngredientePrato";
 import AddIngredienteToPrato from "./AddIngredienteToPrato";
 import { Prato } from "../../models/Prato";
@@ -18,9 +17,6 @@ const AddPratoToPedido: React.FC<AddPratoToPedidoProps> = ({pedidoId, updatePrec
 
     const [ingredientePratosListView, setIngredientePratosListView] = useState<IngredientePratoListView[]>([]);
     const [ingredientes, setIngredientes] = useState<Ingrediente[]>([])
-    const [ingredientesOnPrato, setIngredientesOnPrato] = useState<IngredientePrato[]>([]);
-    const [ingredienteSelecionadoId, setIngredienteSelecionadoId] = useState<number | null>(null);
-    const [quantidade, setQuantidade] = useState<number>(1);
     const [currentPratoId, setCurrentPratoID] = useState<number | null >(null);
 
     const createPratoToPedido= useCallback(async()=>{

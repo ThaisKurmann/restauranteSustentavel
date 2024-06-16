@@ -92,6 +92,12 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId, u
                     </option>
                 ))}
             </select>
+            <input
+                type="number"
+                value={quantidade}
+                onChange={(e) => setQuantidade(Number(e.target.value))}
+                min="1"
+            />
          
             <button onClick={() => handleAddSobremesa()}>clique aqui</button>
         </div>
@@ -102,11 +108,3 @@ const AddSobremesaToPedido: React.FC<AddSobremesaToPedidoProps> = ({ pedidoId, u
 
 export default AddSobremesaToPedido;
 
-/**
- *    <input
-                type="number"
-                value={quantidade}
-                onChange={(e) => setQuantidade(Number(e.target.value))}
-                min="1"
-            />
- */

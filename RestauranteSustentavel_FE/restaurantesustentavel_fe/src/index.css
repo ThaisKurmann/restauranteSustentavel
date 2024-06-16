@@ -20,3 +20,8 @@ h2{
 h3{
   color: #333;
 }
+
+button{
+  align-items: center;
+  text-align: center;
+}

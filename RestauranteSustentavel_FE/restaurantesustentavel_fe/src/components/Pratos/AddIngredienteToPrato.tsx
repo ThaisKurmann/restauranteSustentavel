@@ -3,7 +3,6 @@ import api from "../../api";
 import { Ingrediente } from "../../models/Ingrediente";
 import axios from "axios";
 import { IngredientePrato } from "../../models/IngredientePrato";
-import UpdateBebidasOnPedido from "../Bebidas/UpdateBebidasOnPedido";
 import UpdateIngredientesOnPrato from "./UpdateIngredientesOnPrato";
 
 interface AddIngredienteToPratoProps{
@@ -109,7 +108,12 @@ return(
                 <option value="" disabled>Selecione um ingrediente</option>
                 {ingredientes.map((ingrediente) => (<option key={ingrediente.id} value={ingrediente.id}> {ingrediente.nome} [R$ {ingrediente.preco}]</option>))}
             </select>
-           
+            <input
+                type="number"
+                value={quantidade}
+                onChange={(e) => setQuantidade(Number(e.target.value))}
+                min="1"
+            />
             <button onClick={() => handleAddIngrediente(pratoId)}>Adicionar ao Prato</button>
         </div>
         <UpdateIngredientesOnPrato ingredientePrato={ingredientesOnPrato} updateIngredienteOnPrato={handleButtonIngredientesChangeQuantity}/>
@@ -121,11 +125,3 @@ return(
 
 export default AddIngredienteToPrato;
 
-/**
- *  <input
-                type="number"
-                value={quantidade}
-                onChange={(e) => setQuantidade(Number(e.target.value))}
-                min="1"
-/>
- */

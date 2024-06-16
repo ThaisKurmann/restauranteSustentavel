@@ -1,0 +1,25 @@
+.Content{
+    color: #333;
+    align-items: center;
+}
+
+.H1{
+    
+    font-size: 70px;
+    text-align: center;
+
+    
+}
+
+.H2{
+    text-align: center;
+    font-size: 30px;
+    text-align: center;
+}
+
+.H3{
+    font-size: 100px;
+    text-align: center;
+    background-color: rgba(69, 214, 69, 0.247);
+    
+}
